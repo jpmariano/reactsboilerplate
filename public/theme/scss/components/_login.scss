@@ -1,0 +1,9 @@
+@mixin login {
+    html {
+        body {
+            #root {
+                background: lightgrey; 
+            }
+        }
+    }
+}

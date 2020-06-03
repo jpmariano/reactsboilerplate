@@ -1,5 +1,47 @@
-html body #root {
+html body #root .login-form h1 {
+  text-align: center;
+}
+html body #root .login-form form.loginForm {
+  max-width: 500px;
   width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+html body #root .login-form label,
+html body #root .login-form input {
+  display: block;
+  width: 100%;
+}
+html body #root .login-form label {
+  margin-bottom: 5px;
+  height: 22px;
+}
+html body #root .login-form input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #777;
+}
+html body #root .login-form input.error {
+  border-color: red;
+}
+html body #root .login-form .input-feedback {
+  color: #eb3636;
+  margin-top: -15px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+html body #root .login-form button {
+  padding: 10px 15px;
+  background-color: #4699b3;
+  color: white;
+  border: 1px solid #4699b3;
+  background-color: 250ms;
+}
+html body #root .login-form button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #4699b3;
 }
 
 /*# sourceMappingURL=styles.css.map */

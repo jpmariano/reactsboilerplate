@@ -1,3 +1,5 @@
 @import "components/login";
+@import "components/navbar";
 
 @include login;
+@include navbar;

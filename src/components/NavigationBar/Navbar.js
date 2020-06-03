@@ -21,7 +21,7 @@ class NavBar extends Component {
                                 <NavLink href='/contact' className="nav-link">Contact</NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink href='/user' className="nav-link">Login</NavLink>
+                                <NavLink href='/login' className="nav-link">Login</NavLink>
                             </li>
                         </ul>
                     </Navbar.Collapse>

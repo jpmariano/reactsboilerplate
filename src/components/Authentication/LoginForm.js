@@ -14,7 +14,7 @@ export default class LoginForm extends Component {
 
             validationSchema={Yup.object().shape({
             email: Yup.string()
-                .email()
+                .email("Email invalid")
                 .required("Required"),
             password: Yup.string()
                 .required("No password provided.")

@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 
+// Components
+import LoginForm from '../components/Authentication/LoginForm'
+
 class LoginContainer extends Component {
     
     render() {
         return (
-            <div>
-                <h1> Hello World</h1>
+            <div className="login-form">
+                <LoginForm />
             </div>
         );
     }

@@ -39,14 +39,6 @@ class List extends Component {
                 <Modal.Body>
                     <AddUserForm />
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.setModalShow(false)}>
-                        Cancel
-                    </Button>
-                    <Button variant="primary" onClick={() => this.setModalShow(false)}>
-                        Submit
-                    </Button>
-                </Modal.Footer>
             </Modal>
         );
 

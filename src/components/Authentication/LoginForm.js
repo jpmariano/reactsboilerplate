@@ -1,15 +1,41 @@
 import React, { Component } from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
+import axios from 'axios';
 
 export default class LoginForm extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            isLoggedIn: sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false,
+        }
+    }
 
     render() {
         return (
         <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={(values) => {
-                console.log(values)
+                console.log(values);
+
+                const configHeader = {
+                    headers: {'Access-Control-Allow-Origin': '*'}
+                };
+
+                axios.post('/login', values, configHeader).then(
+                    response => {
+                        console.log(response);
+                        // if (response.status === 200) {
+                        //     sessionStorage.setItem('authToken', response.data.success.token);
+                        //     sessionStorage.setItem('isLoggedIn', true);
+                        //     this.setState({
+                        //         isLoggedIn: true,
+                        //     })
+                        // }
+                    }
+                );
             }}
 
             validationSchema={Yup.object().shape({

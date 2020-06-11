@@ -59,61 +59,68 @@ class AddUserForm extends Component {
                     return (
                         <div className="add-form">
                             <form onSubmit={handleSubmit} className="addUserForm">
-                                <label htmlFor="name">Name</label>
-                                <input
-                                    name="name"
-                                    type="text"
-                                    placeholder="Enter fullname"
-                                    value={values.name}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.name && touched.name && "error"}
-                                />
-                                {errors.name && touched.name && (
-                                    <div className="input-feedback">{errors.name}</div>
-                                )}
-                                <label htmlFor="email">Email</label>
-                                <input
-                                    name="email"
-                                    type="email"
-                                    placeholder="Enter email"
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.email && touched.email && "error"}
-                                />
-                                {errors.email && touched.email && (
-                                    <div className="input-feedback">{errors.email}</div>
-                                )}
-                                <label htmlFor="add-user">Password</label>
-                                <input
-                                    name="password"
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    value={values.password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.password && touched.password && "error"}
-                                />
-                                {errors.password && touched.password && (
-                                    <div className="input-feedback">{errors.password}</div>
-                                )}
-                                <label htmlFor="add-user">Confirm Password</label>
-                                <input
-                                    name="c_password"
-                                    type="password"
-                                    placeholder="Confirm your password"
-                                    value={values.c_password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.c_password && touched.c_password && "error"}
-                                />
-                                {errors.c_password && touched.c_password && (
-                                    <div className="input-feedback">{errors.c_password}</div>
-                                )}
-                                <button type="submit" disabled={isSubmitting}>
-                                    Submit
-                                </button>
+                                <div className="user-form-fields">
+                                    <label htmlFor="name">Name</label>
+                                    <input
+                                        name="name"
+                                        type="text"
+                                        placeholder="Enter fullname"
+                                        value={values.name}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.name && touched.name && "error"}
+                                    />
+                                    {errors.name && touched.name && (
+                                        <div className="input-feedback">{errors.name}</div>
+                                    )}
+                                    <label htmlFor="email">Email</label>
+                                    <input
+                                        name="email"
+                                        type="email"
+                                        placeholder="Enter email"
+                                        value={values.email}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.email && touched.email && "error"}
+                                    />
+                                    {errors.email && touched.email && (
+                                        <div className="input-feedback">{errors.email}</div>
+                                    )}
+                                    <label htmlFor="add-user">Password</label>
+                                    <input
+                                        name="password"
+                                        type="password"
+                                        placeholder="Enter your password"
+                                        value={values.password}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.password && touched.password && "error"}
+                                    />
+                                    {errors.password && touched.password && (
+                                        <div className="input-feedback">{errors.password}</div>
+                                    )}
+                                    <label htmlFor="add-user">Confirm Password</label>
+                                    <input
+                                        name="c_password"
+                                        type="password"
+                                        placeholder="Confirm your password"
+                                        value={values.c_password}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        className={errors.c_password && touched.c_password && "error"}
+                                    />
+                                    {errors.c_password && touched.c_password && (
+                                        <div className="input-feedback">{errors.c_password}</div>
+                                    )}
+                                </div>
+                                <div className="float-right">
+                                    <button type="button" className="btn btn-secondary mr-2">
+                                        Cancel
+                                    </button>
+                                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                        Submit
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     );

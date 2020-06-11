@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
+import axios from 'axios';
 
 class AddUserForm extends Component {
 
@@ -24,6 +25,30 @@ class AddUserForm extends Component {
                 }}
 
                 onSubmit={async values => {
+
+                    const configHeader = {
+                        headers: {'Access-Control-Allow-Origin': '*'}
+                    };
+
+                    const userData = {
+                        name: values.name,
+                        username: values.email,
+                        password: values.password,
+                    }
+
+                    const isTokenValid = sessionStorage.getItem('jwtToken');
+
+                    if (isTokenValid !== "") {
+                        axios.post('/register', userData, configHeader).then(
+                            response => {
+                                console.log(response);
+                                if (response.status === 200) {
+                                    console.log(response.jwt);
+                                }
+                            }
+                        );
+                    }
+                    
                     alert(JSON.stringify(values, null, 2));
                 }}
 

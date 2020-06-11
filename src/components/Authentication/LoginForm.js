@@ -27,13 +27,15 @@ export default class LoginForm extends Component {
                 axios.post('/login', values, configHeader).then(
                     response => {
                         console.log(response);
-                        // if (response.status === 200) {
-                        //     sessionStorage.setItem('authToken', response.data.success.token);
-                        //     sessionStorage.setItem('isLoggedIn', true);
-                        //     this.setState({
-                        //         isLoggedIn: true,
-                        //     })
-                        // }
+                        if (response.status === 200) {
+                            console.log(response.jwt);
+                            sessionStorage.setItem('jwtToken', response.jwt);
+                            sessionStorage.setItem('isLoggedIn', true);
+                            
+                            this.setState({
+                                isLoggedIn: true,
+                            })
+                        }
                     }
                 );
             }}

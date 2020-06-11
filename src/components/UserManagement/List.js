@@ -29,7 +29,7 @@ class List extends Component {
             <Modal
                 show={this.state.modalShow}
                 onHide={() => this.setModalShow(false)}
-                size="lg"
+                size="md"
                 aria-labelledby="contained-modal-title-vcenter"
                 centered
             >

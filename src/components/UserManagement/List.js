@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 // components
-import AddUserForm from './AddUserForm';
+import AddUserForm from './UserForm';
 
 class List extends Component {
     

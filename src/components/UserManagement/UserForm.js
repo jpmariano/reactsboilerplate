@@ -36,7 +36,7 @@ function UserForm() {
                         response => {
                             console.log(response);
                             if (response.status === 200) {
-                                console.log(response.jwt);
+                                console.log(response);
                             }
                         }
                     );

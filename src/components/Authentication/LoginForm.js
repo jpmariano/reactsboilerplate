@@ -29,7 +29,6 @@ function LoginForm() {
                     response => {
                         console.log(response);
                         if (response.status === 200) {
-                            console.log(response.jwt);
                             sessionStorage.setItem('jwtToken', response.data.jwt);
                             sessionStorage.setItem('isLoggedIn', true);
 

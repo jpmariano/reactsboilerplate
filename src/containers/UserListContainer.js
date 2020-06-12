@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Tabs, Tab } from 'react-bootstrap'
+import { Tabs, Tab } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 // components
 import List from '../components/UserManagement/List';
@@ -9,6 +10,11 @@ import Roles from '../components/UserManagement/Roles';
 function UserListContainer() {
 
     const [key, setKey] = useState('list');
+    const [isLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
+
+    if (!isLoggedIn) {
+        return <Redirect to="/login" />;
+    }
 
     return (
         <div className="container-fluid">

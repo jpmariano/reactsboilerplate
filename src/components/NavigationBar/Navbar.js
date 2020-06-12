@@ -7,7 +7,7 @@ function NavBar() {
     return (
         <header>
             <Navbar bg="dark" variant="dark" expand="lg">
-                <NavLink href={'/'} className="navbar-brand">
+                <NavLink href={'/dashboard'} className="navbar-brand">
                     Sample
                 </NavLink>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -20,7 +20,7 @@ function NavBar() {
                             <NavLink href='/contact' className="nav-link">Contact</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink href='/login' className="nav-link">Login</NavLink>
+                            <NavLink href='/' className="nav-link">Login</NavLink>
                         </li>
                     </ul>
                 </Navbar.Collapse>

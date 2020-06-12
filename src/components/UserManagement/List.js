@@ -30,7 +30,7 @@ function List() {
     return (
         <div className="container-fluid">
 
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => this.setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
 
             <Table striped bordered hover responsive size="sm">
                 <thead>

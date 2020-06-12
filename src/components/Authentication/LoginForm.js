@@ -1,100 +1,92 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import axios from 'axios';
 
-export default class LoginForm extends Component {
+function LoginForm() {
 
-    constructor(props) {
-        super(props);
+    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
 
-        this.state = {
-            isLoggedIn: sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false,
-        }
-    }
+    return (
+        <Formik
+            initialValues={{ email: "", password: "" }}
+            onSubmit={(values) => {
+                console.log(values);
 
-    render() {
-        return (
-            <Formik
-                initialValues={{ email: "", password: "" }}
-                onSubmit={(values) => {
-                    console.log(values);
+                const loginData = {
+                    username: values.email,
+                    password: values.password
+                }
 
-                    const loginData = {
-                        username: values.email,
-                        password: values.password
-                    }
-
-                    axios.post('/login', loginData).then(
-                        response => {
-                            console.log(response);
-                            if (response.status === 200) {
-                                console.log(response.jwt);
-                                sessionStorage.setItem('jwtToken', response.data.jwt);
-                                sessionStorage.setItem('isLoggedIn', true);
-                                
-                                this.setState({
-                                    isLoggedIn: true,
-                                })
-                            }
+                axios.post('/login', loginData).then(
+                    response => {
+                        console.log(response);
+                        if (response.status === 200) {
+                            console.log(response.jwt);
+                            sessionStorage.setItem('jwtToken', response.data.jwt);
+                            sessionStorage.setItem('isLoggedIn', true);
+                            
+                            setIsLoggedIn(true);
                         }
-                    );
-                }}
+                    }
+                );
+            }}
 
-                validationSchema={Yup.object().shape({
-                email: Yup.string()
-                    .email("Email invalid")
-                    .required("Required"),
-                password: Yup.string()
-                    .required("No password provided.")
-                })}
-            >
-                {props => {
-                    const {
-                        values,
-                        touched,
-                        errors,
-                        isSubmitting,
-                        handleChange,
-                        handleBlur,
-                        handleSubmit
-                    } = props;
-                    return (
-                        <form onSubmit={handleSubmit} className="loginForm">
-                            <h3 align="center">Login</h3>
-                            <label htmlFor="email">Email</label>
-                            <input
-                                name="email"
-                                type="text"
-                                placeholder="Enter your email"
-                                value={values.email}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                className={errors.email && touched.email && "error"}
-                            />
-                            {errors.email && touched.email && (
-                                <div className="input-feedback">{errors.email}</div>
-                            )}
-                            <label htmlFor="email">Password</label>
-                            <input
-                                name="password"
-                                type="password"
-                                placeholder="Enter your password"
-                                value={values.password}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                className={errors.password && touched.password && "error"}
-                            />
-                            {errors.password && touched.password && (
-                                <div className="input-feedback">{errors.password}</div>
-                            )}
-                            <button type="submit" disabled={isSubmitting}>
-                                Login
-                            </button>
-                        </form>
-                    );
-                }}
-            </Formik>
-        )
-    }
+            validationSchema={Yup.object().shape({
+            email: Yup.string()
+                .email("Email invalid")
+                .required("Required"),
+            password: Yup.string()
+                .required("No password provided.")
+            })}
+        >
+            {props => {
+                const {
+                    values,
+                    touched,
+                    errors,
+                    isSubmitting,
+                    handleChange,
+                    handleBlur,
+                    handleSubmit
+                } = props;
+                return (
+                    <form onSubmit={handleSubmit} className="loginForm">
+                        <h3 align="center">Login</h3>
+                        <label htmlFor="email">Email</label>
+                        <input
+                            name="email"
+                            type="text"
+                            placeholder="Enter your email"
+                            value={values.email}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={errors.email && touched.email && "error"}
+                        />
+                        {errors.email && touched.email && (
+                            <div className="input-feedback">{errors.email}</div>
+                        )}
+                        <label htmlFor="email">Password</label>
+                        <input
+                            name="password"
+                            type="password"
+                            placeholder="Enter your password"
+                            value={values.password}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            className={errors.password && touched.password && "error"}
+                        />
+                        {errors.password && touched.password && (
+                            <div className="input-feedback">{errors.password}</div>
+                        )}
+                        <button type="submit" disabled={isSubmitting}>
+                            Login
+                        </button>
+                    </form>
+                );
+            }}
+        </Formik>
+    )
 }
+
+export default LoginForm;

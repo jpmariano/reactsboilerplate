@@ -34,15 +34,12 @@ function UserForm() {
                 if (isTokenValid !== "") {
                     axios.post('/register', userData).then(
                         response => {
-                            console.log(response);
                             if (response.status === 200) {
                                 console.log(response);
                             }
                         }
                     );
                 }
-                
-                alert(JSON.stringify(values, null, 2));
             }}
 
             validationSchema={Yup.object().shape({

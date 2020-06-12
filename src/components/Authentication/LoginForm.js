@@ -18,7 +18,6 @@ function LoginForm() {
         <Formik
             initialValues={{ email: "", password: "" }}
             onSubmit={(values) => {
-                console.log(values);
 
                 const loginData = {
                     username: values.email,

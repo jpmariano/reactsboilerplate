@@ -2,10 +2,17 @@ import React, { useState } from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import axios from 'axios';
+import { Redirect, useHistory } from 'react-router-dom';
 
 function LoginForm() {
+    
+    const [isLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
+    const [tokenExist] = useState(sessionStorage.getItem('jwtToken') ? sessionStorage.getItem('jwtToken') : false);
+    const history = useHistory();
 
-    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
+    if (isLoggedIn && tokenExist) {
+        return <Redirect to="/admin/users" />;
+    }
 
     return (
         <Formik
@@ -25,8 +32,8 @@ function LoginForm() {
                             console.log(response.jwt);
                             sessionStorage.setItem('jwtToken', response.data.jwt);
                             sessionStorage.setItem('isLoggedIn', true);
-                            
-                            setIsLoggedIn(true);
+
+                            history.push("/admin/users");
                         }
                     }
                 );

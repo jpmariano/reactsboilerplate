@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Table, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,93 +6,77 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 // components
 import AddUserForm from './UserForm';
 
-class List extends Component {
+function List() {
     
-    constructor(props) {
-        super(props);
-        this.state = {
-            modalShow: false,
-        };
-        this.setModalShow = this.setModalShow.bind(this);
-        
-    }
+    const [modalShow, setModalShow] = useState(false);
 
-    setModalShow = (value) => {
-        this.setState({
-            modalShow: value,
-        });
-    }
+    const addUserModal = (
+        <Modal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Add User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <AddUserForm />
+            </Modal.Body>
+        </Modal>
+    );
 
-    render() {
+    return (
+        <div className="container-fluid">
 
-        const addUserModal = (
-            <Modal
-                show={this.state.modalShow}
-                onHide={() => this.setModalShow(false)}
-                size="md"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>Add User</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddUserForm />
-                </Modal.Body>
-            </Modal>
-        );
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => this.setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
 
-        return (
-            <div className="container-fluid">
-
-                <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => this.setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
-
-                <Table striped bordered hover responsive size="sm">
-                    <thead>
-                        <tr>
-                        <th>#</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        <th>Table heading</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                        <td>1</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        </tr>
-                        <tr>
-                        <td>2</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        </tr>
-                        <tr>
-                        <td>3</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        <td>Table cell</td>
-                        </tr>
-                    </tbody>
-                </Table>
-                {addUserModal}
-            </div>
-        );
-    }
+            <Table striped bordered hover responsive size="sm">
+                <thead>
+                    <tr>
+                    <th>#</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    <th>Table heading</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                    <td>1</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    </tr>
+                    <tr>
+                    <td>2</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    </tr>
+                    <tr>
+                    <td>3</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    <td>Table cell</td>
+                    </tr>
+                </tbody>
+            </Table>
+            {addUserModal}
+        </div>
+    );
 }
 
 export default List

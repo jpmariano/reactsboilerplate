@@ -1,13 +1,12 @@
-@mixin add-user-form {
+@mixin user-form {
     html {
         body {
             div.modal {
                 div.modal-dialog {
                     .modal-content {
                         .modal-body {
-                            .add-form {
-                                form.addUserForm {
-
+                            .user-form {
+                                form.userForm {
                                     .user-form-fields {
                                         max-width: 500px;
                                         width: 100%;

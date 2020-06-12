@@ -1,9 +1,9 @@
 @import "components/login";
 @import "components/navbar";
 @import "components/user-list";
-@import "components/add-user-form";
+@import "components/user-form";
 
 @include login;
 @include navbar;
 @include user-list;
-@include add-user-form;
+@include user-form;

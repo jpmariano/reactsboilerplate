@@ -12,7 +12,7 @@ export default function Routes() {
         <Switch>
             <Route exact path='/admin/users' component={ Users } />
             <Route exact path='/dashboard' component={ Home } />
-            <Route exact path='/' component={ Login } />
+            <Route exact path={["/", "/login"]} component={ Login } />
         </Switch>
     );
 }

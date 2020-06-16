@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from './containers/LoginContainer';
 import Home from './containers/HomeContainer';
 import Users from './containers/UserListContainer';
+import Register from './containers/RegisterContainer';
 
 export default function Routes() {
 
@@ -13,6 +14,7 @@ export default function Routes() {
             <Route exact path='/admin/users' component={ Users } />
             <Route exact path='/dashboard' component={ Home } />
             <Route exact path={["/", "/login"]} component={ Login } />
+            <Route exact path='/register' component={ Register } />
         </Switch>
     );
 }

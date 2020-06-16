@@ -3,7 +3,7 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 import axios from 'axios';
 
-function UserForm() {
+function UserForm(props) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -36,6 +36,8 @@ function UserForm() {
                         response => {
                             if (response.status === 200) {
                                 console.log(response);
+                                props.setModalShow(false);
+                                props.setSuccessModal(true);
                             }
                         }
                     );

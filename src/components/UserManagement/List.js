@@ -12,6 +12,7 @@ function List() {
     
     const [modalShow, setModalShow] = useState(false);
     const [users, setUsersData] = useState([]);
+    const [successModal, setSuccessModal] = useState(false);
 
     const addUserModal = (
         <Modal
@@ -25,7 +26,7 @@ function List() {
                 <Modal.Title>Add User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddUserForm setModalShow={setModalShow}/>
+                <AddUserForm setModalShow={setModalShow} setSuccessModal={setSuccessModal}/>
             </Modal.Body>
         </Modal>
     );
@@ -56,7 +57,7 @@ function List() {
                 }
             </ul>
             {addUserModal}
-            <SuccessModal modalShow={modalShow} />
+            <SuccessModal modalShow={successModal} />
         </div>
     );
 }

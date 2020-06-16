@@ -57,7 +57,7 @@ function List() {
                 }
             </ul>
             {addUserModal}
-            <SuccessModal modalShow={successModal} />
+            <SuccessModal modalShow={successModal} modalMessage="User successfully added!"/>
         </div>
     );
 }

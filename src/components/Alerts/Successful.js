@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap'
 
 function Successful(props) {
 
     const [modalShow, setModalShow] = useState(props.modalShow);
 
+    useEffect(() => {
+        setModalShow(props.modalShow);
+    }, [props.modalShow]);
+
     const successMsg = (
         <Modal
             show={modalShow}
-            onHide={() => setModalShow(modalShow)}
+            onHide={() => setModalShow(false)}
             size="md"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -20,7 +24,7 @@ function Successful(props) {
                 User successfully added!
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="primary">Okay</Button>
+                <Button variant="primary" onClick={() => setModalShow(false)}>Okay</Button>
             </Modal.Footer>
         </Modal>
     );

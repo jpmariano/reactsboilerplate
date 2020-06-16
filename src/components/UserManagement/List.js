@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { Table, Modal } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 // components
 import AddUserForm from './UserForm';
+import SuccessModal from '../Alerts/Successful';
 
 function List() {
     
@@ -22,7 +23,7 @@ function List() {
                 <Modal.Title>Add User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddUserForm />
+                <AddUserForm setModalShow={setModalShow}/>
             </Modal.Body>
         </Modal>
     );
@@ -32,49 +33,9 @@ function List() {
 
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
 
-            <Table striped bordered hover responsive size="sm">
-                <thead>
-                    <tr>
-                    <th>#</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    <th>Table heading</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                    <td>1</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    </tr>
-                    <tr>
-                    <td>2</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    </tr>
-                    <tr>
-                    <td>3</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    <td>Table cell</td>
-                    </tr>
-                </tbody>
-            </Table>
+            
             {addUserModal}
+            <SuccessModal modalShow={modalShow} />
         </div>
     );
 }

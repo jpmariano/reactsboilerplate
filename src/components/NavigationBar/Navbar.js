@@ -22,6 +22,9 @@ function NavBar() {
                         <li className="nav-item">
                             <NavLink href='/' className="nav-link">Login</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink href='/register' className="nav-link">Register</NavLink>
+                        </li>
                     </ul>
                 </Navbar.Collapse>
             </Navbar>

@@ -2,8 +2,10 @@
 @import "components/navbar";
 @import "components/user-list";
 @import "components/user-form";
+@import "components/register-form";
 
 @include login;
 @include navbar;
 @include user-list;
 @include user-form;
+@include register-form;

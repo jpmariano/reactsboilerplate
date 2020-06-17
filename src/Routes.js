@@ -6,6 +6,7 @@ import Login from './containers/LoginContainer';
 import Home from './containers/HomeContainer';
 import Dashboard from './containers/UserListContainer';
 import Register from './containers/RegisterContainer';
+import Logout from './components/Authentication/Logout';
 
 export default function Routes() {
 
@@ -15,6 +16,7 @@ export default function Routes() {
             <Route exact path='/' component={ Home } />
             <Route exact path='/login' component={ Login } />
             <Route exact path='/register' component={ Register } />
+            <Route exact path='/logout' component={ Logout } />
         </Switch>
     );
 }

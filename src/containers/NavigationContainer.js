@@ -24,7 +24,7 @@ function MainContainer() {
     };
 
     return (
-        <div className={classes.root}>
+        <>
             <CssBaseline />
             <NavigationBar 
                 classes={classes} 
@@ -37,10 +37,7 @@ function MainContainer() {
                 open={open}
                 theme={theme}
             />
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-            </main>
-        </div>
+        </>
     );
 }
 

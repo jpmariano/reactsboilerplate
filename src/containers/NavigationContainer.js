@@ -31,6 +31,7 @@ function MainContainer() {
                 classes={classes} 
                 handleDrawerOpen={handleDrawerOpen} 
                 open={open}
+                setIsLoggedIn={setIsLoggedIn}
             />
             {
                 isLoggedIn ?

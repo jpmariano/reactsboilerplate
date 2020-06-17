@@ -25,8 +25,7 @@ function NavigationBar(props) {
     };
 
     const logout = () => {
-        sessionStorage.removeItem('isLoggedIn');
-        sessionStorage.removeItem('jwtToken');
+        sessionStorage.clear()
         setIsLoggedIn(false);
         props.setIsLoggedIn(false);
         history.push("/");

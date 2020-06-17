@@ -28,6 +28,7 @@ function NavigationBar(props) {
         sessionStorage.removeItem('isLoggedIn');
         sessionStorage.removeItem('jwtToken');
         setIsLoggedIn(false);
+        props.setIsLoggedIn(false);
         history.push("/");
     }
 
@@ -65,6 +66,7 @@ function NavigationBar(props) {
                                 sessionStorage.setItem('jwtToken', response.data.jwt);
                                 sessionStorage.setItem('isLoggedIn', true);
                                 setIsLoggedIn(true);
+                                props.setIsLoggedIn(true);
 
                                 history.push("/admin/users");
                             }

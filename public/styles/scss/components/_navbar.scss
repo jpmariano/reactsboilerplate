@@ -22,6 +22,9 @@
                 .main-container {
                     #navigation-bar {
                         .navigation-bar-toolbar {
+                            a.navbar-brand:hover, a.navbar-brand {
+                                color: #fff;
+                            }
                             .navbar-items {
                                 a.navbar-item:hover {
                                     color: #fff;

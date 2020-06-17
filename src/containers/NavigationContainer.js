@@ -11,6 +11,7 @@ import NavigationBar from '../components/Navigation/NavigationBar';
 import Sidebar from '../components/Navigation/Sidebar';
 
 function MainContainer() {
+    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
     const classes = NavTheme();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
@@ -31,12 +32,17 @@ function MainContainer() {
                 handleDrawerOpen={handleDrawerOpen} 
                 open={open}
             />
-            <Sidebar
-                classes={classes} 
-                handleDrawerClose={handleDrawerClose} 
-                open={open}
-                theme={theme}
-            />
+            {
+                isLoggedIn ?
+                    <Sidebar
+                        classes={classes} 
+                        handleDrawerClose={handleDrawerClose} 
+                        open={open}
+                        theme={theme}
+                    />
+                :
+                    null
+            }
         </>
     );
 }

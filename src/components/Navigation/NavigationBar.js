@@ -164,19 +164,24 @@ function NavigationBar(props) {
             id="navigation-bar"
         >
             <Toolbar className="navigation-bar-toolbar">
-                <IconButton
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={props.handleDrawerOpen}
-                    edge="start"
-                    className={clsx(props.classes.menuButton, {
-                        [props.classes.hide]: props.open,
-                    })}
-                >
-                    <MenuIcon />
-                </IconButton>
+                {
+                    isLoggedIn ?
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={props.handleDrawerOpen}
+                            edge="start"
+                            className={clsx(props.classes.menuButton, {
+                                [props.classes.hide]: props.open,
+                            })}
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    :
+                        null
+                }
                 <Typography variant="h6" noWrap style={{ flex: 1 }}>
-                    Sample
+                    <a class="navbar-brand" href="/">Sample</a>
                 </Typography>
                 {/* Navbar items */}
                 {navButtons}

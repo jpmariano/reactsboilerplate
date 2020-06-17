@@ -43,16 +43,15 @@ function RigesterForm(props) {
                     const isTokenValid = sessionStorage.getItem('jwtToken');
 
                     if (isTokenValid !== "") {
-                        // axios.post('/register?register=1', userData).then(
-                        //     response => {
-                        //         if (response.status === 200) {
-                        //             console.log(response);
-                        //                sessionStorage.setItem('registered', true);
-                        //         }
-                        //     }
-                        // );
+                        axios.post('/register?register=1', userData).then(
+                            response => {
+                                if (response.status === 200) {
+                                    console.log(response);
+                                    setSuccessModal(true);
+                                }
+                            }
+                        );
                     }
-                    setSuccessModal(true);
                 }}
 
                 validationSchema={Yup.object().shape({

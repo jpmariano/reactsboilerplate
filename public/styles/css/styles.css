@@ -44,6 +44,10 @@ html body #root .login-form button:hover {
   background-color: white;
   color: #4699b3;
 }
+html body #login-popover {
+  transform: translate(990px, 56px) !important;
+  max-width: 350px;
+}
 html body #login-popover .popover-body form.loginForm {
   max-width: 500px;
   width: 100%;
@@ -87,7 +91,7 @@ html body #login-popover .popover-body form.loginForm .form__field-label {
 }
 html body #login-popover .popover-body form.loginForm .form__field-input {
   position: relative;
-  padding: 1.5em 16px 0.5em;
+  padding: 1.625em 16px;
   width: 100%;
   color: #666;
   border: none;
@@ -95,7 +99,7 @@ html body #login-popover .popover-body form.loginForm .form__field-input {
   letter-spacing: 0.05em;
 }
 html body #login-popover .popover-body form.loginForm .form__submit-btn-wrapper {
-  padding: 2em 1em;
+  padding: 1em;
   width: 100%;
   background-color: #fff;
   display: flex;
@@ -112,6 +116,26 @@ html body #login-popover .popover-body form.loginForm .form__submit-btn {
   display: block;
   margin: 0 auto;
   position: relative;
+}
+html body #login-popover .popover-body .form-page__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+html body #login-popover .popover-body .form-page__form-wrapper {
+  max-width: 325px;
+  width: 100%;
+  background-color: #fff;
+}
+html body #login-popover .popover-body .form-page__form-heading {
+  text-align: center;
+  font-size: 1.5em;
+  user-select: none;
+}
+html body #login-popover .popover-body .form-page__form-header {
+  padding: 1em;
 }
 html body #login-popover .popover-body input.error {
   border-color: red;

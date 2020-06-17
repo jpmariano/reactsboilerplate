@@ -62,6 +62,9 @@
             }
 
             #login-popover {
+                transform: translate(990px, 56px) !important;
+                max-width: 350px;
+
                 .popover-body {
                     form.loginForm {
                         max-width: 500px;
@@ -82,7 +85,7 @@
                             border-top: none;
                         }
                           
-                        .form__field-input:focus ~ .form__field-label {
+                        .form__field-input:focus ~ .form__field-label  {
                             color: $dark-grey;
                             background-color: $very-light-grey;
                         }
@@ -111,8 +114,8 @@
                           
                         .form__field-input {
                             position: relative;
-                            // padding: 1.625em 16px;
-                            padding: 1.5em 16px 0.5em;
+                            padding: 1.625em 16px;
+                            // padding: 1.5em 16px 0.5em;
                             width: 100%;
                             color: $dark-grey;
                             border: none;
@@ -121,7 +124,8 @@
                           }
                           
                         .form__submit-btn-wrapper {
-                            padding: 2em 1em;
+                            // padding: 2em 1em;
+                            padding: 1em;
                             width: 100%;
                             background-color: #fff;
                             display: flex;
@@ -140,6 +144,33 @@
                             margin: 0 auto;
                             position: relative;
                         }
+                    }
+
+                    .form-page__wrapper {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 100%;
+                        width: 100%;
+                    }
+                    
+                    .form-page__form-wrapper {
+                        max-width: 325px;
+                        width: 100%;
+                        // border: 1px solid $very-light-grey;
+                        // border-radius: 3px;
+                        // box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
+                        background-color: #fff;
+                    }
+                    
+                    .form-page__form-heading {
+                        text-align: center;
+                        font-size: 1.5em;
+                        user-select: none;
+                    }
+                    
+                    .form-page__form-header {
+                        padding: 1em;
                     }
                     
                     // label,

@@ -1,17 +1,229 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 1 | @import "../../../node_modules/@coreui/coreui/scss/coreui";
- *   |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   scss\styles.scss 1:9  root stylesheet */
-
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 1 \2502  @import \"../../../node_modules/@coreui/coreui/scss/coreui\";\d\a   \2502          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   scss\\styles.scss 1:9  root stylesheet";
+/* This file contains all application-wide CSS variables. */
+html body #root .login-form h1 {
+  text-align: center;
 }
+html body #root .login-form form.loginForm {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+html body #root .login-form label,
+html body #root .login-form input {
+  display: block;
+  width: 100%;
+}
+html body #root .login-form label {
+  margin-bottom: 5px;
+  height: 22px;
+}
+html body #root .login-form input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #777;
+}
+html body #root .login-form input.error {
+  border-color: red;
+}
+html body #root .login-form .input-feedback {
+  color: #eb3636;
+  margin-top: -15px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+html body #root .login-form button {
+  padding: 10px 15px;
+  background-color: #4699b3;
+  color: white;
+  border: 1px solid #4699b3;
+  background-color: 250ms;
+}
+html body #root .login-form button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #4699b3;
+}
+html body #login-popover {
+  max-width: 350px;
+}
+html body #login-popover .popover-body form.loginForm {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+html body #login-popover .popover-body form.loginForm .form__field-wrapper {
+  width: 100%;
+  position: relative;
+  padding-top: 1.75em;
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
+  background-color: #fff;
+}
+html body #login-popover .popover-body form.loginForm .form__field-wrapper + .form__field-wrapper {
+  border-top: none;
+}
+html body #login-popover .popover-body form.loginForm .form__field-input:focus ~ .form__field-label {
+  color: #666;
+  background-color: #EDEDED;
+}
+html body #login-popover .popover-body form.loginForm .form__field-input:focus {
+  background-color: #EDEDED;
+  color: #333;
+}
+html body #login-popover .popover-body form.loginForm .form__field-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+  padding-top: 20px;
+  padding-bottom: 0;
+  margin: 0;
+  z-index: 1;
+  font-size: 0.8em;
+  color: #999;
+  font-weight: 400;
+  user-select: none;
+  cursor: text;
+}
+html body #login-popover .popover-body form.loginForm .form__field-input {
+  position: relative;
+  padding: 1.625em 16px;
+  width: 100%;
+  color: #666;
+  border: none;
+  outline: 0;
+  letter-spacing: 0.05em;
+}
+html body #login-popover .popover-body form.loginForm .form__submit-btn-wrapper {
+  padding: 1em;
+  width: 100%;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+}
+html body #login-popover .popover-body form.loginForm .form__submit-btn {
+  border: none;
+  background-color: #fff;
+  border: 1px solid #6CC0E5;
+  padding: 0.5em 1em;
+  border-radius: 3px;
+  background-color: #6CC0E5;
+  color: white;
+  display: block;
+  margin: 0 auto;
+  position: relative;
+}
+html body #login-popover .popover-body .form-page__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+html body #login-popover .popover-body .form-page__form-wrapper {
+  max-width: 325px;
+  width: 100%;
+  background-color: #fff;
+}
+html body #login-popover .popover-body .form-page__form-heading {
+  text-align: center;
+  font-size: 1.5em;
+  user-select: none;
+}
+html body #login-popover .popover-body .form-page__form-header {
+  padding: 1em;
+}
+html body #login-popover .popover-body input.error {
+  border-color: red;
+}
+html body #login-popover .popover-body .input-feedback {
+  color: #eb3636;
+  font-size: 14px;
+  padding: 0.5em 16px 1.5em;
+}
+
+html body #root .container-fluid .tab-content .tab-pane {
+  border-right: solid 1px transparent;
+  border-left: solid 1px transparent;
+  border-bottom: solid 1px transparent;
+  border-color: #dee2e6;
+}
+
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields label,
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields input {
+  display: block;
+  width: 100%;
+}
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields label {
+  margin-bottom: 5px;
+  height: 22px;
+}
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #777;
+}
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields input.error {
+  border-color: red;
+}
+html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields .input-feedback {
+  color: #eb3636;
+  margin-top: -15px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+html body .register-form form.registerForm .register-form-fields {
+  max-width: 500px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+}
+html body .register-form form.registerForm .register-form-fields label,
+html body .register-form form.registerForm .register-form-fields input {
+  display: block;
+  width: 100%;
+}
+html body .register-form form.registerForm .register-form-fields label {
+  margin-bottom: 5px;
+  height: 22px;
+}
+html body .register-form form.registerForm .register-form-fields input {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #777;
+}
+html body .register-form form.registerForm .register-form-fields input.error {
+  border-color: red;
+}
+html body .register-form form.registerForm .register-form-fields .input-feedback {
+  color: #eb3636;
+  margin-top: -15px;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+html body .register-form form.registerForm .register-form-fields button {
+  padding: 10px 15px;
+  background-color: #4699b3;
+  color: white;
+  border: 1px solid #4699b3;
+  background-color: 250ms;
+}
+html body .register-form form.registerForm .register-form-fields button:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #4699b3;
+}
+
+/*# sourceMappingURL=styles.css.map */

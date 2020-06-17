@@ -13,7 +13,7 @@ function UserListContainer() {
     const [isLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
 
     if (!isLoggedIn) {
-        return <Redirect to="/login" />;
+        return <Redirect to="/" />;
     }
 
     return (

@@ -4,14 +4,14 @@ import { Route, Switch } from "react-router-dom";
 // My imports
 import Login from './containers/LoginContainer';
 import Home from './containers/HomeContainer';
-import Users from './containers/UserListContainer';
+import Dashboard from './containers/UserListContainer';
 import Register from './containers/RegisterContainer';
 
 export default function Routes() {
 
     return (
         <Switch>
-            <Route exact path='/admin/users' component={ Users } />
+            <Route exact path='/admin/users' component={ Dashboard } />
             <Route exact path='/' component={ Home } />
             <Route exact path='/login' component={ Login } />
             <Route exact path='/register' component={ Register } />

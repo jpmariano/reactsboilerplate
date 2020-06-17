@@ -1,3 +1,5 @@
+@import "../base/variables";
+
 @mixin login {
     html {
         body {
@@ -56,6 +58,133 @@
                         background-color: white;
                         color: rgb(70, 153, 179);
                     }
+                }
+            }
+
+            #login-popover {
+                .popover-body {
+                    form.loginForm {
+                        max-width: 500px;
+                        width: 100%;
+                        margin: 0 auto;
+                        padding: 20px;
+
+                        .form__field-wrapper {
+                            width: 100%;
+                            position: relative;
+                            padding-top: 1.75em;
+                            border-top: 1px solid $very-light-grey;
+                            border-bottom: 1px solid $very-light-grey;
+                            background-color: #fff;
+                        }
+                          
+                        .form__field-wrapper + .form__field-wrapper {
+                            border-top: none;
+                        }
+                          
+                        .form__field-input:focus ~ .form__field-label {
+                            color: $dark-grey;
+                            background-color: $very-light-grey;
+                        }
+                          
+                        .form__field-input:focus {
+                            background-color: $very-light-grey;
+                            color: $very-dark-grey;
+                        }
+                          
+                        .form__field-label {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            padding: 16px;
+                            padding-top: 20px;
+                            padding-bottom: 0;
+                            margin: 0;
+                            z-index: 1;
+                            font-size: .8em;
+                            color: $mid-grey;
+                            font-weight: 400;
+                            user-select: none;
+                            cursor: text;
+                        }
+                          
+                        .form__field-input {
+                            position: relative;
+                            // padding: 1.625em 16px;
+                            padding: 1.5em 16px 0.5em;
+                            width: 100%;
+                            color: $dark-grey;
+                            border: none;
+                            outline: 0;
+                            letter-spacing: 0.05em;
+                          }
+                          
+                        .form__submit-btn-wrapper {
+                            padding: 2em 1em;
+                            width: 100%;
+                            background-color: #fff;
+                            display: flex;
+                            justify-content: center;
+                        }
+                          
+                        .form__submit-btn {
+                            border: none;
+                            background-color: #fff;
+                            border: 1px solid $brand-color;
+                            padding: 0.5em 1em;
+                            border-radius: 3px;
+                            background-color: $brand-color;
+                            color: white;
+                            display: block;
+                            margin: 0 auto;
+                            position: relative;
+                        }
+                    }
+                    
+                    // label,
+                    // input {
+                    //     display: block;
+                    //     width: 100%;
+                    // }
+                    
+                    // label {
+                    //     margin-bottom: 5px;
+                    //     height: 22px;
+                    // }
+                    
+                    // input {
+                    //     margin-bottom: 20px;
+                    //     padding: 10px;
+                    //     border-radius: 3px;
+                    //     border: 1px solid #777;
+                    // }
+                    
+                    input.error {
+                        border-color: red;
+                    }
+                    
+                    .input-feedback {
+                        color: rgb(235, 54, 54);
+                        // margin-top: -15px;
+                        font-size: 14px;
+                        // margin-bottom: 20px;
+                        padding: 0.5em 16px 1.5em;
+                    }
+                    
+                    // button {
+                    //     padding: 10px 15px;
+                    //     background-color: rgb(70, 153, 179);
+                    //     color: white;
+                    //     border: 1px solid rgb(70, 153, 179);
+                    //     background-color: 250ms;
+                    // }
+                    
+                    // button:hover {
+                    //     cursor: pointer;
+                    //     background-color: white;
+                    //     color: rgb(70, 153, 179);
+                    // }
                 }
             }
         }

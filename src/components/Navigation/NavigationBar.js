@@ -161,11 +161,11 @@ function NavigationBar(props) {
         <AppBar
             position="fixed"
             className={clsx(props.classes.appBar, {
-            [props.classes.appBarShift]: props.open,
+                [props.classes.appBarShift]: props.open,
             })}
             id="navigation-bar"
         >
-            <Toolbar className="navigation-bar-toolbar">
+            <Toolbar id="navigation-bar-toolbar">
                 {
                     isLoggedIn ?
                         <IconButton

@@ -4,13 +4,12 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // My Imports
 import Routes from "./Routes";
 // import Navbar from './components/NavigationBar/Navbar';
-import Navigation from './containers/NavigationContainer';
+import MainApp from './containers/MainContainer';
 
 function App() {
     return (
         <Router>
-            <Navigation />
-            {/* <Navbar /> */}
+            <MainApp />
             <Routes />
         </Router>
     );

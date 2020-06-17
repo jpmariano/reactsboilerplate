@@ -151,7 +151,7 @@ function NavigationBar(props) {
             <Button color="inherit" className="navbar-item">Contact</Button>
             <Button color="inherit" className="navbar-item" onClick={handleClick}>Login</Button>
             {loginForm}
-            <Button color="inherit" className="navbar-item">Register</Button>
+            <Button color="inherit" className="navbar-item" href="/register">Register</Button>
         </div>
     )
 
@@ -161,8 +161,9 @@ function NavigationBar(props) {
             className={clsx(props.classes.appBar, {
             [props.classes.appBarShift]: props.open,
             })}
+            id="navigation-bar"
         >
-            <Toolbar>
+            <Toolbar className="navigation-bar-toolbar">
                 <IconButton
                     color="inherit"
                     aria-label="open drawer"

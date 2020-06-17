@@ -10,6 +10,7 @@ function App() {
     return (
         <Router>
             <MainApp />
+            {/* <Navbar /> */}
             <Routes />
         </Router>
     );

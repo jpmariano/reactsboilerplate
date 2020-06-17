@@ -11,7 +11,7 @@ function App() {
     const classes = NavTheme();
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root + " main-container"}>
             <Router>
                 <Navigation />
                 <main className={classes.content}>

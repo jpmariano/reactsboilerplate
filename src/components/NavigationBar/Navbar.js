@@ -17,8 +17,8 @@ function NavBar() {
     }
 
     const loginForm = (
-        <Popover id="login-popover">
-            <Popover.Title as="h3">Login</Popover.Title>
+        <Popover id="login-popover" className="w-100">
+            {/* <Popover.Title as="h3">Login</Popover.Title> */}
             <Popover.Content>
                 <Formik
                     initialValues={{ email: "", password: "" }}
@@ -61,43 +61,48 @@ function NavBar() {
                             handleSubmit
                         } = props;
                         return (
-                            <form onSubmit={handleSubmit} className="loginForm">
-                                <div className='form__field-wrapper'>
-                                    <label htmlFor="email" className='form__field-label'>Email</label>
-                                    <input
-                                        name="email"
-                                        type="text"
-                                        placeholder="Enter your email"
-                                        value={values.email}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={errors.email && touched.email && "error form__field-input" || "form__field-input"}
-                                    />
-                                    {errors.email && touched.email && (
-                                        <div className="input-feedback">{errors.email}</div>
-                                    )}
+                            <div className='form-page__form-wrapper'>
+                                <div className='form-page__form-header'>
+                                    <h2 className='form-page__form-heading'>Login</h2>
                                 </div>
-                                <div className='form__field-wrapper'>
-                                    <label htmlFor="password" className='form__field-label'>Password</label>
-                                    <input
-                                        name="password"
-                                        type="password"
-                                        placeholder="Enter your password"
-                                        value={values.password}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={errors.password && touched.password && "error form__field-input" || "form__field-input"}
-                                    />
-                                    {errors.password && touched.password && (
-                                        <div className="input-feedback">{errors.password}</div>
-                                    )}
-                                </div>
-                                <div className='form__submit-btn-wrapper'>
-                                    <button className='form__submit-btn' type="submit" disabled={isSubmitting}>
-                                        Login
-                                    </button>
-                                </div>
-                            </form>
+                                <form onSubmit={handleSubmit} className="loginForm">
+                                    <div className='form__field-wrapper'>
+                                        <input
+                                            name="email"
+                                            type="text"
+                                            placeholder="Enter your email"
+                                            value={values.email}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.email && touched.email && "error form__field-input" || "form__field-input"}
+                                        />
+                                        <label htmlFor="email" className='form__field-label'>Email</label>
+                                        {errors.email && touched.email && (
+                                            <div className="input-feedback">{errors.email}</div>
+                                        )}
+                                    </div>
+                                    <div className='form__field-wrapper'>
+                                        <input
+                                            name="password"
+                                            type="password"
+                                            placeholder="Enter your password"
+                                            value={values.password}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.password && touched.password && "error form__field-input" || "form__field-input"}
+                                        />
+                                        <label htmlFor="password" className='form__field-label'>Password</label>
+                                        {errors.password && touched.password && (
+                                            <div className="input-feedback">{errors.password}</div>
+                                        )}
+                                    </div>
+                                    <div className='form__submit-btn-wrapper'>
+                                        <button className='form__submit-btn' type="submit" disabled={isSubmitting}>
+                                            Login
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
                         );
                     }}
                 </Formik>

@@ -18,6 +18,18 @@
                 //         }
                 //     }
                 // }
+
+                .main-container {
+                    #navigation-bar {
+                        .navigation-bar-toolbar {
+                            .navbar-items {
+                                a.navbar-item:hover {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }    

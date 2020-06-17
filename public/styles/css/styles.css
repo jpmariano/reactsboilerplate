@@ -146,6 +146,10 @@ html body #login-popover .popover-body .input-feedback, html body #login-popover
   padding: 0.5em 16px 1.5em;
 }
 
+html body #root .main-container #navigation-bar .navigation-bar-toolbar .navbar-items a.navbar-item:hover {
+  color: #fff;
+}
+
 html body #root .container-fluid .tab-content .tab-pane {
   border-right: solid 1px transparent;
   border-left: solid 1px transparent;

@@ -44,16 +44,17 @@ html body #root .login-form button:hover {
   background-color: white;
   color: #4699b3;
 }
-html body #login-popover {
-  max-width: 350px;
+html body #login-popover .MuiPopover-paper {
+  max-width: 350px !important;
+  width: 100% !important;
 }
-html body #login-popover .popover-body form.loginForm {
+html body #login-popover .popover-body form.loginForm, html body #login-popover .MuiPopover-paper form.loginForm {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
   padding: 20px;
 }
-html body #login-popover .popover-body form.loginForm .form__field-wrapper {
+html body #login-popover .popover-body form.loginForm .form__field-wrapper, html body #login-popover .MuiPopover-paper form.loginForm .form__field-wrapper {
   width: 100%;
   position: relative;
   padding-top: 1.75em;
@@ -61,18 +62,18 @@ html body #login-popover .popover-body form.loginForm .form__field-wrapper {
   border-bottom: 1px solid #EDEDED;
   background-color: #fff;
 }
-html body #login-popover .popover-body form.loginForm .form__field-wrapper + .form__field-wrapper {
+html body #login-popover .popover-body form.loginForm .form__field-wrapper + .form__field-wrapper, html body #login-popover .MuiPopover-paper form.loginForm .form__field-wrapper + .form__field-wrapper {
   border-top: none;
 }
-html body #login-popover .popover-body form.loginForm .form__field-input:focus ~ .form__field-label {
+html body #login-popover .popover-body form.loginForm .form__field-input:focus ~ .form__field-label, html body #login-popover .MuiPopover-paper form.loginForm .form__field-input:focus ~ .form__field-label {
   color: #666;
   background-color: #EDEDED;
 }
-html body #login-popover .popover-body form.loginForm .form__field-input:focus {
+html body #login-popover .popover-body form.loginForm .form__field-input:focus, html body #login-popover .MuiPopover-paper form.loginForm .form__field-input:focus {
   background-color: #EDEDED;
   color: #333;
 }
-html body #login-popover .popover-body form.loginForm .form__field-label {
+html body #login-popover .popover-body form.loginForm .form__field-label, html body #login-popover .MuiPopover-paper form.loginForm .form__field-label {
   position: absolute;
   top: 0;
   left: 0;
@@ -88,7 +89,7 @@ html body #login-popover .popover-body form.loginForm .form__field-label {
   user-select: none;
   cursor: text;
 }
-html body #login-popover .popover-body form.loginForm .form__field-input {
+html body #login-popover .popover-body form.loginForm .form__field-input, html body #login-popover .MuiPopover-paper form.loginForm .form__field-input {
   position: relative;
   padding: 1.625em 16px;
   width: 100%;
@@ -97,14 +98,14 @@ html body #login-popover .popover-body form.loginForm .form__field-input {
   outline: 0;
   letter-spacing: 0.05em;
 }
-html body #login-popover .popover-body form.loginForm .form__submit-btn-wrapper {
+html body #login-popover .popover-body form.loginForm .form__submit-btn-wrapper, html body #login-popover .MuiPopover-paper form.loginForm .form__submit-btn-wrapper {
   padding: 1em;
   width: 100%;
   background-color: #fff;
   display: flex;
   justify-content: center;
 }
-html body #login-popover .popover-body form.loginForm .form__submit-btn {
+html body #login-popover .popover-body form.loginForm .form__submit-btn, html body #login-popover .MuiPopover-paper form.loginForm .form__submit-btn {
   border: none;
   background-color: #fff;
   border: 1px solid #6CC0E5;
@@ -116,30 +117,30 @@ html body #login-popover .popover-body form.loginForm .form__submit-btn {
   margin: 0 auto;
   position: relative;
 }
-html body #login-popover .popover-body .form-page__wrapper {
+html body #login-popover .popover-body .form-page__wrapper, html body #login-popover .MuiPopover-paper .form-page__wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   width: 100%;
 }
-html body #login-popover .popover-body .form-page__form-wrapper {
+html body #login-popover .popover-body .form-page__form-wrapper, html body #login-popover .MuiPopover-paper .form-page__form-wrapper {
   max-width: 325px;
   width: 100%;
   background-color: #fff;
 }
-html body #login-popover .popover-body .form-page__form-heading {
+html body #login-popover .popover-body .form-page__form-heading, html body #login-popover .MuiPopover-paper .form-page__form-heading {
   text-align: center;
   font-size: 1.5em;
   user-select: none;
 }
-html body #login-popover .popover-body .form-page__form-header {
+html body #login-popover .popover-body .form-page__form-header, html body #login-popover .MuiPopover-paper .form-page__form-header {
   padding: 1em;
 }
-html body #login-popover .popover-body input.error {
+html body #login-popover .popover-body input.error, html body #login-popover .MuiPopover-paper input.error {
   border-color: red;
 }
-html body #login-popover .popover-body .input-feedback {
+html body #login-popover .popover-body .input-feedback, html body #login-popover .MuiPopover-paper .input-feedback {
   color: #eb3636;
   font-size: 14px;
   padding: 0.5em 16px 1.5em;

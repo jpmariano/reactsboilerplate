@@ -63,9 +63,13 @@
 
             #login-popover {
                 // transform: translate(990px, 56px) !important;
-                max-width: 350px;
+                // max-width: 350px;
+                .MuiPopover-paper {
+                    max-width: 350px !important;
+                    width: 100% !important;
+                }
 
-                .popover-body {
+                .popover-body, .MuiPopover-paper {
                     form.loginForm {
                         max-width: 500px;
                         width: 100%;

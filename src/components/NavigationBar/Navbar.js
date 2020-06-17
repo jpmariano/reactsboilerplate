@@ -4,16 +4,18 @@ import { Navbar, NavLink, OverlayTrigger, Button, Popover } from 'react-bootstra
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import axios from 'axios';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 function NavBar() {
 
-    const [isLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
-    const [tokenExist] = useState(sessionStorage.getItem('jwtToken') ? sessionStorage.getItem('jwtToken') : false);
+    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
     const history = useHistory();
 
-    if (isLoggedIn && tokenExist) {
-        return <Redirect to="/admin/users" />;
+    const logout = () => {
+        sessionStorage.removeItem('isLoggedIn');
+        sessionStorage.removeItem('jwtToken');
+        setIsLoggedIn(false);
+        history.push("/");
     }
 
     const loginForm = (
@@ -35,6 +37,7 @@ function NavBar() {
                                 if (response.status === 200) {
                                     sessionStorage.setItem('jwtToken', response.data.jwt);
                                     sessionStorage.setItem('isLoggedIn', true);
+                                    setIsLoggedIn(true);
 
                                     history.push("/admin/users");
                                 }
@@ -74,7 +77,7 @@ function NavBar() {
                                             value={values.email}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            className={errors.email && touched.email && "error form__field-input" || "form__field-input"}
+                                            className={(errors.email && touched.email && "error form__field-input") || "form__field-input"}
                                         />
                                         <label htmlFor="email" className='form__field-label'>Email</label>
                                         {errors.email && touched.email && (
@@ -89,7 +92,7 @@ function NavBar() {
                                             value={values.password}
                                             onChange={handleChange}
                                             onBlur={handleBlur}
-                                            className={errors.password && touched.password && "error form__field-input" || "form__field-input"}
+                                            className={(errors.password && touched.password && "error form__field-input") || "form__field-input"}
                                         />
                                         <label htmlFor="password" className='form__field-label'>Password</label>
                                         {errors.password && touched.password && (
@@ -110,32 +113,47 @@ function NavBar() {
         </Popover>
     );
 
+    const navButtons = isLoggedIn ? (
+        <ul className="navbar-nav">
+            <li className="nav-item">
+                <NavLink href='/about' className="nav-link">About</NavLink>
+            </li>
+            <li className="nav-item">
+                <NavLink href='/contact' className="nav-link">Contact</NavLink>
+            </li>
+            <li className="nav-item">
+                <NavLink href='#' className="nav-link" onClick={logout}>Logout</NavLink>
+            </li>
+        </ul>
+    ) : (
+        <ul className="navbar-nav">
+            <li className="nav-item">
+                <NavLink href='/about' className="nav-link">About</NavLink>
+            </li>
+            <li className="nav-item">
+                <NavLink href='/contact' className="nav-link">Contact</NavLink>
+            </li>
+            <OverlayTrigger trigger="click" placement="bottom" overlay={loginForm}>
+                <li className="nav-item">
+                    <Button variant="link" className="nav-link border-0">Login</Button>
+                </li>
+            </OverlayTrigger>
+            <li className="nav-item">
+                <NavLink href='/register' className="nav-link">Register</NavLink>
+            </li>
+        </ul>
+    )
+
     return (
         <header>
             <Navbar bg="dark" variant="dark" expand="lg">
                 <div className="container">
-                    <NavLink href={'/dashboard'} className="navbar-brand">
+                    <NavLink href={'/'} className="navbar-brand">
                         Sample
                     </NavLink>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
-                        <ul className="navbar-nav">
-                            <li className="nav-item">
-                                <NavLink href='/about' className="nav-link">About</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink href='/contact' className="nav-link">Contact</NavLink>
-                            </li>
-                            <OverlayTrigger trigger="click" placement="bottom" overlay={loginForm}>
-                                <li className="nav-item">
-                                    {/* <NavLink href='/' className="nav-link">Login</NavLink> */}
-                                    <Button variant="link" className="nav-link border-0">Login</Button>
-                                </li>
-                            </OverlayTrigger>
-                            <li className="nav-item">
-                                <NavLink href='/register' className="nav-link">Register</NavLink>
-                            </li>
-                        </ul>
+                        {navButtons}
                     </Navbar.Collapse>
                 </div>
             </Navbar>

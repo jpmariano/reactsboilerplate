@@ -21,7 +21,7 @@ import AppBar from '@material-ui/core/AppBar';
 import NavTheme from '../components/Common/NavigationTheme';
 import NavigationBar from '../components/Navigation/NavigationBar';
 
-function NavigationContainer() {
+function MainContainer() {
     const classes = NavTheme();
     const theme = useTheme();
     const [open, setOpen] = useState(false);
@@ -86,4 +86,4 @@ function NavigationContainer() {
     );
 }
 
-export default NavigationContainer;
+export default MainContainer;

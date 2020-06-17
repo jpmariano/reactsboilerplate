@@ -7,7 +7,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import { useHistory } from 'react-router-dom';import { Formik } from "formik";
+import { useHistory } from 'react-router-dom';
+import { Formik } from "formik";
 import * as Yup from 'yup';
 import axios from 'axios';
 
@@ -182,7 +183,7 @@ function NavigationBar(props) {
                         null
                 }
                 <Typography variant="h6" noWrap style={{ flex: 1 }}>
-                    <a class="navbar-brand" href="/">Sample</a>
+                    <a className="navbar-brand" href="/">Sample</a>
                 </Typography>
                 {/* Navbar items */}
                 {navButtons}

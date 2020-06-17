@@ -146,10 +146,10 @@ html body #login-popover .popover-body .input-feedback, html body #login-popover
   padding: 0.5em 16px 1.5em;
 }
 
-html body #root .main-container #navigation-bar .navigation-bar-toolbar a.navbar-brand:hover, html body #root .main-container #navigation-bar .navigation-bar-toolbar a.navbar-brand {
+html body #root .main-container #navigation-bar #navigation-bar-toolbar a.navbar-brand:hover, html body #root .main-container #navigation-bar #navigation-bar-toolbar a.navbar-brand {
   color: #fff;
 }
-html body #root .main-container #navigation-bar .navigation-bar-toolbar .navbar-items a.navbar-item:hover {
+html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-items a.navbar-item:hover {
   color: #fff;
 }
 

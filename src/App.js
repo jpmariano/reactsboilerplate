@@ -4,15 +4,22 @@ import { BrowserRouter as Router } from 'react-router-dom';
 // My Imports
 import Routes from "./Routes";
 // import Navbar from './components/NavigationBar/Navbar';
-import MainApp from './containers/MainContainer';
+import Navigation from './containers/NavigationContainer';
+import NavTheme from './components/Common/NavigationTheme';
 
 function App() {
+    const classes = NavTheme();
+
     return (
-        <Router>
-            <MainApp />
-            {/* <Navbar /> */}
-            <Routes />
-        </Router>
+        <div className={classes.root}>
+            <Router>
+                <Navigation />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    <Routes />
+                </main>
+            </Router>
+        </div>
     );
 }
 

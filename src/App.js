@@ -6,12 +6,12 @@ import Routes from "./Routes";
 import Navbar from './components/NavigationBar/Navbar';
 
 function App() {
-  return (
-    <Router>
-      <Navbar />
-      <Routes />
-    </Router>
-  );
+    return (
+        <Router>
+            <Navbar />
+            <Routes />
+        </Router>
+    );
 }
 
 export default App;

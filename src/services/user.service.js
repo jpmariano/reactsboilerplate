@@ -6,7 +6,7 @@ export const userService = {
     login,
     logout,
     // register,
-    // getAll,
+    getAll,
     // getById,
     // update,
     // delete: _delete
@@ -35,15 +35,16 @@ function logout() {
     sessionStorage.clear()
 }
 
-// async function getAll() {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
+async function getAll() {
+    // const requestOptions = {
+    //     method: 'GET',
+    //     headers: authHeader()
+    // };
 
-//     const response = await fetch(`${config.apiUrl}/users`, requestOptions);
-//     return handleResponse(response);
-// }
+    // const response = await fetch(`${config.apiUrl}/users`, requestOptions);
+    const response = await API.get('/users?pageNo=0&pageSize=100&sortBy=uid',);
+    return handleResponse(response);
+}
 
 // async function getById(id) {
 //     const requestOptions = {

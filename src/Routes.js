@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 // My imports
 import Login from './containers/LoginContainer';
@@ -12,23 +12,21 @@ import NotFound from './components/Common/NotFound';
 // private route
 import { PrivateRoute } from './components/Routes';
 
-export default function Routes() {
+function Routes() {
 
     return (
         <Switch>
             {/* Private Routes */}
-            <PrivateRoute path='/admin/users' component={ Dashboard } />
+            <PrivateRoute exact path='/admin/users' component={ Dashboard } />
             <PrivateRoute exact path='/logout' component={ Logout } />
 
             {/* Public Routes */}
             <Route exact path='/' component={ Home } />
             <Route exact path='/login' component={ Login } />
             <Route exact path='/register' component={ Register } />
-            {/* <Route exact path='/not-found' component={ NotFound } />
-            <Route exact path='*'>
-                <Redirect to="/not-found" />
-            </Route> */}
             <Route exact path='*' component={ NotFound } />
         </Switch>
     );
 }
+
+export default Routes;

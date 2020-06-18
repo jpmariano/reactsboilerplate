@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { useHistory } from 'react-router-dom';
+import { Formik } from "formik";
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+// import axios from 'axios';
+
+// material ui
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,13 +14,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import { useHistory } from 'react-router-dom';
-import { Formik } from "formik";
-import * as Yup from 'yup';
-import axios from 'axios';
+
+// actions
+import { userActions } from '../../actions';
 
 function NavigationBar(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
+    const loggingIn = useSelector(state => state.authentication.loggingIn);
+    const dispatch = useDispatch();
+
     const history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -25,8 +34,13 @@ function NavigationBar(props) {
         setAnchorEl(null);
     };
 
+    // reset login status
+    useEffect(() => { 
+        dispatch(userActions.logout());
+    }, [dispatch]);
+
     const logout = () => {
-        sessionStorage.clear()
+        dispatch(userActions.logout());
         setIsLoggedIn(false);
         props.setIsLoggedIn(false);
         history.push("/");
@@ -54,24 +68,28 @@ function NavigationBar(props) {
                 initialValues={{ email: "", password: "" }}
                 onSubmit={(values) => {
 
-                    const loginData = {
-                        username: values.email,
-                        password: values.password
+                    // const loginData = {
+                    //     username: values.email,
+                    //     password: values.password
+                    // }
+
+                    // axios.post('/login', loginData).then(
+                    //     response => {
+                    //         console.log(response);
+                    //         if (response.status === 200) {
+                    //             sessionStorage.setItem('jwtToken', response.data.body.key[0]);
+                    //             sessionStorage.setItem('isLoggedIn', true);
+                    //             setIsLoggedIn(true);
+                    //             props.setIsLoggedIn(true);
+
+                    //             history.push("/admin/users");
+                    //         }
+                    //     }
+                    // );
+
+                    if (values.email && values.password) {
+                        dispatch(userActions.login(values.email, values.password));
                     }
-
-                    axios.post('/login', loginData).then(
-                        response => {
-                            console.log(response);
-                            if (response.status === 200) {
-                                sessionStorage.setItem('jwtToken', response.data.body.key[0]);
-                                sessionStorage.setItem('isLoggedIn', true);
-                                setIsLoggedIn(true);
-                                props.setIsLoggedIn(true);
-
-                                history.push("/admin/users");
-                            }
-                        }
-                    );
                 }}
 
                 validationSchema={Yup.object().shape({
@@ -130,6 +148,7 @@ function NavigationBar(props) {
                                 </div>
                                 <div className='form__submit-btn-wrapper'>
                                     <button className='form__submit-btn' type="submit" disabled={isSubmitting}>
+                                        {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                         Login
                                     </button>
                                 </div>

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { useHistory } from 'react-router-dom';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,14 +16,22 @@ import Popover from '@material-ui/core/Popover';
 
 // actions
 import { userActions } from '../../actions';
+import { alertActions } from '../../actions';
+
+// helpers
+import { history } from '../../helpers';
 
 function NavigationBar(props) {
+    // authentication
     const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
     const loggingIn = useSelector(state => state.authentication.loggingIn);
     const dispatch = useDispatch();
 
-    const history = useHistory();
+    // popover
     const [anchorEl, setAnchorEl] = useState(null);
+
+    // alerts
+    const alert = useSelector(state => state.alert);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -37,6 +44,13 @@ function NavigationBar(props) {
     // reset login status
     useEffect(() => { 
         dispatch(userActions.logout());
+    }, [dispatch]);
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
     }, [dispatch]);
 
     const logout = () => {
@@ -115,6 +129,9 @@ function NavigationBar(props) {
                             <div className='form-page__form-header'>
                                 <h2 className='form-page__form-heading'>Login</h2>
                             </div>
+                            {alert.message &&
+                                <div className={`alert ${alert.type} m-3`}>{alert.message}</div>
+                            }
                             <form onSubmit={handleSubmit} className="loginForm">
                                 <div className='form__field-wrapper'>
                                     <input

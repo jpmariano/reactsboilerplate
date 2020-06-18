@@ -63,7 +63,7 @@ function NavigationBar(props) {
                         response => {
                             console.log(response);
                             if (response.status === 200) {
-                                sessionStorage.setItem('jwtToken', response.data.jwt);
+                                sessionStorage.setItem('jwtToken', response.data.body.key[0]);
                                 sessionStorage.setItem('isLoggedIn', true);
                                 setIsLoggedIn(true);
                                 props.setIsLoggedIn(true);

@@ -39,11 +39,7 @@ function List() {
 
     useEffect(() => {
         async function fetchData() {
-            // const result = await axios.get('/users?pageNo=0&pageSize=10&sortBy=uid',);
             dispatch(userActions.getAll());
-    
-            // setUsersData(userList);
-            // console.log(result.data);
         }
         
         fetchData();

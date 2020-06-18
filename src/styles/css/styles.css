@@ -125,7 +125,7 @@ html body #login-popover .popover-body .form-page__wrapper, html body #login-pop
   width: 100%;
 }
 html body #login-popover .popover-body .form-page__form-wrapper, html body #login-popover .MuiPopover-paper .form-page__form-wrapper {
-  max-width: 325px;
+  max-width: 350px;
   width: 100%;
   background-color: #fff;
 }

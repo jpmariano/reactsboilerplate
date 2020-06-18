@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+
+
+// actions
+import { userActions } from '../../actions';
 
 // components
 import AddUserForm from './UserForm';
@@ -10,9 +14,11 @@ import SuccessModal from '../Alerts/Successful';
 
 function List() {
     
+    const userList = useSelector(state => state.users.items);
+    const users = userList ? userList : [];
     const [modalShow, setModalShow] = useState(false);
-    const [users, setUsersData] = useState([]);
     const [successModal, setSuccessModal] = useState(false);
+    const dispatch = useDispatch();
 
     const addUserModal = (
         <Modal
@@ -31,16 +37,17 @@ function List() {
         </Modal>
     );
 
-    async function fetchData() {
-        const result = await axios.get('/users?pageNo=0&pageSize=10&sortBy=uid',);
-
-        setUsersData(result.data);
-        console.log(result.data);
-    }
-
     useEffect(() => {
+        async function fetchData() {
+            // const result = await axios.get('/users?pageNo=0&pageSize=10&sortBy=uid',);
+            dispatch(userActions.getAll());
+    
+            // setUsersData(userList);
+            // console.log(result.data);
+        }
+        
         fetchData();
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="container-fluid">

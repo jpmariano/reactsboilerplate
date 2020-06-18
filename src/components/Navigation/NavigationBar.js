@@ -3,7 +3,6 @@ import clsx from 'clsx';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-// import axios from 'axios';
 
 // material ui
 import AppBar from '@material-ui/core/AppBar';
@@ -23,8 +22,8 @@ import { history } from '../../helpers';
 
 function NavigationBar(props) {
     // authentication
-    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
     const loggingIn = useSelector(state => state.authentication.loggingIn);
+    const loggedIn = useSelector(state => state.authentication.loggedIn);
     const dispatch = useDispatch();
 
     // popover
@@ -55,8 +54,6 @@ function NavigationBar(props) {
 
     const logout = () => {
         dispatch(userActions.logout());
-        setIsLoggedIn(false);
-        props.setIsLoggedIn(false);
         history.push("/");
     }
 
@@ -81,26 +78,6 @@ function NavigationBar(props) {
             <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={(values) => {
-
-                    // const loginData = {
-                    //     username: values.email,
-                    //     password: values.password
-                    // }
-
-                    // axios.post('/login', loginData).then(
-                    //     response => {
-                    //         console.log(response);
-                    //         if (response.status === 200) {
-                    //             sessionStorage.setItem('jwtToken', response.data.body.key[0]);
-                    //             sessionStorage.setItem('isLoggedIn', true);
-                    //             setIsLoggedIn(true);
-                    //             props.setIsLoggedIn(true);
-
-                    //             history.push("/admin/users");
-                    //         }
-                    //     }
-                    // );
-
                     if (values.email && values.password) {
                         dispatch(userActions.login(values.email, values.password));
                     }
@@ -177,7 +154,7 @@ function NavigationBar(props) {
         </Popover>
     );
 
-    const navButtons = isLoggedIn ? (
+    const navButtons = loggedIn ? (
         <div className="navbar-items">
             <Button color="inherit" className="navbar-item">About</Button>
             <Button color="inherit" className="navbar-item">Contact</Button>
@@ -185,8 +162,8 @@ function NavigationBar(props) {
         </div>
     ) : (
         <div className="navbar-items">
-            <Button color="inherit" className="navbar-item">About</Button>
-            <Button color="inherit" className="navbar-item">Contact</Button>
+            <Button color="inherit" className="navbar-item" href="/about">About</Button>
+            <Button color="inherit" className="navbar-item" href="/contact">Contact</Button>
             <Button color="inherit" className="navbar-item" onClick={handleClick}>Login</Button>
             {loginForm}
             <Button color="inherit" className="navbar-item" href="/register">Register</Button>
@@ -203,7 +180,7 @@ function NavigationBar(props) {
         >
             <Toolbar id="navigation-bar-toolbar">
                 {
-                    isLoggedIn ?
+                    loggedIn ?
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"

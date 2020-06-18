@@ -4,10 +4,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
 import { store } from './helpers';
-import { Router } from 'react-router-dom';
+// import { Router } from 'react-router-dom';
 
 // helpers
-import { history } from './helpers';
+// import { history } from './helpers';
 
 // styles
 import './index.css';
@@ -17,9 +17,9 @@ import './styles/bootstrap/css/bootstrap.min.css';
 ReactDOM.render(
 //   <React.StrictMode>
     <Provider store={store}>
-        <Router history={history}>
+        {/* <Router history={history}> */}
             <App />
-        </Router>
+        {/* </Router> */}
     </Provider>
 //   </React.StrictMode>,
   ,document.getElementById('root')

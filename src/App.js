@@ -1,24 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
 // My Imports
 import Routes from "./Routes";
-// import Navbar from './components/NavigationBar/Navbar';
 import Navigation from './containers/NavigationContainer';
 import NavTheme from './components/Common/NavigationTheme';
+
+
+// helpers
+import { history } from './helpers';
 
 function App() {
     const classes = NavTheme();
 
     return (
         <div className={classes.root + " main-container"}>
-            <Router>
-                <Navigation />
-                <main className={classes.content}>
-                    <div className={classes.toolbar} />
-                    <Routes />
-                </main>
-            </Router>
+            <Navigation />
+            <main className={classes.content}>
+                <div className={classes.toolbar} />
+                
+        <Router history={history}>
+                <Routes />
+                </Router>
+            </main>
         </div>
     );
 }

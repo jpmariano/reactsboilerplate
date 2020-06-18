@@ -3,9 +3,11 @@
 @import "components/user-list";
 @import "components/user-form";
 @import "components/register-form";
+@import "components/not-found";
 
 @include login;
 @include navbar;
 @include user-list;
 @include user-form;
 @include register-form;
+@include not-found;

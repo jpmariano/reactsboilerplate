@@ -1,18 +1,28 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import axios from 'axios';
+import { Provider } from 'react-redux';
+import { store } from './helpers';
+// import { Router } from 'react-router-dom';
 
-// local Server
-axios.defaults.baseURL = 'http://localhost:8080/v1';
+// helpers
+// import { history } from './helpers';
+
+// styles
+import './index.css';
+import './styles/css/styles.css';
+import './styles/bootstrap/css/bootstrap.min.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+//   <React.StrictMode>
+    <Provider store={store}>
+        {/* <Router history={history}> */}
+            <App />
+        {/* </Router> */}
+    </Provider>
+//   </React.StrictMode>,
+  ,document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

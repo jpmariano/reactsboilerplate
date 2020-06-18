@@ -1,16 +1,32 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-class HomeContainer extends Component {
+// actions
+import { alertActions } from '../actions';
+
+// helpers
+import { history } from '../helpers';
+
+function HomeContainer() {
+    const alert = useSelector(state => state.alert);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
+    }, [dispatch]);
     
-    render() {
-        return (
-            <div className="infobar">
+    return (
+        <div className="infobar">
+            {alert.message &&
+                <div className={`alert ${alert.type}`}>{alert.message}</div>
+            }
+            <h1>Home</h1>
 
-                <h1>Home</h1>
-
-            </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default HomeContainer

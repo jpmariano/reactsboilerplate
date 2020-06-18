@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
+import { Formik } from "formik";
+import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
+
+// material ui
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,15 +12,25 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
-import { useHistory } from 'react-router-dom';
-import { Formik } from "formik";
-import * as Yup from 'yup';
-import axios from 'axios';
+
+// actions
+import { userActions } from '../../actions';
+import { alertActions } from '../../actions';
+
+// helpers
+import { history } from '../../helpers';
 
 function NavigationBar(props) {
-    const [isLoggedIn, setIsLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
-    const history = useHistory();
+    // authentication
+    const loggingIn = useSelector(state => state.authentication.loggingIn);
+    const loggedIn = useSelector(state => state.authentication.loggedIn);
+    const dispatch = useDispatch();
+
+    // popover
     const [anchorEl, setAnchorEl] = useState(null);
+
+    // alerts
+    const alert = useSelector(state => state.alert);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -25,10 +40,20 @@ function NavigationBar(props) {
         setAnchorEl(null);
     };
 
+    // reset login status
+    useEffect(() => { 
+        dispatch(userActions.logout());
+    }, [dispatch]);
+
+    useEffect(() => {
+        history.listen((location, action) => {
+            // clear alert on location change
+            dispatch(alertActions.clear());
+        });
+    }, [dispatch]);
+
     const logout = () => {
-        sessionStorage.clear()
-        setIsLoggedIn(false);
-        props.setIsLoggedIn(false);
+        dispatch(userActions.logout());
         history.push("/");
     }
 
@@ -53,25 +78,9 @@ function NavigationBar(props) {
             <Formik
                 initialValues={{ email: "", password: "" }}
                 onSubmit={(values) => {
-
-                    const loginData = {
-                        username: values.email,
-                        password: values.password
+                    if (values.email && values.password) {
+                        dispatch(userActions.login(values.email, values.password));
                     }
-
-                    axios.post('/login', loginData).then(
-                        response => {
-                            console.log(response);
-                            if (response.status === 200) {
-                                sessionStorage.setItem('jwtToken', response.data.jwt);
-                                sessionStorage.setItem('isLoggedIn', true);
-                                setIsLoggedIn(true);
-                                props.setIsLoggedIn(true);
-
-                                history.push("/admin/users");
-                            }
-                        }
-                    );
                 }}
 
                 validationSchema={Yup.object().shape({
@@ -97,6 +106,9 @@ function NavigationBar(props) {
                             <div className='form-page__form-header'>
                                 <h2 className='form-page__form-heading'>Login</h2>
                             </div>
+                            {alert.message &&
+                                <div className={`alert ${alert.type} m-3`}>{alert.message}</div>
+                            }
                             <form onSubmit={handleSubmit} className="loginForm">
                                 <div className='form__field-wrapper'>
                                     <input
@@ -130,6 +142,7 @@ function NavigationBar(props) {
                                 </div>
                                 <div className='form__submit-btn-wrapper'>
                                     <button className='form__submit-btn' type="submit" disabled={isSubmitting}>
+                                        {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                         Login
                                     </button>
                                 </div>
@@ -141,7 +154,7 @@ function NavigationBar(props) {
         </Popover>
     );
 
-    const navButtons = isLoggedIn ? (
+    const navButtons = loggedIn ? (
         <div className="navbar-items">
             <Button color="inherit" className="navbar-item">About</Button>
             <Button color="inherit" className="navbar-item">Contact</Button>
@@ -149,8 +162,8 @@ function NavigationBar(props) {
         </div>
     ) : (
         <div className="navbar-items">
-            <Button color="inherit" className="navbar-item">About</Button>
-            <Button color="inherit" className="navbar-item">Contact</Button>
+            <Button color="inherit" className="navbar-item" href="/about">About</Button>
+            <Button color="inherit" className="navbar-item" href="/contact">Contact</Button>
             <Button color="inherit" className="navbar-item" onClick={handleClick}>Login</Button>
             {loginForm}
             <Button color="inherit" className="navbar-item" href="/register">Register</Button>
@@ -161,13 +174,13 @@ function NavigationBar(props) {
         <AppBar
             position="fixed"
             className={clsx(props.classes.appBar, {
-            [props.classes.appBarShift]: props.open,
+                [props.classes.appBarShift]: props.open,
             })}
             id="navigation-bar"
         >
-            <Toolbar className="navigation-bar-toolbar">
+            <Toolbar id="navigation-bar-toolbar">
                 {
-                    isLoggedIn ?
+                    loggedIn ?
                         <IconButton
                             color="inherit"
                             aria-label="open drawer"

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // components
 import List from '../components/UserManagement/List';
@@ -10,9 +11,9 @@ import Roles from '../components/UserManagement/Roles';
 function UserListContainer() {
 
     const [key, setKey] = useState('list');
-    const [isLoggedIn] = useState(sessionStorage.getItem('isLoggedIn') ? sessionStorage.getItem('isLoggedIn') : false);
+    const loggedIn = useSelector(state => state.authentication.loggedIn);
 
-    if (!isLoggedIn) {
+    if (!loggedIn) {
         return <Redirect to="/" />;
     }
 

@@ -21,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
         }),
     },
     menuButton: {
-        marginRight: 36,
+        marginRight: 36 + 'px !important',
     },
     hide: {
-        display: 'none',
+        display: 'none !important',
     },
     drawer: {
         width: drawerWidth,

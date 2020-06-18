@@ -125,7 +125,7 @@ html body #login-popover .popover-body .form-page__wrapper, html body #login-pop
   width: 100%;
 }
 html body #login-popover .popover-body .form-page__form-wrapper, html body #login-popover .MuiPopover-paper .form-page__form-wrapper {
-  max-width: 325px;
+  max-width: 350px;
   width: 100%;
   background-color: #fff;
 }
@@ -146,10 +146,11 @@ html body #login-popover .popover-body .input-feedback, html body #login-popover
   padding: 0.5em 16px 1.5em;
 }
 
-html body #root .main-container #navigation-bar .navigation-bar-toolbar a.navbar-brand:hover, html body #root .main-container #navigation-bar .navigation-bar-toolbar a.navbar-brand {
+html body #root .main-container #navigation-bar #navigation-bar-toolbar a.navbar-brand:hover, html body #root .main-container #navigation-bar #navigation-bar-toolbar a.navbar-brand {
   color: #fff;
+  text-decoration: none;
 }
-html body #root .main-container #navigation-bar .navigation-bar-toolbar .navbar-items a.navbar-item:hover {
+html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-items a.navbar-item:hover {
   color: #fff;
 }
 
@@ -232,6 +233,39 @@ html body .register-form form.registerForm .register-form-fields button:hover {
   cursor: pointer;
   background-color: white;
   color: #4699b3;
+}
+
+html body #root .main-container main .FourOhFour {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #121212;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+html body #root .main-container main .FourOhFour .bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  mix-blend-mode: overlay;
+}
+html body #root .main-container main .FourOhFour .code {
+  font-family: "Alfa Slab One", cursive;
+  font-size: 144px;
+  height: 100vh;
+  color: white;
+  width: 100%;
+  display: flex;
+  background-position: center;
+  align-items: center;
+  background-size: cover;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=styles.css.map */

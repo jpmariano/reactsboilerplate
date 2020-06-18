@@ -1,9 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 
 // My Imports
 import Routes from "./Routes";
-// import Navbar from './components/NavigationBar/Navbar';
 import Navigation from './containers/NavigationContainer';
 import NavTheme from './components/Common/NavigationTheme';
 

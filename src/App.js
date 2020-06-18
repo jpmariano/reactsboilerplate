@@ -7,13 +7,16 @@ import Routes from "./Routes";
 import Navigation from './containers/NavigationContainer';
 import NavTheme from './components/Common/NavigationTheme';
 
+// helpers
+import { history } from './helpers';
+
 function App() {
     const classes = NavTheme();
 
     return (
         <div className={classes.root + " main-container"}>
-            <Router>
-                <Navigation />
+            <Navigation />
+            <Router history={history}>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
                     <Routes />

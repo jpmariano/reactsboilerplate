@@ -18,7 +18,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { userActions } from '../../actions';
 
 // components
-import AddUserForm from './UserForm';
+import AddUserForm from '../Forms/UserForm';
 import SuccessModal from '../Alerts/Successful';
 import AppStyles from '../Common/useStyles';
 

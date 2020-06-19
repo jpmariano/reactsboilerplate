@@ -7,14 +7,13 @@ import { useSelector } from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 
 // components
-import NavTheme from '../components/Common/NavigationTheme';
+import AppStyles from '../components/Common/AppStyles';
 import NavigationBar from '../components/Navigation/NavigationBar';
 import Sidebar from '../components/Navigation/Sidebar';
 
 function MainContainer() {
-
-    const classes = NavTheme();
     const theme = useTheme();
+    const classes = AppStyles();
     const [open, setOpen] = useState(false);
     const loggedIn = useSelector(state => state.authentication.loggedIn);
 

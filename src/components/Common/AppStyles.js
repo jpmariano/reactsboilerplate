@@ -8,23 +8,23 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
         }),
     },
     appBarShift: {
         marginLeft: drawerWidth,
         width: `calc(100% - ${drawerWidth}px)`,
         transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
         }),
     },
     menuButton: {
-        marginRight: 36 + 'px !important',
+        marginRight: 36,
     },
     hide: {
-        display: 'none !important',
+        display: 'none',
     },
     drawer: {
         width: drawerWidth,
@@ -34,19 +34,19 @@ const useStyles = makeStyles((theme) => ({
     drawerOpen: {
         width: drawerWidth,
         transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
         }),
     },
     drawerClose: {
         transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
         }),
         overflowX: 'hidden',
         width: theme.spacing(7) + 1,
         [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9) + 1,
+            width: theme.spacing(9) + 1,
         },
     },
     toolbar: {
@@ -60,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+    },
+    container: {
+        maxHeight: 440,
     },
 }));
 

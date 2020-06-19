@@ -47,7 +47,12 @@ function NavigationBar(props) {
             // clear alert on location change
             dispatch(alertActions.clear());
         });
-    }, [dispatch]);
+
+        if (anchorEl === null) {
+            // clear alert on popover close
+            dispatch(alertActions.clear());
+        }
+    }, [dispatch, anchorEl]);
 
     const logout = () => {
         dispatch(userActions.logout());

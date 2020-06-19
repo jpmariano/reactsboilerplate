@@ -9,7 +9,7 @@ export const userService = {
     getAll,
     // getById,
     // update,
-    // delete: _delete
+    delete: _delete
 };
 
 async function login(username, password) {
@@ -24,7 +24,7 @@ async function login(username, password) {
     // store user details and jwt token in session storage to keep user logged in between page refreshes
     sessionStorage.setItem('user', JSON.stringify(user.body.user));
     sessionStorage.setItem('token', JSON.stringify(user.body.key[0]));
-    
+
     return user;
 }
 
@@ -66,16 +66,14 @@ async function register(user) {
 //     return handleResponse(response);;
 // }
 
-// // prefixed function name with underscore because delete is a reserved word in javascript
-// async function _delete(id) {
-//     const requestOptions = {
-//         method: 'DELETE',
-//         headers: authHeader()
-//     };
+// prefixed function name with underscore because delete is a reserved word in javascript
+async function _delete(id) {
 
-//     const response = await fetch(`${config.apiUrl}/users/${id}`, requestOptions);
-//     return handleResponse(response);
-// }
+    const response = await API.delete('/users/' + id,);
+    const user = handleResponse(response);
+    console.log(user);
+    return user;
+}
 
 function handleResponse(response) {
     let data = response.data;

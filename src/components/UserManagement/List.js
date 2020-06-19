@@ -21,6 +21,7 @@ import { userActions } from '../../actions';
 import AddUserForm from '../Forms/UserForm';
 import SuccessModal from '../Alerts/Successful';
 import ConfirmationModal from '../Alerts/Confirmation';
+import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
 
 const columns = [
@@ -59,6 +60,7 @@ function List() {
     const [modalShow, setModalShow] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
+    const [wipModal, setWipModal] = useState(false);
 
     // table-related variables
     const [page, setPage] = React.useState(0);
@@ -117,8 +119,9 @@ function List() {
         <div id="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
             {addUserModal}
-            <SuccessModal modalShow={successModal} modalMessage="User successfully added!"/> 
-            <ConfirmationModal modalShow={confirmModal} modalMessage="Are you sure?" userId={deleteUserId} handleDeleteUser={handleDeleteUser}/>
+            <SuccessModal successModal={successModal} modalMessage="User successfully added!"/> 
+            <ConfirmationModal confirmModal={confirmModal} modalMessage="Are you sure?" userId={deleteUserId} handleDeleteUser={handleDeleteUser}/>
+            <WipModal wipModal={wipModal} modalMessage="This action is work in progress. Sorry for the inconvenience."/>
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
@@ -151,8 +154,8 @@ function List() {
                                         } else {
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    <button type="button" className="btn btn-primary mr-1"><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
-                                                    <button type="button" className="btn btn-danger ml-1" onClick={() => {setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button>
+                                                    <button type="button" id="Edit" className="btn btn-primary mr-1" onClick={() => {console.log('clicked!'); setWipModal(true);}}><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
+                                                    <button type="button" id="Delete" className="btn btn-danger ml-1" onClick={() => {console.log('clicked!'); setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button>
                                                 </TableCell>
                                             );
                                         }

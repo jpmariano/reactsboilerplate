@@ -33,7 +33,6 @@ function LoginForm() {
                     values,
                     touched,
                     errors,
-                    isSubmitting,
                     handleChange,
                     handleBlur,
                     handleSubmit
@@ -78,7 +77,7 @@ function LoginForm() {
                                 )}
                             </div>
                             <div className='form__submit-btn-wrapper'>
-                                <button className='form__submit-btn' type="submit" disabled={isSubmitting}>
+                                <button className='form__submit-btn' type="submit">
                                     {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                     Login
                                 </button>

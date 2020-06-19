@@ -23,7 +23,12 @@ function login(username, password) {
                 },
                 error => {
                     dispatch(failure(error.toString()));
-                    dispatch(alertActions.error(error.toString()));
+                    const http_code = error.toString().match(/\d+/)[0];
+                    if (parseInt(http_code) === 401) {
+                        dispatch(alertActions.error("User is not enabled, contact site's administrator"));
+                    } else {
+                        dispatch(alertActions.error(error.toString()));
+                    }
                 }
             );
     };

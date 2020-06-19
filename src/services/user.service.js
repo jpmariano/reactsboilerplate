@@ -13,11 +13,6 @@ export const userService = {
 };
 
 async function login(username, password) {
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: authHeader()
-    // };
-    
     const data = {
         username: username,
         password: password
@@ -29,6 +24,7 @@ async function login(username, password) {
     // store user details and jwt token in session storage to keep user logged in between page refreshes
     sessionStorage.setItem('user', JSON.stringify(user.body.user));
     sessionStorage.setItem('token', JSON.stringify(user.body.key[0]));
+    
     return user;
 }
 
@@ -38,12 +34,6 @@ function logout() {
 }
 
 async function getAll() {
-    // const requestOptions = {
-    //     method: 'GET',
-    //     headers: authHeader()
-    // };
-
-    // const response = await fetch(`${config.apiUrl}/users`, requestOptions);
     const response = await API.get('/users?pageNo=0&pageSize=100&sortBy=uid',);
     return handleResponse(response);
 }
@@ -59,12 +49,6 @@ async function getAll() {
 // }
 
 async function register(user) {
-    // const requestOptions = {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(user)
-    // };
-
     const data = user;
 
     const response = await API.post('/register', data);
@@ -94,8 +78,8 @@ async function register(user) {
 // }
 
 function handleResponse(response) {
-    const data = response.data;
-
+    let data = response.data;
+    
     if (response.status === 401) {
         // auto logout if 401 response returned from api
         logout();
@@ -103,6 +87,8 @@ function handleResponse(response) {
     } else if (response.status === 500) {
         const error = response;
         return Promise.reject(error.message);
+    } else if (response.status === 200) {
+        data.status = response.status;
     }
 
     return data;

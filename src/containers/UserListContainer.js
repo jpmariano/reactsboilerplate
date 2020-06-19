@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
-import { Tabs, Tab } from 'react-bootstrap';
+import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // components
 import List from '../components/UserManagement/List';
-import Permissions from '../components/UserManagement/Permissions';
-import Roles from '../components/UserManagement/Roles';
 
 function UserListContainer() {
 
-    const [key, setKey] = useState('list');
     const loggedIn = useSelector(state => state.authentication.loggedIn);
 
     if (!loggedIn) {
@@ -18,25 +14,13 @@ function UserListContainer() {
     }
 
     return (
-        <div className="container-fluid">
+        <div id="user-container">
 
             <h1>Users</h1>
 
-            <Tabs
-                id="user-management-tabs"
-                activeKey={key}
-                onSelect={(k) => setKey(k)}
-            >
-                <Tab eventKey="list" title="List">
-                    <List />
-                </Tab>
-                <Tab eventKey="permissions" title="Permissions">
-                    <Permissions />
-                </Tab>
-                <Tab eventKey="roles" title="Roles">
-                    <Roles />
-                </Tab>
-            </Tabs>
+            <List />
+
+            
         </div>
     );
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material ui
@@ -119,11 +119,11 @@ function List() {
                             <TableRow>
                             {columns.map((column) => (
                                 <TableCell
-                                key={column.id}
-                                align={column.align}
-                                style={{ minWidth: column.minWidth }}
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
                                 >
-                                {column.label}
+                                    {column.label}
                                 </TableCell>
                             ))}
                             </TableRow>
@@ -134,11 +134,20 @@ function List() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                                     {columns.map((column) => {
                                         const value = user[column.id];
-                                        return (
-                                            <TableCell key={column.id} align={column.align}>
-                                                {column.format && typeof value === 'number' ? column.format(value) : value}
-                                            </TableCell>
-                                        );
+                                        if (column.id !== "action") {
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                </TableCell>
+                                            );
+                                        } else {
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    <button type="button" className="btn btn-primary mr-1"><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
+                                                    <button type="button" className="btn btn-danger ml-1"><FontAwesomeIcon icon={faTrash}/> Delete</button>
+                                                </TableCell>
+                                            );
+                                        }
                                     })}
                                     </TableRow>
                                 );

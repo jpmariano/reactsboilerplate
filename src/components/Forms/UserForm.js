@@ -7,7 +7,21 @@ import { useDispatch } from 'react-redux';
 import { userActions } from '../../actions';
 
 function UserForm(props) {
+
+    const divClasses = props.divClasses;
+    const formClasses = props.formClasses;
+    const formDivClasses = props.formDivClasses;
+    const pageLoc = props.pageLoc;
+
     const dispatch = useDispatch();
+
+    const setModalShow = (value) => {
+        props.setModalShow(value);
+    }
+
+    console.log(props.divClasses);
+    console.log(props.formClasses);
+    console.log(props.formDivClasses);
 
     return (
         <Formik
@@ -27,8 +41,11 @@ function UserForm(props) {
                 console.log(userData);
                 if (values.name && values.email && values.password) {
                     dispatch(userActions.register(userData));
-                    props.setModalShow(false);
-                    props.setSuccessModal(true);
+                    
+                    if (pageLoc !== "register") {
+                        props.setModalShow(false);
+                        props.setSuccessModal(true);
+                    }
                 }
             }}
 
@@ -62,9 +79,9 @@ function UserForm(props) {
                     handleSubmit
             } = props;
                 return (
-                    <div className="user-form">
-                        <form onSubmit={handleSubmit} className="userForm">
-                            <div className="user-form-fields">
+                    <div className={divClasses}>
+                        <form onSubmit={handleSubmit} className={formClasses}>
+                            <div className={formDivClasses}>
                                 <label htmlFor="name">Name</label>
                                 <input
                                     name="name"
@@ -117,15 +134,21 @@ function UserForm(props) {
                                 {errors.c_password && touched.c_password && (
                                     <div className="input-feedback">{errors.c_password}</div>
                                 )}
+                                <div className="float-right">
+                                    {
+                                        pageLoc !== "register" ?
+                                            <button type="button" className="btn btn-secondary mr-2" onClick={() => setModalShow(false)}> 
+                                                Cancel
+                                            </button>
+                                        :
+                                            null
+                                    }
+                                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                        Submit
+                                    </button>
+                                </div>
                             </div>
-                            <div className="float-right">
-                                <button type="button" className="btn btn-secondary mr-2">
-                                    Cancel
-                                </button>
-                                <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                    Submit
-                                </button>
-                            </div>
+                            
                         </form>
                     </div>
                 );

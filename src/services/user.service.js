@@ -13,8 +13,11 @@ export const userService = {
 };
 
 async function login(username, password) {
-
-    // const data = JSON.stringify({ username, password });
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: authHeader()
+    // };
+    
     const data = {
         username: username,
         password: password
@@ -31,7 +34,6 @@ async function login(username, password) {
 
 function logout() {
     // remove user from local storage to log user out
-    // localStorage.removeItem('user');
     sessionStorage.clear()
 }
 

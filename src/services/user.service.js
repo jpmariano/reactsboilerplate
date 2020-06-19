@@ -85,8 +85,6 @@ function handleResponse(response) {
     } else if (response.status === 500) {
         const error = response;
         return Promise.reject(error.message);
-    } else if (response.status === 200) {
-        data.status = response.status;
     }
 
     return data;

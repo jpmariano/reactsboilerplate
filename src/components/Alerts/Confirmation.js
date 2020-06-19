@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 function Confirmation(props) {
-
+    
+    const deleting = useSelector(state => state.authentication.deleting);
     const [modalShow, setModalShow] = useState(props.modalShow);
     const userId = props.userId
 
@@ -26,7 +28,25 @@ function Confirmation(props) {
             </Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={() => setModalShow(false)}>No</Button>
-                <Button variant="primary" onClick={() => {setModalShow(false); props.handleDeleteUser(userId); }}>Yes</Button>
+                <Button 
+                    variant="primary" 
+                    onClick={() => {
+                        
+                            props.handleDeleteUser(userId); 
+                            
+                            if (!deleting) {
+                                setModalShow(false);
+                                window.location.reload(true);
+                            }
+                            // setTimeout(() => {
+                            //     window.location.reload(true);
+                            // }, 1000);
+                        }
+                    }
+                >
+                    {deleting && <span className="spinner-border spinner-border-sm mr-1"></span>}
+                    Yes
+                </Button>
             </Modal.Footer>
         </Modal>
     );

@@ -1,46 +1,34 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
-import axios from 'axios';
+import { useDispatch } from 'react-redux';
+
+// actions
+import { userActions } from '../../actions';
 
 function UserForm(props) {
-
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const dispatch = useDispatch();
 
     return (
         <Formik
             initialValues={{
-                name: name ? name : '',
-                email: email ? email : '',
-                password: password ? password : '',
+                name: '',
+                email: '',
+                password: '',
             }}
 
             onSubmit={async values => {
-
-                setName(values.name);
-                setEmail(values.email);
-                setPassword(values.password);
 
                 const userData = {
                     name: values.name,
                     username: values.email,
                     password: values.password,
                 }
-
-                const isTokenValid = sessionStorage.getItem('jwtToken');
-
-                if (isTokenValid !== "") {
-                    axios.post('/register', userData).then(
-                        response => {
-                            if (response.status === 200) {
-                                console.log(response);
-                                props.setModalShow(false);
-                                props.setSuccessModal(true);
-                            }
-                        }
-                    );
+                console.log(userData);
+                if (values.name && values.email && values.password) {
+                    dispatch(userActions.register(userData));
+                    props.setModalShow(false);
+                    props.setSuccessModal(true);
                 }
             }}
 

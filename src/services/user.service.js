@@ -5,7 +5,7 @@ import API from "../utils/api";
 export const userService = {
     login,
     logout,
-    // register,
+    register,
     getAll,
     // getById,
     // update,
@@ -49,25 +49,27 @@ async function getAll() {
 }
 
 // async function getById(id) {
-//     const requestOptions = {
-//         method: 'GET',
-//         headers: authHeader()
-//     };
+//     // const requestOptions = {
+//     //     method: 'GET',
+//     //     headers: authHeader()
+//     // };
 
 //     const response = await fetch(`${config.apiUrl}/users/${id}`, requestOptions);
 //     return handleResponse(response);
 // }
 
-// async function register(user) {
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify(user)
-//     };
+async function register(user) {
+    // const requestOptions = {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(user)
+    // };
 
-//     const response = await fetch(`${config.apiUrl}/users/register`, requestOptions);
-//     return handleResponse(response);
-// }
+    const data = user;
+
+    const response = await API.post('/register', data);
+    return handleResponse(response);
+}
 
 // async function update(user) {
 //     const requestOptions = {
@@ -92,21 +94,6 @@ async function getAll() {
 // }
 
 function handleResponse(response) {
-    // return response.text().then(text => {
-    //     const data = text && JSON.parse(text);
-    //     if (!response.ok) {
-    //         if (response.status === 401) {
-    //             // auto logout if 401 response returned from api
-    //             logout();
-    //             window.location.reload(true);
-    //         }
-
-    //         const error = (data && data.message) || response.statusText;
-    //         return Promise.reject(error);
-    //     }
-
-    //     return data;
-    // });
     const data = response.data;
 
     if (response.status === 401) {

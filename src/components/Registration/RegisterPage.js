@@ -7,7 +7,7 @@ import axios from 'axios';
 // components
 import SuccessModal from '../Alerts/Successful';
 
-function RigesterForm(props) {
+function RegisterPage(props) {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -154,4 +154,4 @@ function RigesterForm(props) {
     )
 }
 
-export default RigesterForm;
+export default RegisterPage;

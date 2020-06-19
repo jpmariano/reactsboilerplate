@@ -46,7 +46,7 @@ function register(user) {
             .then(
                 user => { 
                     dispatch(success());
-                    history.push('/');
+                    history.push('/admin/users');
                     dispatch(alertActions.success('Registration successful'));
                 },
                 error => {

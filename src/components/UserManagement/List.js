@@ -20,6 +20,7 @@ import { userActions } from '../../actions';
 // components
 import AddUserForm from '../Forms/UserForm';
 import SuccessModal from '../Alerts/Successful';
+import ConfirmationModal from '../Alerts/Confirmation';
 import AppStyles from '../Common/useStyles';
 
 const columns = [
@@ -52,10 +53,12 @@ function List() {
     // user-related variables
     const userList = useSelector(state => state.users.items);
     const users = userList ? userList : [];
+    const [deleteUserId, setDeleteUserId] = useState('');
 
     // modal-related variables
     const [modalShow, setModalShow] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
 
     // table-related variables
     const [page, setPage] = React.useState(0);
@@ -106,11 +109,16 @@ function List() {
         setPage(0);
     };
 
+    const handleDeleteUser = (userId) => {
+        dispatch(userActions.delete(userId));
+    }
+
     return (
         <div id="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
             {addUserModal}
             <SuccessModal modalShow={successModal} modalMessage="User successfully added!"/> 
+            <ConfirmationModal modalShow={confirmModal} modalMessage="Are you sure?" userId={deleteUserId} handleDeleteUser={handleDeleteUser}/>
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
@@ -144,7 +152,7 @@ function List() {
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
                                                     <button type="button" className="btn btn-primary mr-1"><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
-                                                    <button type="button" className="btn btn-danger ml-1"><FontAwesomeIcon icon={faTrash}/> Delete</button>
+                                                    <button type="button" className="btn btn-danger ml-1" onClick={() => {setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button>
                                                 </TableCell>
                                             );
                                         }

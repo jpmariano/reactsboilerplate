@@ -222,18 +222,6 @@ html body .register-form form.registerForm .register-form-fields .input-feedback
   font-size: 14px;
   margin-bottom: 20px;
 }
-html body .register-form form.registerForm .register-form-fields button {
-  padding: 10px 15px;
-  background-color: #4699b3;
-  color: white;
-  border: 1px solid #4699b3;
-  background-color: 250ms;
-}
-html body .register-form form.registerForm .register-form-fields button:hover {
-  cursor: pointer;
-  background-color: white;
-  color: #4699b3;
-}
 
 html body #root .main-container main .FourOhFour {
   position: absolute;

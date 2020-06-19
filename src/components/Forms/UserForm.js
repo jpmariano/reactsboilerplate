@@ -19,10 +19,6 @@ function UserForm(props) {
         props.setModalShow(value);
     }
 
-    console.log(props.divClasses);
-    console.log(props.formClasses);
-    console.log(props.formDivClasses);
-
     return (
         <Formik
             initialValues={{
@@ -41,7 +37,7 @@ function UserForm(props) {
                 console.log(userData);
                 if (values.name && values.email && values.password) {
                     dispatch(userActions.register(userData));
-                    
+
                     if (pageLoc !== "register") {
                         props.setModalShow(false);
                         props.setSuccessModal(true);

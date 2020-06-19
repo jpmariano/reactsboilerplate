@@ -76,7 +76,14 @@ function List() {
                 <Modal.Title>Add User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddUserForm setModalShow={setModalShow} setSuccessModal={setSuccessModal}/>
+                <AddUserForm 
+                    setModalShow={setModalShow} 
+                    setSuccessModal={setSuccessModal}
+                    divClasses="user-form"
+                    formClasses="userForm"
+                    formDivClasses="user-form-fields"
+                    pageLoc="users"
+                />
             </Modal.Body>
         </Modal>
     );

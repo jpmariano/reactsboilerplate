@@ -78,8 +78,6 @@ function NavigationBar(props) {
 
     const navButtons = loggedIn ? (
         <div className="navbar-items">
-            <Button color="inherit" className="navbar-item">About</Button>
-            <Button color="inherit" className="navbar-item">Contact</Button>
             <Button color="inherit" onClick={logout} className="navbar-item">Logout</Button>
         </div>
     ) : (
@@ -103,23 +101,28 @@ function NavigationBar(props) {
             <Toolbar id="navigation-bar-toolbar">
                 {
                     loggedIn ?
-                        <IconButton
-                            color="inherit"
-                            aria-label="open drawer"
-                            onClick={props.handleDrawerOpen}
-                            edge="start"
-                            className={clsx(props.classes.menuButton, {
-                                [props.classes.hide]: props.open,
-                            })}
-                        >
-                            <MenuIcon />
-                        </IconButton>
+                        <>
+                            <IconButton
+                                color="inherit"
+                                aria-label="open drawer"
+                                onClick={props.handleDrawerOpen}
+                                edge="start"
+                                className={clsx(props.classes.menuButton, {
+                                    [props.classes.hide]: props.open,
+                                })}
+                            >
+                                <MenuIcon />
+                            </IconButton>
+                            <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-items">
+                                <Button color="inherit" className="navbar-item" href="/dashboard">Dashboard</Button>
+                                <Button color="inherit" className="navbar-item" href="/admin/users">Users</Button>
+                            </Typography>
+                        </>
                     :
-                        null
+                        <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-items">
+                            <a className="navbar-brand" href="/">Sample</a>
+                        </Typography>
                 }
-                <Typography variant="h6" noWrap style={{ flex: 1 }}>
-                    <a className="navbar-brand" href="/">Sample</a>
-                </Typography>
                 {/* Navbar items */}
                 {navButtons}
             </Toolbar>

@@ -3,11 +3,11 @@ import { Modal, Button } from 'react-bootstrap';
 
 function Successful(props) {
 
-    const [modalShow, setModalShow] = useState(props.modalShow);
+    const [modalShow, setModalShow] = useState(props.successModal);
 
     useEffect(() => {
-        setModalShow(props.modalShow);
-    }, [props.modalShow]);
+        setModalShow(props.successModal);
+    }, [props.successModal]);
 
     const successMsg = (
         <Modal

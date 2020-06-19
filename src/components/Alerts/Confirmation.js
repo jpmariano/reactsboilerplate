@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 function Confirmation(props) {
     
     const deleting = useSelector(state => state.authentication.deleting);
-    const [modalShow, setModalShow] = useState(props.modalShow);
+    const [modalShow, setModalShow] = useState(props.confirmModal);
     const userId = props.userId
 
     useEffect(() => {
-        setModalShow(props.modalShow);
-    }, [props.modalShow]);
+        setModalShow(props.confirmModal);
+    }, [props.confirmModal]);
 
     const confirmationMsg = (
         <Modal
@@ -33,7 +33,7 @@ function Confirmation(props) {
                     onClick={() => {
                         
                             props.handleDeleteUser(userId); 
-                            
+
                             if (!deleting) {
                                 setModalShow(false);
                                 window.location.reload(true);

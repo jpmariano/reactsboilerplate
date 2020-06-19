@@ -1,21 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { Redirect } from 'react-router-dom';
 
 function Successful(props) {
 
     const [modalShow, setModalShow] = useState(props.modalShow);
-    const [isRegistered, setIsRegistered] = useState(false);
 
     useEffect(() => {
         setModalShow(props.modalShow);
     }, [props.modalShow]);
-
-    if (props.location === 'register') {
-        if (isRegistered) {
-            return <Redirect to="/login" />;
-        }
-    }
 
     const successMsg = (
         <Modal
@@ -34,9 +26,9 @@ function Successful(props) {
             <Modal.Footer>
                 {
                     props.location === 'register' ?
-                        <Button variant="primary" onClick={() => {setModalShow(false); setIsRegistered(true);}}>Okay</Button>
-                    :
                         <Button variant="primary" onClick={() => setModalShow(false)}>Okay</Button>
+                    :
+                        <Button variant="primary" onClick={() => {setModalShow(false); window.location.reload(true);}}>Okay</Button>
                 }
             </Modal.Footer>
         </Modal>

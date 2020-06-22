@@ -169,8 +169,6 @@ function List() {
                                                             column.format && typeof value === 'number' ? column.format(value) : value
                                                         :
                                                             <>
-                                                                {/* <button type="button" id="Edit" className="btn btn-primary mr-1" onClick={() => {console.log('clicked!'); setWipModal(true);}}><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
-                                                                <button type="button" id="Delete" className="btn btn-danger ml-1" onClick={() => {console.log('clicked!'); setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button> */}
                                                                 <IconButton onClick={() => {console.log("edited"); setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>

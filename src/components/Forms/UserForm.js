@@ -15,8 +15,6 @@ function UserForm(props) {
     const action = props.action;
     const [user, setUsers] = useState(props.user && action === 'edit' ? props.user : null);
 
-    console.log(user);
-
     const dispatch = useDispatch();
 
     const setAddUserModal = (value) => {
@@ -42,24 +40,27 @@ function UserForm(props) {
                 if (values.name && values.username && values.password) {
                     if (action === "add") {
                         dispatch(userActions.register(values));
-
-                    } else if (action === "edit") {
-                        dispatch(userActions.update(values, user.uid));
-                        setUsers(null);
                     }
 
                     if (pageLoc !== "register") {
                         if (action === "add") {
                             setAddUserModal(false);
-                        } else if (action === "edit") {
-                            setEditUserModal(false)
                         }
                         props.setSuccessModal(true);
+                    }
+                } else {
+                    delete values.password;
+
+                    if (action === "edit") {
+                        dispatch(userActions.update(values, user.uid));
+                        setUsers(null);
+                        setEditUserModal(false);
+                        window.location.reload(true);
                     }
                 }
             }}
 
-            validationSchema={Yup.object().shape({
+            validationSchema={action === "add" && Yup.object().shape({
                 name: Yup.string()
                     .required("Required"),
                 username: Yup.string()

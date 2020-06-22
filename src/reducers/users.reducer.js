@@ -50,23 +50,6 @@ export function users(state = {}, action) {
             })
         };
 
-    case userConstants.UPDATE_REQUEST:
-        // add 'updating:true' property to user being updated
-        return {
-            ...state,
-            items: state.items.map(user =>
-                user.id === action.id
-                    ? { ...user, updating: true }
-                    : user
-                )
-        };
-
-    case userConstants.UPDATE_SUCCESS:
-        // remove deleted user from state
-        return {
-            items: state.items.filter(user => user.id !== action.id)
-        };
-
     default:
         return state
   }

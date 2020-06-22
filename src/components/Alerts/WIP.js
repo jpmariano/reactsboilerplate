@@ -9,8 +9,6 @@ function WIP(props) {
         setModalShow(props.wipModal);
     }, [props.wipModal]);
 
-    console.log(props.wipModal);
-
     const wipMsg = (
         <Modal
             show={modalShow}

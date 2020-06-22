@@ -12,6 +12,7 @@ function UserForm(props) {
     const formClasses = props.formClasses;
     const formDivClasses = props.formDivClasses;
     const pageLoc = props.pageLoc;
+    const action = props.action;
 
     const dispatch = useDispatch();
 
@@ -23,20 +24,21 @@ function UserForm(props) {
         <Formik
             initialValues={{
                 name: '',
-                email: '',
+                username: '',
                 password: '',
             }}
 
             onSubmit={async values => {
 
-                const userData = {
-                    name: values.name,
-                    username: values.email,
-                    password: values.password,
-                }
-                console.log(userData);
-                if (values.name && values.email && values.password) {
-                    dispatch(userActions.register(userData));
+                delete values.c_password;
+
+                if (values.name && values.username && values.password) {
+                    if (action === "add") {
+                        dispatch(userActions.register(values));
+
+                    } else if (action === "edit") {
+                        dispatch(userActions.update(values));
+                    }
 
                     if (pageLoc !== "register") {
                         props.setModalShow(false);
@@ -48,7 +50,7 @@ function UserForm(props) {
             validationSchema={Yup.object().shape({
                 name: Yup.string()
                     .required("Required"),
-                email: Yup.string()
+                username: Yup.string()
                     .email()
                     .required("Required"),
                 password: Yup.string()
@@ -91,18 +93,18 @@ function UserForm(props) {
                                 {errors.name && touched.name && (
                                     <div className="input-feedback">{errors.name}</div>
                                 )}
-                                <label htmlFor="email">Email</label>
+                                <label htmlFor="username">Email</label>
                                 <input
-                                    name="email"
+                                    name="username"
                                     type="email"
-                                    placeholder="Enter email"
+                                    placeholder="Enter username"
                                     value={values.email}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    className={errors.email && touched.email && "error"}
+                                    className={errors.username && touched.username && "error"}
                                 />
-                                {errors.email && touched.email && (
-                                    <div className="input-feedback">{errors.email}</div>
+                                {errors.username && touched.username && (
+                                    <div className="input-feedback">{errors.username}</div>
                                 )}
                                 <label htmlFor="add-user">Password</label>
                                 <input

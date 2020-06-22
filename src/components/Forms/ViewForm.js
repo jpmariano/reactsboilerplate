@@ -42,6 +42,14 @@ function ViewForm(props) {
             </ListItem>
             <ListItem>
                 <Typography variant="h6" noWrap style={{ flex: 1 }}>
+                    Status:
+                </Typography>
+                <ListItemText
+                    primary={user.status === 1 ? 'Active' : 'Inactive'}
+                />
+            </ListItem>
+            <ListItem>
+                <Typography variant="h6" noWrap style={{ flex: 1 }}>
                     Role/s:
                 </Typography>
                 <ListItemText

@@ -56,11 +56,11 @@ function List() {
     const userList = useSelector(state => state.users.items);
     const users = userList ? userList : [];
     const [deleteUserId, setDeleteUserId] = useState(-1);
-
-    console.log(deleteUserId);
+    const [updateUserIndex, setUpdateUserIndex] = useState(0);
 
     // modal-related variables
-    const [modalShow, setModalShow] = useState(false);
+    const [addUserModal, setAddUserModal] = useState(false);
+    const [editUserModal, setEditUserModal] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [wipModal, setWipModal] = useState(false);
@@ -72,10 +72,10 @@ function List() {
 
     const dispatch = useDispatch();
 
-    const addUserModal = (
+    const addUserForm = (
         <Modal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={addUserModal}
+            onHide={() => setAddUserModal(false)}
             size="md"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -85,7 +85,7 @@ function List() {
             </Modal.Header>
             <Modal.Body>
                 <UserForm 
-                    setModalShow={setModalShow} 
+                    setAddUserModal={setAddUserModal} 
                     setSuccessModal={setSuccessModal}
                     divClasses="user-form"
                     formClasses="userForm"
@@ -96,27 +96,28 @@ function List() {
             </Modal.Body>
         </Modal>
     );
-
-    const editUserModal = (
+    
+    const editUserForm = (
         <Modal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={editUserModal}
+            onHide={() => setEditUserModal(false)}
             size="md"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
-                <Modal.Title>Add User</Modal.Title>
+                <Modal.Title>Edit User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <UserForm 
-                    setModalShow={setModalShow} 
+                    setEditUserModal={setEditUserModal} 
                     setSuccessModal={setSuccessModal}
                     divClasses="user-form"
                     formClasses="userForm"
                     formDivClasses="user-form-fields"
                     pageLoc="users"
                     action="edit"
+                    user={users[updateUserIndex]}
                 />
             </Modal.Body>
         </Modal>
@@ -146,9 +147,9 @@ function List() {
 
     return (
         <div id="list-container">
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
-            {addUserModal}
-            {editUserModal}
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setAddUserModal(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
+            {addUserForm}
+            {editUserForm}
             <SuccessModal
                 successModal={successModal}
                 modalMessage="User successfully added!"
@@ -196,10 +197,10 @@ function List() {
                                                             column.format && typeof value === 'number' ? column.format(value) : value
                                                         :
                                                             <>
-                                                                <IconButton className="p-2" onClick={() => {console.log("edited"); setWipModal(true);}}>
+                                                                <IconButton className="p-2" onClick={() => {setEditUserModal(true); setUpdateUserIndex(index)}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {console.log('clicked!'); setDeleteUserId(user.uid); setConfirmModal(true)}}>
+                                                                <IconButton className="p-2" onClick={() => {setDeleteUserId(user.uid); setConfirmModal(true)}}>
                                                                     <FontAwesomeIcon icon={faTrash} className="text-danger"/>
                                                                 </IconButton>
                                                             </>

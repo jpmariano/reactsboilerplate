@@ -30,6 +30,7 @@ function WIP(props) {
                     variant="primary" 
                     onClick={() => {
                             setModalShow(false);
+                            props.setWipModal(false);
                         }
                     }
                 >

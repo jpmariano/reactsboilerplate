@@ -27,7 +27,16 @@ function Confirmation(props) {
                 {props.modalMessage}
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() => setModalShow(false)}>No</Button>
+                <Button 
+                    variant="secondary" 
+                    onClick={() => {
+                        setModalShow(false);
+                        props.setConfirmModal(false);
+                    }
+                }
+                >
+                    No
+                </Button>
                 <Button 
                     variant="primary" 
                     onClick={() => {
@@ -36,6 +45,7 @@ function Confirmation(props) {
 
                             if (!deleting) {
                                 setModalShow(false);
+                                props.setConfirmModal(false);
                                 window.location.reload(true);
                             }
                             // setTimeout(() => {

@@ -13,6 +13,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
 
 // actions
 import { userActions } from '../../actions';
@@ -54,7 +55,9 @@ function List() {
     // user-related variables
     const userList = useSelector(state => state.users.items);
     const users = userList ? userList : [];
-    const [deleteUserId, setDeleteUserId] = useState('');
+    const [deleteUserId, setDeleteUserId] = useState(-1);
+
+    console.log(deleteUserId);
 
     // modal-related variables
     const [modalShow, setModalShow] = useState(false);
@@ -119,9 +122,23 @@ function List() {
         <div id="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
             {addUserModal}
-            <SuccessModal successModal={successModal} modalMessage="User successfully added!"/> 
-            <ConfirmationModal confirmModal={confirmModal} modalMessage="Are you sure?" userId={deleteUserId} handleDeleteUser={handleDeleteUser}/>
-            <WipModal wipModal={wipModal} modalMessage="This action is work in progress. Sorry for the inconvenience."/>
+            <SuccessModal
+                successModal={successModal}
+                modalMessage="User successfully added!"
+                setSuccessModal={setSuccessModal}
+            /> 
+            <ConfirmationModal 
+                confirmModal={confirmModal}
+                modalMessage="Are you sure?"
+                userId={deleteUserId}
+                handleDeleteUser={handleDeleteUser}
+                setConfirmModal={setConfirmModal}
+            />
+            <WipModal
+                wipModal={wipModal}
+                modalMessage="This action is work in progress. Sorry for the inconvenience."
+                setWipModal={setWipModal}
+            />
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
@@ -143,23 +160,28 @@ function List() {
                             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user, index) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                    {columns.map((column) => {
-                                        const value = user[column.id];
-                                        if (column.id !== "action") {
+                                        {columns.map((column) => {
+                                            const value = user[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                    {
+                                                        column.id !== "action" ?
+                                                            column.format && typeof value === 'number' ? column.format(value) : value
+                                                        :
+                                                            <>
+                                                                {/* <button type="button" id="Edit" className="btn btn-primary mr-1" onClick={() => {console.log('clicked!'); setWipModal(true);}}><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
+                                                                <button type="button" id="Delete" className="btn btn-danger ml-1" onClick={() => {console.log('clicked!'); setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button> */}
+                                                                <IconButton onClick={() => {console.log("edited"); setWipModal(true);}}>
+                                                                    <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
+                                                                </IconButton>
+                                                                <IconButton onClick={() => {console.log('clicked!'); setDeleteUserId(user.uid); setConfirmModal(true)}}>
+                                                                    <FontAwesomeIcon icon={faTrash} className="text-danger"/>
+                                                                </IconButton>
+                                                            </>
+                                                    }
                                                 </TableCell>
                                             );
-                                        } else {
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    <button type="button" id="Edit" className="btn btn-primary mr-1" onClick={() => {console.log('clicked!'); setWipModal(true);}}><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
-                                                    <button type="button" id="Delete" className="btn btn-danger ml-1" onClick={() => {console.log('clicked!'); setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button>
-                                                </TableCell>
-                                            );
-                                        }
-                                    })}
+                                        })}
                                     </TableRow>
                                 );
                             })}

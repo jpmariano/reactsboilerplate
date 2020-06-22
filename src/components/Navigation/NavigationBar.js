@@ -120,12 +120,11 @@ function NavigationBar(props) {
                             </IconButton>
                             <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-items">
                                 <Button color="inherit" className="navbar-item" href="/dashboard">Dashboard</Button>
-                                <Button color="inherit" className="navbar-item" href="/admin/users">Users</Button>
                             </Typography>
                         </>
                     :
                         <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-items">
-                            <a className="navbar-brand" href="/">Sample</a>
+                            <a className="navbar-brand" href="/">React Boilerplate</a>
                         </Typography>
                 }
                 {/* Navbar items */}

@@ -15,6 +15,9 @@ import Popover from '@material-ui/core/Popover';
 import { userActions } from '../../actions';
 import { alertActions } from '../../actions';
 
+// components
+import ProfileMenu from './ProfileMenu'
+
 // helpers
 import { history } from '../../helpers';
 
@@ -83,7 +86,7 @@ function NavigationBar(props) {
 
     const navButtons = loggedIn ? (
         <div className="navbar-items">
-            <Button color="inherit" onClick={logout} className="navbar-item">Logout</Button>
+            <ProfileMenu logout={logout}/>
         </div>
     ) : (
         <div className="navbar-items">

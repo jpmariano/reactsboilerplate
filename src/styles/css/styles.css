@@ -153,6 +153,21 @@ html body #root .main-container #navigation-bar #navigation-bar-toolbar a.navbar
 html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-items a.navbar-item:hover {
   color: #fff;
 }
+html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-items .avatar-img {
+  width: 70%;
+  height: auto;
+  border-radius: 50em;
+}
+html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-items .avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50em;
+  width: 36px;
+  height: 36px;
+  font-size: 14.4px;
+}
 
 html body #root .container-fluid .tab-content .tab-pane {
   border-right: solid 1px transparent;

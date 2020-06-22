@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
@@ -13,18 +13,25 @@ function UserForm(props) {
     const formDivClasses = props.formDivClasses;
     const pageLoc = props.pageLoc;
     const action = props.action;
+    const [user, setUsers] = useState(props.user && action === 'edit' ? props.user : null);
+
+    console.log(user);
 
     const dispatch = useDispatch();
 
-    const setModalShow = (value) => {
-        props.setModalShow(value);
+    const setAddUserModal = (value) => {
+        props.setAddUserModal(value);
+    }
+
+    const setEditUserModal = (value) => {
+        props.setEditUserModal(value);
     }
 
     return (
         <Formik
             initialValues={{
-                name: '',
-                username: '',
+                name: user ? user.name : '',
+                username: user ? user.username : '',
                 password: '',
             }}
 
@@ -37,11 +44,16 @@ function UserForm(props) {
                         dispatch(userActions.register(values));
 
                     } else if (action === "edit") {
-                        dispatch(userActions.update(values));
+                        dispatch(userActions.update(values, user.uid));
+                        setUsers(null);
                     }
 
                     if (pageLoc !== "register") {
-                        props.setModalShow(false);
+                        if (action === "add") {
+                            setAddUserModal(false);
+                        } else if (action === "edit") {
+                            setEditUserModal(false)
+                        }
                         props.setSuccessModal(true);
                     }
                 }
@@ -98,7 +110,7 @@ function UserForm(props) {
                                     name="username"
                                     type="email"
                                     placeholder="Enter username"
-                                    value={values.email}
+                                    value={values.username}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                     className={errors.username && touched.username && "error"}
@@ -110,7 +122,7 @@ function UserForm(props) {
                                 <input
                                     name="password"
                                     type="password"
-                                    placeholder="Enter your password"
+                                    placeholder={ action === "add" ? "Enter your password" : "Leave blank to unchange"}
                                     value={values.password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -123,7 +135,7 @@ function UserForm(props) {
                                 <input
                                     name="c_password"
                                     type="password"
-                                    placeholder="Confirm your password"
+                                    placeholder={ action === "add" ? "Confirm your password" : "Leave blank to unchange"}
                                     value={values.c_password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -135,7 +147,19 @@ function UserForm(props) {
                                 <div className="float-right">
                                     {
                                         pageLoc !== "register" ?
-                                            <button type="button" className="btn btn-secondary mr-2" onClick={() => setModalShow(false)}> 
+                                            <button
+                                                type="button"
+                                                className="btn btn-secondary mr-2"
+                                                onClick={() => {
+                                                        if (action === "add") {
+                                                            setAddUserModal(false);
+                                                        } else if (action === "edit") {
+                                                            setEditUserModal(false);
+                                                            setUsers(null);
+                                                        }
+                                                    }
+                                                }
+                                            > 
                                                 Cancel
                                             </button>
                                         :

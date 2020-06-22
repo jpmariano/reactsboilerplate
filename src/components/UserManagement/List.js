@@ -142,7 +142,7 @@ function List() {
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
-                    <Table stickyHeader aria-label="sticky table">
+                    <Table stickyHeader size="small" aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                             {columns.map((column) => (
@@ -169,10 +169,10 @@ function List() {
                                                             column.format && typeof value === 'number' ? column.format(value) : value
                                                         :
                                                             <>
-                                                                <IconButton onClick={() => {console.log("edited"); setWipModal(true);}}>
+                                                                <IconButton className="p-2" onClick={() => {console.log("edited"); setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton onClick={() => {console.log('clicked!'); setDeleteUserId(user.uid); setConfirmModal(true)}}>
+                                                                <IconButton className="p-2" onClick={() => {console.log('clicked!'); setDeleteUserId(user.uid); setConfirmModal(true)}}>
                                                                     <FontAwesomeIcon icon={faTrash} className="text-danger"/>
                                                                 </IconButton>
                                                             </>

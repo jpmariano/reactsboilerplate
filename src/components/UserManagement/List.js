@@ -19,7 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { userActions } from '../../actions';
 
 // components
-import AddUserForm from '../Forms/UserForm';
+import UserForm from '../Forms/UserForm';
 import SuccessModal from '../Alerts/Successful';
 import ConfirmationModal from '../Alerts/Confirmation';
 import WipModal from '../Alerts/WIP';
@@ -84,13 +84,39 @@ function List() {
                 <Modal.Title>Add User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddUserForm 
+                <UserForm 
                     setModalShow={setModalShow} 
                     setSuccessModal={setSuccessModal}
                     divClasses="user-form"
                     formClasses="userForm"
                     formDivClasses="user-form-fields"
                     pageLoc="users"
+                    action="add"
+                />
+            </Modal.Body>
+        </Modal>
+    );
+
+    const editUserModal = (
+        <Modal
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Add User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <UserForm 
+                    setModalShow={setModalShow} 
+                    setSuccessModal={setSuccessModal}
+                    divClasses="user-form"
+                    formClasses="userForm"
+                    formDivClasses="user-form-fields"
+                    pageLoc="users"
+                    action="edit"
                 />
             </Modal.Body>
         </Modal>
@@ -122,6 +148,7 @@ function List() {
         <div id="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
             {addUserModal}
+            {editUserModal}
             <SuccessModal
                 successModal={successModal}
                 modalMessage="User successfully added!"

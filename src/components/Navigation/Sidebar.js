@@ -14,13 +14,25 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import Icon from '@material-ui/core/Icon';
+import Tooltip from '@material-ui/core/Tooltip';
+import Zoom from '@material-ui/core/Zoom';
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
 
 // navitems
 import NavItems from './NavItems';
 import ListItemLink from '../Common/ListItemLink';
 
+const theme = createMuiTheme({
+    overrides: {
+        MuiTooltip: {
+            tooltip: {
+                fontSize: "1.25rem",
+            }
+        }
+    }
+});
+
 function Sidebar(props) {
-    console.log(NavItems)
     return (
         <Drawer
             variant="permanent"
@@ -43,10 +55,21 @@ function Sidebar(props) {
             <Divider />
             <List>
                 {NavItems.map((item, index) => (
-                    <ListItemLink button component="a" href={item.url}>
-                        <ListItemIcon>
-                            <Icon>{item.icon}</Icon>
-                        </ListItemIcon>
+                    <ListItemLink button component="a" href={item.url} key={index}>
+                        {
+                            props.open ?
+                                <ListItemIcon>
+                                    <Icon>{item.icon}</Icon>
+                                </ListItemIcon>
+                            :
+                                <MuiThemeProvider theme={theme}>
+                                <Tooltip title={item.name} placement="right" arrow TransitionComponent={Zoom} className={props.classes.tooltip}>
+                                    <ListItemIcon>
+                                        <Icon>{item.icon}</Icon>
+                                    </ListItemIcon>
+                                </Tooltip>
+                                </MuiThemeProvider>
+                        }
                         <ListItemText primary={item.name} />
                     </ListItemLink>
                 ))}

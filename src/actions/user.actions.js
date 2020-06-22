@@ -102,23 +102,16 @@ function _delete(id) {
 
 function update(user, userId) {
     return dispatch => {
-        dispatch(request(user));
 
-        userService.update(user)
+        userService.update(user, userId)
             .then(
                 user => { 
-                    dispatch(success());
                     history.push('/admin/users');
                     dispatch(alertActions.success('User updated successfully'));
                 },
                 error => {
-                    dispatch(failure(error.toString()));
                     dispatch(alertActions.error(error.toString()));
                 }
             );
     };
-
-    function request(user) { return { type: userConstants.UPDATE_REQUEST, user } }
-    function success(user) { return { type: userConstants.UPDATE_SUCCESS, user } }
-    function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
 }

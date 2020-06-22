@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPencilAlt, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,11 +19,15 @@ import IconButton from '@material-ui/core/IconButton';
 import { userActions } from '../../actions';
 
 // components
-import UserForm from '../Forms/UserForm';
 import SuccessModal from '../Alerts/Successful';
 import ConfirmationModal from '../Alerts/Confirmation';
 import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
+
+// forms
+import UserForm from '../Forms/UserForm';
+import ViewForm from '../Forms/ViewForm';
+
 
 const columns = [
     { 
@@ -56,11 +60,12 @@ function List() {
     const userList = useSelector(state => state.users.items);
     const users = userList ? userList : [];
     const [deleteUserId, setDeleteUserId] = useState(-1);
-    const [updateUserIndex, setUpdateUserIndex] = useState(0);
+    const [selectedUserIndex, setSelectedUserIndex] = useState(0);
 
     // modal-related variables
     const [addUserModal, setAddUserModal] = useState(false);
     const [editUserModal, setEditUserModal] = useState(false);
+    const [viewUserModal, setViewUserModal] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [wipModal, setWipModal] = useState(false);
@@ -117,9 +122,39 @@ function List() {
                     formDivClasses="user-form-fields"
                     pageLoc="users"
                     action="edit"
-                    user={users[updateUserIndex]}
+                    user={users[selectedUserIndex]}
                 />
             </Modal.Body>
+        </Modal>
+    );
+
+    const viewUserForm = (
+        <Modal
+            show={viewUserModal}
+            onHide={() => setViewUserModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <ViewForm
+                    user={users[selectedUserIndex]}
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button 
+                    variant="primary" 
+                    onClick={() => {
+                        setViewUserModal(false);
+                        }
+                    }
+                >
+                    Okay
+                </Button>
+            </Modal.Footer>
         </Modal>
     );
 
@@ -150,6 +185,7 @@ function List() {
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setAddUserModal(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
             {addUserForm}
             {editUserForm}
+            {viewUserForm}
             <SuccessModal
                 successModal={successModal}
                 modalMessage="User successfully added!"
@@ -197,10 +233,10 @@ function List() {
                                                             column.format && typeof value === 'number' ? column.format(value) : value
                                                         :
                                                             <>
-                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                <IconButton className="p-2" onClick={() => {setViewUserModal(true); setSelectedUserIndex(index);}}>
                                                                     <FontAwesomeIcon icon={faEye} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {setEditUserModal(true); setUpdateUserIndex(index);}}>
+                                                                <IconButton className="p-2" onClick={() => {setEditUserModal(true); setSelectedUserIndex(index);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
                                                                 <IconButton className="p-2" onClick={() => {setDeleteUserId(user.uid); setConfirmModal(true)}}>

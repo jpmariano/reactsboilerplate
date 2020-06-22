@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material ui
@@ -197,7 +197,10 @@ function List() {
                                                             column.format && typeof value === 'number' ? column.format(value) : value
                                                         :
                                                             <>
-                                                                <IconButton className="p-2" onClick={() => {setEditUserModal(true); setUpdateUserIndex(index)}}>
+                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                    <FontAwesomeIcon icon={faEye} className="text-primary"/>
+                                                                </IconButton>
+                                                                <IconButton className="p-2" onClick={() => {setEditUserModal(true); setUpdateUserIndex(index);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
                                                                 <IconButton className="p-2" onClick={() => {setDeleteUserId(user.uid); setConfirmModal(true)}}>

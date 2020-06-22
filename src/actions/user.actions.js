@@ -8,7 +8,8 @@ export const userActions = {
     logout,
     register,
     getAll,
-    delete: _delete
+    delete: _delete,
+    update
 };
 
 function login(username, password) {
@@ -97,4 +98,27 @@ function _delete(id) {
     function request(id) { return { type: userConstants.DELETE_REQUEST, id } }
     function success(id) { return { type: userConstants.DELETE_SUCCESS, id } }
     function failure(id, error) { return { type: userConstants.DELETE_FAILURE, id, error } }
+}
+
+function update(user, userId) {
+    return dispatch => {
+        dispatch(request(user));
+
+        userService.update(user, userId)
+            .then(
+                user => { 
+                    dispatch(success(userId));
+                    history.push('/admin/users');
+                    dispatch(alertActions.success('User updated successfully'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(userId) { return { type: userConstants.UPDATE_REQUEST, userId } }
+    function success(userId) { return { type: userConstants.UPDATE_SUCCESS, userId } }
+    function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
 }

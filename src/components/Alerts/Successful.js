@@ -26,9 +26,9 @@ function Successful(props) {
             <Modal.Footer>
                 {
                     props.location === 'register' ?
-                        <Button variant="primary" onClick={() => setModalShow(false)}>Okay</Button>
+                        <Button variant="primary" onClick={() => {setModalShow(false); props.setSuccessModal(false);}}>Okay</Button>
                     :
-                        <Button variant="primary" onClick={() => {setModalShow(false); window.location.reload(true);}}>Okay</Button>
+                        <Button variant="primary" onClick={() => {setModalShow(false); window.location.reload(true); props.setSuccessModal(false)}}>Okay</Button>
                 }
             </Modal.Footer>
         </Modal>

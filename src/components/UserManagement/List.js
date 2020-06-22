@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Modal } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material ui
@@ -13,16 +13,21 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
 
 // actions
 import { userActions } from '../../actions';
 
 // components
-import AddUserForm from '../Forms/UserForm';
 import SuccessModal from '../Alerts/Successful';
 import ConfirmationModal from '../Alerts/Confirmation';
 import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
+
+// forms
+import UserForm from '../Forms/UserForm';
+import ViewForm from '../Forms/ViewForm';
+
 
 const columns = [
     { 
@@ -54,10 +59,13 @@ function List() {
     // user-related variables
     const userList = useSelector(state => state.users.items);
     const users = userList ? userList : [];
-    const [deleteUserId, setDeleteUserId] = useState('');
+    const [deleteUserId, setDeleteUserId] = useState(-1);
+    const [selectedUserIndex, setSelectedUserIndex] = useState(0);
 
     // modal-related variables
-    const [modalShow, setModalShow] = useState(false);
+    const [addUserModal, setAddUserModal] = useState(false);
+    const [editUserModal, setEditUserModal] = useState(false);
+    const [viewUserModal, setViewUserModal] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [wipModal, setWipModal] = useState(false);
@@ -69,10 +77,10 @@ function List() {
 
     const dispatch = useDispatch();
 
-    const addUserModal = (
+    const addUserForm = (
         <Modal
-            show={modalShow}
-            onHide={() => setModalShow(false)}
+            show={addUserModal}
+            onHide={() => setAddUserModal(false)}
             size="md"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -81,15 +89,72 @@ function List() {
                 <Modal.Title>Add User</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <AddUserForm 
-                    setModalShow={setModalShow} 
+                <UserForm 
+                    setAddUserModal={setAddUserModal} 
                     setSuccessModal={setSuccessModal}
                     divClasses="user-form"
                     formClasses="userForm"
                     formDivClasses="user-form-fields"
                     pageLoc="users"
+                    action="add"
                 />
             </Modal.Body>
+        </Modal>
+    );
+    
+    const editUserForm = (
+        <Modal
+            show={editUserModal}
+            onHide={() => setEditUserModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Edit User</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <UserForm 
+                    setEditUserModal={setEditUserModal} 
+                    setSuccessModal={setSuccessModal}
+                    divClasses="user-form"
+                    formClasses="userForm"
+                    formDivClasses="user-form-fields"
+                    pageLoc="users"
+                    action="edit"
+                    user={users[selectedUserIndex]}
+                />
+            </Modal.Body>
+        </Modal>
+    );
+
+    const viewUserForm = (
+        <Modal
+            show={viewUserModal}
+            onHide={() => setViewUserModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Details</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <ViewForm
+                    user={users[selectedUserIndex]}
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <Button 
+                    variant="primary" 
+                    onClick={() => {
+                        setViewUserModal(false);
+                        }
+                    }
+                >
+                    Okay
+                </Button>
+            </Modal.Footer>
         </Modal>
     );
 
@@ -117,15 +182,31 @@ function List() {
 
     return (
         <div id="list-container">
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setModalShow(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
-            {addUserModal}
-            <SuccessModal successModal={successModal} modalMessage="User successfully added!"/> 
-            <ConfirmationModal confirmModal={confirmModal} modalMessage="Are you sure?" userId={deleteUserId} handleDeleteUser={handleDeleteUser}/>
-            <WipModal wipModal={wipModal} modalMessage="This action is work in progress. Sorry for the inconvenience."/>
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setAddUserModal(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
+            {addUserForm}
+            {editUserForm}
+            {viewUserForm}
+            <SuccessModal
+                successModal={successModal}
+                modalMessage="User successfully added!"
+                setSuccessModal={setSuccessModal}
+            /> 
+            <ConfirmationModal 
+                confirmModal={confirmModal}
+                modalMessage="Are you sure?"
+                userId={deleteUserId}
+                handleDeleteUser={handleDeleteUser}
+                setConfirmModal={setConfirmModal}
+            />
+            <WipModal
+                wipModal={wipModal}
+                modalMessage="This action is work in progress. Sorry for the inconvenience."
+                setWipModal={setWipModal}
+            />
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
-                    <Table stickyHeader aria-label="sticky table">
+                    <Table stickyHeader size="small" aria-label="sticky table">
                         <TableHead>
                             <TableRow>
                             {columns.map((column) => (
@@ -143,23 +224,29 @@ function List() {
                             {users.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user, index) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                    {columns.map((column) => {
-                                        const value = user[column.id];
-                                        if (column.id !== "action") {
+                                        {columns.map((column) => {
+                                            const value = user[column.id];
                                             return (
                                                 <TableCell key={column.id} align={column.align}>
-                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                    {
+                                                        column.id !== "action" ?
+                                                            column.format && typeof value === 'number' ? column.format(value) : value
+                                                        :
+                                                            <>
+                                                                <IconButton className="p-2" onClick={() => {setViewUserModal(true); setSelectedUserIndex(index);}}>
+                                                                    <FontAwesomeIcon icon={faEye} className="text-primary"/>
+                                                                </IconButton>
+                                                                <IconButton className="p-2" onClick={() => {setEditUserModal(true); setSelectedUserIndex(index);}}>
+                                                                    <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
+                                                                </IconButton>
+                                                                <IconButton className="p-2" onClick={() => {setDeleteUserId(user.uid); setConfirmModal(true)}}>
+                                                                    <FontAwesomeIcon icon={faTrash} className="text-danger"/>
+                                                                </IconButton>
+                                                            </>
+                                                    }
                                                 </TableCell>
                                             );
-                                        } else {
-                                            return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    <button type="button" id="Edit" className="btn btn-primary mr-1" onClick={() => {console.log('clicked!'); setWipModal(true);}}><FontAwesomeIcon icon={faPencilAlt}/> Edit</button>
-                                                    <button type="button" id="Delete" className="btn btn-danger ml-1" onClick={() => {console.log('clicked!'); setDeleteUserId(user['uid']); setConfirmModal(true)}}><FontAwesomeIcon icon={faTrash}/> Delete</button>
-                                                </TableCell>
-                                            );
-                                        }
-                                    })}
+                                        })}
                                     </TableRow>
                                 );
                             })}

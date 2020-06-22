@@ -13,16 +13,15 @@ function App() {
     const classes = useStyles();
 
     return (
-        <div className={classes.root + " main-container"}>
-            <Navigation />
-            <main className={classes.content}>
-                <div className={classes.toolbar} />
-                
         <Router history={history}>
-                <Routes />
-                </Router>
-            </main>
-        </div>
+            <div className={classes.root + " main-container"}>
+                <Navigation />
+                <main className={classes.content}>
+                    <div className={classes.toolbar} />
+                    <Routes />
+                </main>
+            </div>
+        </Router>
     );
 }
 

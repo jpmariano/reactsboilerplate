@@ -15,6 +15,9 @@ import Popover from '@material-ui/core/Popover';
 import { userActions } from '../../actions';
 import { alertActions } from '../../actions';
 
+// components
+import ProfileMenu from './ProfileMenu'
+
 // helpers
 import { history } from '../../helpers';
 
@@ -83,7 +86,7 @@ function NavigationBar(props) {
 
     const navButtons = loggedIn ? (
         <div className="navbar-items">
-            <Button color="inherit" onClick={logout} className="navbar-item">Logout</Button>
+            <ProfileMenu logout={logout}/>
         </div>
     ) : (
         <div className="navbar-items">
@@ -120,12 +123,11 @@ function NavigationBar(props) {
                             </IconButton>
                             <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-items">
                                 <Button color="inherit" className="navbar-item" href="/dashboard">Dashboard</Button>
-                                <Button color="inherit" className="navbar-item" href="/admin/users">Users</Button>
                             </Typography>
                         </>
                     :
                         <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-items">
-                            <a className="navbar-brand" href="/">Sample</a>
+                            <a className="navbar-brand" href="/">React Boilerplate</a>
                         </Typography>
                 }
                 {/* Navbar items */}

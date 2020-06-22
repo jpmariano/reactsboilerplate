@@ -1,0 +1,5 @@
+export const roleConstants = {
+    ROLE_REQUEST: 'USERS_ROLE_REQUEST',
+    ROLE_SUCCESS: 'USERS_ROLE_SUCCESS',
+    ROLE_FAILURE: 'USERS_ROLE_FAILURE',
+};

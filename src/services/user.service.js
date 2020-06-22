@@ -8,7 +8,7 @@ export const userService = {
     register,
     getAll,
     // getById,
-    // update,
+    update,
     delete: _delete
 };
 
@@ -55,16 +55,12 @@ async function register(user) {
     return handleResponse(response);
 }
 
-// async function update(user) {
-//     const requestOptions = {
-//         method: 'PUT',
-//         headers: { ...authHeader(), 'Content-Type': 'application/json' },
-//         body: JSON.stringify(user)
-//     };
+async function update(user, userId) {
+    const data = user;
 
-//     const response = await fetch(`${config.apiUrl}/users/${user.id}`, requestOptions);
-//     return handleResponse(response);;
-// }
+    const response = await API.put('/users/' + userId, data);
+    return handleResponse(response);
+}
 
 // prefixed function name with underscore because delete is a reserved word in javascript
 async function _delete(id) {

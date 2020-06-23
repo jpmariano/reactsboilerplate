@@ -55,7 +55,7 @@ const columns = [
     },
 ];
 
-function List() {
+function Users() {
     // user-related variables
     const userList = useSelector(state => state.users.items);
     const users = userList ? userList : [];
@@ -178,7 +178,7 @@ function List() {
 
     const handleDeleteUser = (userId) => {
         dispatch(userActions.delete(userId));
-    }
+    };
 
     return (
         <div id="list-container">
@@ -267,4 +267,4 @@ function List() {
     );
 }
 
-export default List
+export default Users;

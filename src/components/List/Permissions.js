@@ -169,7 +169,6 @@ function Permissions() {
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(permission.pid, column.id);
-                                                                                    permission.roles.push(column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -205,7 +204,6 @@ function Permissions() {
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(permission.pid, column.id);
-                                                                                    permission.roles.push(column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -240,7 +238,6 @@ function Permissions() {
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(permission.pid, column.id);
-                                                                                    permission.roles.push(column.id);
                                                                                 }
                                                                             }/>
                                                                 }

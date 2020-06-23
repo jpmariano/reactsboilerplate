@@ -11,6 +11,7 @@ export function permissions(state = {}, action) {
         let permissions = action.permissions;
         let roleId = [];
         permissions.map((permission) => (
+            // eslint-disable-next-line
             roleId = [],
             permission.role_permissions.map((item) => (
                 roleId.push(item.role_permissionsid.rid)

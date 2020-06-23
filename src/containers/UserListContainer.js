@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // components
-import List from '../components/UserManagement/List';
+import Users from '../components/List/Users';
 
 function UserListContainer() {
 
@@ -15,12 +15,8 @@ function UserListContainer() {
 
     return (
         <div id="user-container">
-
             <h1>Users</h1>
-
-            <List />
-
-            
+            <Users />
         </div>
     );
 }

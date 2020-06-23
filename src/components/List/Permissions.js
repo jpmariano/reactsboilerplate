@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik } from "formik";
 
 // material ui
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 // actions
 import { permissionAction } from '../../actions';
+import { roleActions } from '../../actions';
 
 // components
 import AppStyles from '../Common/useStyles';
@@ -59,6 +59,7 @@ function Permissions() {
     const permissionsList = useSelector(state => state.permissions.items);
     const permissions = permissionsList ? permissionsList : [];
     const permissionsToUpdate = [];
+    console.log(permissions);
 
     const dispatch = useDispatch();
 
@@ -71,7 +72,7 @@ function Permissions() {
         fetchData();
     }, [dispatch]);
 
-    const handleUpdateRolChanges = (pid, rid) => {
+    const handleUpdateRoleChanges = (pid, rid) => {
         const role = {
             role_id: rid,
             role_permissions: [
@@ -89,6 +90,12 @@ function Permissions() {
     }
 
     const handleSubmit = () => {
+        for (var i = 0; i < permissionsToUpdate.length; i++) {
+            //Do something
+            const id = permissionsToUpdate[i].role_id;
+            delete permissionsToUpdate[i].role_id;
+            dispatch(roleActions.updateRole(permissionsToUpdate[i], id));
+        }
         console.log(permissionsToUpdate);
     }
 
@@ -127,6 +134,7 @@ function Permissions() {
                                             {
                                                 permissionsColumn.map((column) => {
                                                     const value = permission[column.id];
+
                                                     return (
                                                         <TableCell key={column.label} align={column.align}>
                                                             {
@@ -149,7 +157,7 @@ function Permissions() {
                                                                             checked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRolChanges(permission.pid, column.id)
+                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -160,7 +168,8 @@ function Permissions() {
                                                                             checked={false}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRolChanges(permission.pid, column.id)
+                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    permission.roles.push(column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -184,7 +193,7 @@ function Permissions() {
                                                                             checked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRolChanges(permission.pid, column.id)
+                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -195,7 +204,8 @@ function Permissions() {
                                                                             checked={false}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRolChanges(permission.pid, column.id)
+                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    permission.roles.push(column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -219,7 +229,7 @@ function Permissions() {
                                                                             checked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRolChanges(permission.pid, column.id)
+                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
                                                                                 }
                                                                             }/>
                                                                     :
@@ -229,7 +239,8 @@ function Permissions() {
                                                                             checked={false}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRolChanges(permission.pid, column.id)
+                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    permission.roles.push(column.id);
                                                                                 }
                                                                             }/>
                                                                 }

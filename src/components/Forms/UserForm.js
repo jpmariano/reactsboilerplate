@@ -3,6 +3,11 @@ import { Formik } from "formik";
 import * as Yup from 'yup';
 import { useDispatch } from 'react-redux';
 
+// material ui
+import Radio from '@material-ui/core/Radio';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+
 // actions
 import { userActions } from '../../actions';
 
@@ -31,6 +36,7 @@ function UserForm(props) {
                 name: user ? user.name : '',
                 username: user ? user.username : '',
                 password: '',
+                status: user ? user.status : 0,
             }}
 
             onSubmit={async values => {
@@ -39,6 +45,7 @@ function UserForm(props) {
 
                 if (values.name && values.username && values.password) {
                     if (action === "add") {
+                        delete values.status;
                         dispatch(userActions.register(values));
                     }
 
@@ -87,7 +94,8 @@ function UserForm(props) {
                     isSubmitting,
                     handleChange,
                     handleBlur,
-                    handleSubmit
+                    handleSubmit,
+                    setFieldValue
             } = props;
                 return (
                     <div className={divClasses}>
@@ -119,6 +127,14 @@ function UserForm(props) {
                                 {errors.username && touched.username && (
                                     <div className="input-feedback">{errors.username}</div>
                                 )}
+                                {
+                                    action === "edit" &&
+                                    <FormControl component="fieldset" className="d-inline">
+                                        <label htmlFor="status" className="mb-0">Status</label>
+                                        <FormControlLabel className="d-inline" control={<Radio color="primary" checked={values.status === 1} onChange={(e) => setFieldValue("status", 1)}/>} label="Active" />
+                                        <FormControlLabel className="d-inline" control={<Radio color="primary" checked={values.status === 0} onChange={(e) => setFieldValue("status", 0)}/>} label="Inactive" />
+                                    </FormControl>
+                                }
                                 <label htmlFor="add-user">Password</label>
                                 <input
                                     name="password"

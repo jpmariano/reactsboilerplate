@@ -40,12 +40,6 @@ const columns = [
         label: 'Email', 
         minWidth: 170
     },
-    { 
-        id: 'users_roles', 
-        label: 'Role', 
-        minWidth: 170,
-        format: (value) => value === 1 ? 'Administrator' : '',
-    },
     {
         id: 'status',
         label: 'Status',
@@ -236,10 +230,7 @@ function List() {
                                                 <TableCell key={column.id} align={column.align}>
                                                     {
                                                         column.id !== "action" ?
-                                                            column.id === "users_roles" ?
-                                                                column.format && typeof value[0].users_rolesid.rid === 'number' ? column.format(value[0].users_rolesid.rid) : value[0].users_rolesid.rid
-                                                            :
-                                                                column.format && typeof value === 'number' ? column.format(value) : value
+                                                            column.format && typeof value === 'number' ? column.format(value) : value
                                                         :
                                                             <>
                                                                 <IconButton className="p-2" onClick={() => {setViewUserModal(true); setSelectedUserIndex(index);}}>

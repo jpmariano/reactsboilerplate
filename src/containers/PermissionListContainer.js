@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 // components
+import Permissions from '../components/List/Permissions';
 
 function PermissionListContainer() {
 
@@ -15,6 +16,7 @@ function PermissionListContainer() {
     return (
         <div id="permission-container">
             <h1>Permissions</h1>
+            <Permissions />
         </div>
     );
 }

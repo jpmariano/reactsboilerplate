@@ -40,6 +40,11 @@ const columns = [
         label: 'Email', 
         minWidth: 170 
     },
+    { 
+        id: 'role', 
+        label: 'Role', 
+        minWidth: 170 
+    },
     {
         id: 'status',
         label: 'Status',

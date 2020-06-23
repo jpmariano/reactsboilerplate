@@ -50,10 +50,10 @@ function ViewForm(props) {
             </ListItem>
             <ListItem>
                 <Typography variant="h6" noWrap style={{ flex: 1 }}>
-                    Role/s:
+                    Role:
                 </Typography>
                 <ListItemText
-                    primary={userRoles ? userRoles[0].name : 'N/A'}
+                    primary={userRoles ? userRoles[0].name === 'ROLE_ADMIN' ? 'Administrator': '' : ''}
                 />
             </ListItem>
         </List>

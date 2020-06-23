@@ -58,8 +58,8 @@ function Permissions() {
     // permission-related variables
     const permissionsList = useSelector(state => state.permissions.items);
     const permissions = permissionsList ? permissionsList : [];
-    const permissionsToUpdate = [];
-    console.log(permissions);
+    let permissionRole = [];
+    let permissionsToUpdate = [];
 
     const dispatch = useDispatch();
 
@@ -84,6 +84,8 @@ function Permissions() {
                 }
             ]
         };
+
+        permissionRole.push(rid)
 
         permissionsToUpdate.push(role);
         console.log(permissionsToUpdate);
@@ -165,7 +167,6 @@ function Permissions() {
                                                                         <Checkbox
                                                                             key={index}
                                                                             color="primary"
-                                                                            checked={false}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(permission.pid, column.id);
@@ -200,7 +201,6 @@ function Permissions() {
                                                                         <Checkbox
                                                                             key={index}
                                                                             color="primary"
-                                                                            checked={false}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(permission.pid, column.id);
@@ -234,7 +234,6 @@ function Permissions() {
                                                                         <Checkbox
                                                                             key={index}
                                                                             color="primary"
-                                                                            checked={false}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(permission.pid, column.id);

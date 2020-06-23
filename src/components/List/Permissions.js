@@ -10,6 +10,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import Checkbox from '@material-ui/core/Checkbox';
 
 // actions
 import { permissionAction } from '../../actions';
@@ -24,21 +25,21 @@ const columns = [
         minWidth: 750 
     },
     { 
-        id: 'role_permissions', 
+        id: 'role_authenticated', 
         label: 'ROLE_AUTHENTICATED', 
         mWidth: 50,
         align: 'center',
         format: (value) => value === 3 ? true : false,
     },
     {
-        id: 'role_permissions',
+        id: 'role_main',
         label: 'ROLE_MAIN',
         minWidth: 50,
         align: 'center',
         format: (value) => value === 2 ? true : false,
     },
     {
-        id: 'role_permissions',
+        id: 'role_admin',
         label: 'ROLE_ADMIN',
         minWidth: 50,
         align: 'center',
@@ -97,22 +98,24 @@ function Permissions() {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {permissions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user, index) => {
+                            {permissions.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((permission, index) => {
                                 return (
                                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                        {columns.map((column) => {
-                                            const value = user[column.id];
-                                            return (
-                                                <TableCell key={column.label} align={column.align}>
-                                                    {
-                                                        column.id !== "role_permissions" ?
-                                                            column.format && typeof value === 'number' ? column.format(value) : value
-                                                        :
-                                                            null
-                                                    }
-                                                </TableCell>
-                                            );
-                                        })}
+                                        {
+                                            columns.map((column) => {
+                                                const value = permission[column.id];
+                                                return (
+                                                    <TableCell key={column.label} align={column.align}>
+                                                        {
+                                                            (column.id !== "role_admin") && (column.id !== "role_main") && (column.id !== "role_authenticated") ?
+                                                                column.format && typeof value === 'number' ? column.format(value) : value
+                                                            :
+                                                                <Checkbox key={index} color="primary" checked={false}/>
+                                                        }
+                                                    </TableCell>
+                                                );
+                                            })
+                                        }
                                     </TableRow>
                                 );
                             })}

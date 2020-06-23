@@ -9,6 +9,7 @@ import Register from './containers/RegisterContainer';
 import Logout from './components/Authentication/Logout';
 import NotFound from './components/Common/NotFound';
 import Dashboard from './containers/DashboardContainer';
+import Permissions from './containers/PermissionListContainer';
 
 // private route
 import { PrivateRoute } from './components/Routes';
@@ -21,6 +22,7 @@ function Routes() {
             <PrivateRoute exact path='/dashboard' component={ Dashboard } />
             <PrivateRoute exact path='/admin/users' component={ Users } />
             <PrivateRoute exact path='/logout' component={ Logout } />
+            <PrivateRoute exact path='/admin/users/permissions' component={ Permissions } />
 
             {/* Public Routes */}
             <Route exact path='/' component={ Home } />

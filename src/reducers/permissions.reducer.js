@@ -8,8 +8,18 @@ export function permissions(state = {}, action) {
         };
 
     case permissionConstants.GETALL_SUCCESS:
+        let permissions = action.permissions;
+        let roleId = [];
+        permissions.map((permission) => (
+            roleId = [],
+            permission.role_permissions.map((item) => (
+                roleId.push(item.role_permissionsid.rid)
+            )),
+            permission['roles'] = roleId
+        ));
+        
         return {
-            items: action.permissions
+            items: permissions
         };
 
     case permissionConstants.GETALL_FAILURE:

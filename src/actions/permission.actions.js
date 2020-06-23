@@ -11,12 +11,12 @@ function getAll() {
 
         permissionService.getAll()
             .then(
-                users => dispatch(success(users)),
+                permissions => dispatch(success(permissions)),
                 error => dispatch(failure(error.toString()))
             );
     };
 
     function request() { return { type: permissionConstants.GETALL_REQUEST } }
-    function success(users) { return { type: permissionConstants.GETALL_SUCCESS, users } }
+    function success(permissions) { return { type: permissionConstants.GETALL_SUCCESS, permissions } }
     function failure(error) { return { type: permissionConstants.GETALL_FAILURE, error } }
 }

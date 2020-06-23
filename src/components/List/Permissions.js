@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 // material ui
@@ -11,32 +11,38 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
+// actions
+import { permissionAction } from '../../actions';
+
 // components
 import AppStyles from '../Common/useStyles';
 
 const columns = [
     { 
-        id: 'permissions', 
+        id: 'name', 
         label: 'Permissions', 
-        minWidth: 170 
+        minWidth: 750 
     },
     { 
-        id: 'username', 
-        label: 'Email', 
-        minWidth: 170
+        id: 'role_permissions', 
+        label: 'ROLE_AUTHENTICATED', 
+        mWidth: 50,
+        align: 'center',
+        format: (value) => value === 3 ? true : false,
     },
     {
-        id: 'status',
-        label: 'Status',
-        minWidth: 100,
+        id: 'role_permissions',
+        label: 'ROLE_MAIN',
+        minWidth: 50,
         align: 'center',
-        format: (value) => value === 1 ? 'Active' : 'Inactive',
+        format: (value) => value === 2 ? true : false,
     },
     {
-        id: 'action',
-        label: 'Action',
-        minWidth: 170,
+        id: 'role_permissions',
+        label: 'ROLE_ADMIN',
+        minWidth: 50,
         align: 'center',
+        format: (value) => value === 1 ? true : false,
     },
 ];
 
@@ -48,10 +54,19 @@ function Permissions() {
     const classes = AppStyles();
 
     // permission-related variables
-    const permissionsList = useSelector(state => state.users.items);
+    const permissionsList = useSelector(state => state.permissions.items);
     const permissions = permissionsList ? permissionsList : [];
 
     const dispatch = useDispatch();
+
+    // Methods
+    useEffect(() => {
+        async function fetchData() {
+            dispatch(permissionAction.getAll());
+        }
+        
+        fetchData();
+    }, [dispatch]);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -72,7 +87,7 @@ function Permissions() {
                             <TableRow>
                             {columns.map((column) => (
                                 <TableCell
-                                    key={column.id}
+                                    key={column.label}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
                                 >
@@ -88,9 +103,12 @@ function Permissions() {
                                         {columns.map((column) => {
                                             const value = user[column.id];
                                             return (
-                                                <TableCell key={column.id} align={column.align}>
+                                                <TableCell key={column.label} align={column.align}>
                                                     {
-                                                        column.format && typeof value === 'number' ? column.format(value) : value
+                                                        column.id !== "role_permissions" ?
+                                                            column.format && typeof value === 'number' ? column.format(value) : value
+                                                        :
+                                                            null
                                                     }
                                                 </TableCell>
                                             );

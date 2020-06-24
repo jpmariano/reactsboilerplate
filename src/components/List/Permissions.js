@@ -18,6 +18,9 @@ import { roleActions } from '../../actions';
 // components
 import AppStyles from '../Common/useStyles';
 
+// helpers
+import { arrayHelpers } from '../../helpers';
+
 const permissionsColumn = [
     { 
         id: 'name', 
@@ -58,7 +61,7 @@ function Permissions() {
     // permission-related variables
     const permissionsList = useSelector(state => state.permissions.items);
     const permissions = permissionsList ? permissionsList : [];
-    let permissionRole = [];
+    // let permissionRole = [];
     let permissionsToUpdate = [];
 
     const dispatch = useDispatch();
@@ -73,32 +76,28 @@ function Permissions() {
     }, [dispatch]);
 
     const handleUpdateRoleChanges = (pid, rid) => {
-        const role = {
-            role_id: rid,
-            role_permissions: [
-                {
-                    role_permissionsid: {
-                        pid: pid,
-                        rid: rid
-                    }
-                }
-            ]
-        };
-
-        permissionRole.push(rid)
-
-        permissionsToUpdate.push(role);
+        const res = arrayHelpers.existsIn2dArray(permissionsToUpdate, pid, rid);
+        if (res) {
+            const position = permissionsToUpdate.indexOf([pid, rid]);
+            permissionsToUpdate.splice(position, 1);
+        } else {
+            const role = [pid, rid];
+            permissionsToUpdate.push(role);
+        }
+        
         console.log(permissionsToUpdate);
     }
 
-    const handleSubmit = () => {
-        for (var i = 0; i < permissionsToUpdate.length; i++) {
-            //Do something
-            const id = permissionsToUpdate[i].role_id;
-            delete permissionsToUpdate[i].role_id;
-            dispatch(roleActions.updateRole(permissionsToUpdate[i], id));
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (permissionsToUpdate.length > 0) {
+            for (var i = 0; i < permissionsToUpdate.length; i++) {
+                //Do something
+                const id = permissionsToUpdate[i][1];
+                dispatch(roleActions.updateRolePermissions(permissionsToUpdate[i], id));
+            }
+            console.log(permissionsToUpdate);
         }
-        console.log(permissionsToUpdate);
     }
 
     return (

@@ -59,9 +59,6 @@ function UserForm(props) {
                 rolesToRemove.push(role);
             }
         }
-        
-        console.log(rolesToAdd);
-        console.log(rolesToRemove);
     }
 
     const updateUserRoles = (e) => {
@@ -71,7 +68,6 @@ function UserForm(props) {
                 const id = rolesToAdd[i][0];
                 dispatch(userActions.addUserRole(rolesToAdd[i], id));
             }
-            console.log(rolesToAdd);
         }
 
         if (rolesToRemove.length > 0) {
@@ -80,7 +76,6 @@ function UserForm(props) {
                 const id = rolesToRemove[j][0];
                 dispatch(userActions.removeUserRole(rolesToRemove[j], id));
             }
-            console.log(rolesToRemove);
         }
     }
 
@@ -192,9 +187,36 @@ function UserForm(props) {
                                         {
                                             roles.map((item, index) => (
                                                 userRoles.includes(item.rid) ?
-                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} checked={true} color="primary" onChange={() => {handleUpdateRoleChanges(true, user.uid, item.rid)}}/>} label={item.name} />
+                                                    <FormControlLabel
+                                                        key={index}
+                                                        control={
+                                                            <Checkbox
+                                                                key={item.rid}
+                                                                defaultChecked={true}
+                                                                color="primary"
+                                                                onChange={() => {
+                                                                        handleUpdateRoleChanges(true, user.uid, item.rid);
+                                                                    }
+                                                                }
+                                                            />
+                                                        }
+                                                        label={item.name}
+                                                    />
                                                 :
-                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} color="primary" onChange={() => {handleUpdateRoleChanges(false, user.uid, item.rid)}}/>} label={item.name} />
+                                                    <FormControlLabel
+                                                    key={index}
+                                                    control={
+                                                        <Checkbox
+                                                            key={item.rid}
+                                                            color="primary"
+                                                            onChange={() => {
+                                                                    handleUpdateRoleChanges(false, user.uid, item.rid);
+                                                                }
+                                                            }
+                                                        />
+                                                    }
+                                                    label={item.name}
+                                                />
                                             ))
                                         }
                                         <label htmlFor="status" className="mb-0 mt-4">Status</label>

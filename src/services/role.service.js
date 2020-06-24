@@ -4,7 +4,7 @@ import API from "../utils/api";
 
 export const roleService = {
     getRole,
-    updateRole
+    updateRolePermissions
 };
 
 async function getRole(id) {
@@ -14,9 +14,20 @@ async function getRole(id) {
     return response.data;
 }
 
-async function updateRole(object, id) {
+async function updateRolePermissions(permissionRole, id) {
 
-    const response = await API.put('/admin/role/' + id, object);
+    const data = {
+        role_permissions: [
+            {
+                role_permissionsid: {
+                    pid: permissionRole[0],
+                    rid: permissionRole[1]
+                }
+            }
+        ]
+    }
+
+    const response = await API.put('/admin/role/' + id, data);
 
     return response.data;
 }

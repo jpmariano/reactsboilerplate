@@ -22,7 +22,8 @@ async function login(username, password) {
     const user = await handleResponse(response);
 
     // store user details and jwt token in session storage to keep user logged in between page refreshes
-    sessionStorage.setItem('user', JSON.stringify(user.body.user));
+    // sessionStorage.setItem('user', JSON.stringify(user.body.user[0].name));
+    sessionStorage.setItem('user', JSON.stringify('loggedIn'));
     sessionStorage.setItem('token', JSON.stringify(user.body.key[0]));
 
     return user;

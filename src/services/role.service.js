@@ -1,5 +1,5 @@
 // import config from 'config';
-// import { authHeader } from '../helpers';
+import { authHeader } from '../helpers';
 import API from "../utils/api";
 
 export const roleService = {
@@ -34,6 +34,9 @@ async function addRolePermissions(permissionRole, id) {
 }
 
 async function removeRolePermissions(permissionRole, id) {
+    const requestOptions = {
+        headers: authHeader()
+    };
 
     const data = {
         role_permissions: [
@@ -46,7 +49,7 @@ async function removeRolePermissions(permissionRole, id) {
         ]
     }
 
-    const response = await API.put('/admin/role/' + id + '?rolepermission=remove', data);
+    const response = await API.put('/admin/role/' + id + '?rolepermission=remove', data, requestOptions);
 
     return response.data;
 }

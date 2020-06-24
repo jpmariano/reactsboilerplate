@@ -3,7 +3,7 @@ export function authHeader() {
     let token = JSON.parse(sessionStorage.getItem('token'));
 
     if (token) {
-        return { 'Authorization': token };
+        return { 'Authorization': 'Bearer ' + token };
     } else {
         return {};
     }

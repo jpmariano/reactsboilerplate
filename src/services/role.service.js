@@ -4,7 +4,8 @@ import API from "../utils/api";
 
 export const roleService = {
     getRole,
-    addRolePermissions
+    addRolePermissions,
+    removeRolePermissions
 };
 
 async function getRole(id) {
@@ -28,6 +29,24 @@ async function addRolePermissions(permissionRole, id) {
     }
 
     const response = await API.put('/admin/role/' + id, data);
+
+    return response.data;
+}
+
+async function removeRolePermissions(permissionRole, id) {
+
+    const data = {
+        role_permissions: [
+            {
+                role_permissionsid: {
+                    pid: permissionRole[0],
+                    rid: permissionRole[1]
+                }
+            }
+        ]
+    }
+
+    const response = await API.put('/admin/role/' + id + '?rolepermission=remove', data);
 
     return response.data;
 }

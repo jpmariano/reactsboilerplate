@@ -19,6 +19,22 @@ export function role(state = {}, action) {
         return { 
             error: action.error
         };
+    
+    case roleConstants.GETALL_REQUEST:
+        return {
+            loading: true
+        };
+
+    case roleConstants.GETALL_SUCCESS:
+
+        return {
+            items: action.roles
+        };
+
+    case roleConstants.GETALL_FAILURE:
+        return { 
+            error: action.error
+        };
 
 
     default:

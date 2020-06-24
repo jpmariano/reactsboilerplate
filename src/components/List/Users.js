@@ -62,6 +62,7 @@ function Users() {
     const users = userList ? userList : [];
     const [deleteUserId, setDeleteUserId] = useState(-1);
     const [selectedUserIndex, setSelectedUserIndex] = useState(0);
+    const roles = useSelector(state => state.role.items);
 
     // modal-related variables
     const [addUserModal, setAddUserModal] = useState(false);
@@ -124,6 +125,7 @@ function Users() {
                     pageLoc="users"
                     action="edit"
                     user={users[selectedUserIndex]}
+                    roles={roles}
                 />
             </Modal.Body>
         </Modal>

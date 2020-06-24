@@ -12,6 +12,9 @@ import Checkbox from '@material-ui/core/Checkbox';
 // actions
 import { userActions } from '../../actions';
 
+// helpers
+import { arrayHelpers } from '../../helpers';
+
 function UserForm(props) {
     
     const divClasses = props.divClasses;
@@ -22,16 +25,63 @@ function UserForm(props) {
     const [user, setUsers] = useState(props.user && action === 'edit' ? props.user : null);
     const roles = props.roles;
     const userRoles = props.user.roles;
+    let rolesToAdd = [];
+    let rolesToRemove = [];
 
     const dispatch = useDispatch();
 
-    // 
+    // methods
     const setAddUserModal = (value) => {
         props.setAddUserModal(value);
     }
 
     const setEditUserModal = (value) => {
         props.setEditUserModal(value);
+    }
+
+    const handleUpdateRoleChanges = (checked, pid, rid) => {
+        if (!checked) {
+            const res = arrayHelpers.existsIn2dArray(rolesToAdd, pid, rid);
+            if (res) {
+                const position = rolesToAdd.indexOf([pid, rid]);
+                rolesToAdd.splice(position, 1);
+            } else {
+                const role = [pid, rid];
+                rolesToAdd.push(role);
+            }
+        } else {
+            const res = arrayHelpers.existsIn2dArray(rolesToRemove, pid, rid);
+            if (res) {
+                const position = rolesToRemove.indexOf([pid, rid]);
+                rolesToRemove.splice(position, 1);
+            } else {
+                const role = [pid, rid];
+                rolesToRemove.push(role);
+            }
+        }
+        
+        console.log(rolesToAdd);
+        console.log(rolesToRemove);
+    }
+
+    const updateUserRoles = (e) => {
+        if (rolesToAdd.length > 0) {
+            for (var i = 0; i < rolesToAdd.length; i++) {
+                //Do something
+                const id = rolesToAdd[i][0];
+                dispatch(userActions.addUserRole(rolesToAdd[i], id));
+            }
+            console.log(rolesToAdd);
+        }
+
+        if (rolesToRemove.length > 0) {
+            for (var j = 0; j < rolesToRemove.length; j++) {
+                //Do something
+                const id = rolesToRemove[j][0];
+                dispatch(userActions.removeUserRole(rolesToRemove[j], id));
+            }
+            console.log(rolesToRemove);
+        }
     }
 
     return (
@@ -67,6 +117,7 @@ function UserForm(props) {
 
                     if (action === "edit") {
                         dispatch(userActions.update(values, user.uid));
+                        updateUserRoles();
                         setUsers(null);
                         setEditUserModal(false);
                         window.location.reload(true);
@@ -141,9 +192,9 @@ function UserForm(props) {
                                         {
                                             roles.map((item, index) => (
                                                 userRoles.includes(item.rid) ?
-                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} checked={true} color="primary"/>} label={item.name} />
+                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} checked={true} color="primary" onChange={() => {handleUpdateRoleChanges(true, user.uid, item.rid)}}/>} label={item.name} />
                                                 :
-                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} color="primary"/>} label={item.name} />
+                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} color="primary" onChange={() => {handleUpdateRoleChanges(false, user.uid, item.rid)}}/>} label={item.name} />
                                             ))
                                         }
                                         <label htmlFor="status" className="mb-0 mt-4">Status</label>

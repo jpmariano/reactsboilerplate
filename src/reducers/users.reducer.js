@@ -8,8 +8,19 @@ export function users(state = {}, action) {
         };
 
     case userConstants.GETALL_SUCCESS:
+        let users = action.users;
+        let roleId = [];
+        users.map((user) => (
+            // eslint-disable-next-line
+            roleId = [],
+            user.users_roles.map((item) => (
+                roleId.push(item.users_rolesid.rid)
+            )),
+            user['roles'] = roleId
+        ));
+
         return {
-            items: action.users
+            items: users
         };
 
     case userConstants.GETALL_FAILURE:

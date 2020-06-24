@@ -95,9 +95,6 @@ function Permissions() {
                 permissionsToRemove.push(role);
             }
         }
-        
-        console.log(permissionsToAdd);
-        console.log(permissionsToRemove);
     }
 
     const handleSubmit = (e) => {
@@ -107,7 +104,6 @@ function Permissions() {
                 const id = permissionsToAdd[i][1];
                 dispatch(roleActions.addRolePermissions(permissionsToAdd[i], id));
             }
-            console.log(permissionsToAdd);
         }
 
         if (permissionsToRemove.length > 0) {
@@ -116,7 +112,6 @@ function Permissions() {
                 const id = permissionsToRemove[j][1];
                 dispatch(roleActions.removeRolePermissions(permissionsToRemove[j], id));
             }
-            console.log(permissionsToRemove);
         }
     }
 
@@ -175,7 +170,7 @@ function Permissions() {
                                                                         <Checkbox
                                                                             key={index}
                                                                             color="primary"
-                                                                            checked={column.format(column.id)}
+                                                                            defaultChecked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(true, permission.pid, column.id);
@@ -209,7 +204,7 @@ function Permissions() {
                                                                         <Checkbox
                                                                             key={index}
                                                                             color="primary"
-                                                                            checked={column.format(column.id)}
+                                                                            defaultChecked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(true, permission.pid, column.id);
@@ -243,7 +238,7 @@ function Permissions() {
                                                                         <Checkbox
                                                                             key={index}
                                                                             color="primary"
-                                                                            checked={column.format(column.id)}
+                                                                            defaultChecked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(true, permission.pid, column.id);

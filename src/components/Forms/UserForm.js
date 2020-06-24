@@ -46,6 +46,9 @@ function UserForm(props) {
                 if (values.name && values.username && values.password) {
                     if (action === "add") {
                         delete values.status;
+                        dispatch(userActions.addUser(values));
+                    } else if (action === "register") {
+                        delete values.status;
                         dispatch(userActions.register(values));
                     }
 

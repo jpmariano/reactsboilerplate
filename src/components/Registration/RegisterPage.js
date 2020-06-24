@@ -16,6 +16,7 @@ function RegisterPage() {
                 formClasses="registerForm"
                 formDivClasses="register-form-fields"
                 pageLoc="register"
+                action="register"
             />
             <SuccessModal modalShow={successModal} modalMessage='Registration successful!' location='register'/>
         </>

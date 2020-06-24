@@ -44,7 +44,7 @@ function updateRolePermissions(object, id) {
             );
     };
 
-    function request(role) { return { type: roleConstants.ROLE_REQUEST, role } }
-    function success(role) { return { type: roleConstants.ROLE_SUCCESS, role } }
-    function failure(error) { return { type: roleConstants.ROLE_FAILURE, error } }
+    function request(role) { return { type: roleConstants.ADD_PERMISSION_REQUEST, role } }
+    function success(role) { return { type: roleConstants.ADD_PERMISSION_SUCCESS, role } }
+    function failure(error) { return { type: roleConstants.ADD_PERMISSION_FAILURE, error } }
 }

@@ -3,10 +3,32 @@ import { roleService } from '../services';
 import { alertActions } from './';
 
 export const roleActions = {
+    getAllRole,
     getRole,
     addRolePermissions,
     removeRolePermissions
 };
+
+function getAllRole() {
+    return dispatch => {
+        dispatch(request());
+
+        roleService.getAllRole()
+            .then(
+                roles => { 
+                    dispatch(success(roles));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request() { return { type: roleConstants.GETALL_REQUEST } }
+    function success(roles) { return { type: roleConstants.GETALL_SUCCESS, roles } }
+    function failure(error) { return { type: roleConstants.GETALL_FAILURE, error } }
+}
 
 function getRole(id) {
     return dispatch => {

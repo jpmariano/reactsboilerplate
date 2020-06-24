@@ -8,6 +8,7 @@ export const userService = {
     register,
     getAll,
     // getById,
+    addUser,
     update,
     delete: _delete
 };
@@ -49,10 +50,17 @@ async function getAll() {
 //     return handleResponse(response);
 // }
 
-async function register(user) {
+async function addUser(user) {
     const data = user;
 
     const response = await API.post('/register', data);
+    return handleResponse(response);
+}
+
+async function register(user) {
+    const data = user;
+
+    const response = await API.post('/register?register=1', data);
     return handleResponse(response);
 }
 

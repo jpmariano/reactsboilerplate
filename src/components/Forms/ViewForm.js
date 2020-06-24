@@ -13,7 +13,7 @@ import { roleActions } from '../../actions';
 
 function ViewForm(props) {
     const user = props.user ? props.user : null;
-    const roles = useSelector(state => state.role.items);
+    const roles = useSelector(state => state.role.currentRole);
     const userRoles = roles ? roles : null;
     const dispatch = useDispatch();
 

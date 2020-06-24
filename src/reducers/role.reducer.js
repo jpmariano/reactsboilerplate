@@ -12,7 +12,7 @@ export function role(state = {}, action) {
         currentItems.push(action.role);
 
         return {
-            items: currentItems
+            currentRole: currentItems
         };
 
     case roleConstants.ROLE_FAILURE:

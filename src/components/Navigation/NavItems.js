@@ -13,5 +13,10 @@ export default [
         name: 'Permissions',
         url: '/admin/users/permissions',
         icon: 'vpn_key'
+    },
+    {
+        name: 'Roles',
+        url: '/admin/users/roles',
+        icon: 'device_hub'
     }
 ];

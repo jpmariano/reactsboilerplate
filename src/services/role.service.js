@@ -3,10 +3,18 @@ import { authHeader } from '../helpers';
 import API from "../utils/api";
 
 export const roleService = {
+    getAllRole,
     getRole,
     addRolePermissions,
     removeRolePermissions
 };
+
+async function getAllRole() {
+
+    const response = await API.get('/admin/role',);
+
+    return response.data;
+}
 
 async function getRole(id) {
 

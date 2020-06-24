@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 
 // actions
 import { userActions } from '../../actions';
+import { roleActions } from '../../actions';
 
 // components
 import SuccessModal from '../Alerts/Successful';
@@ -162,6 +163,7 @@ function Users() {
     useEffect(() => {
         async function fetchData() {
             dispatch(userActions.getAll());
+            dispatch(roleActions.getAllRole());
         }
         
         fetchData();

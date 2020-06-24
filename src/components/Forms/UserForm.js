@@ -7,21 +7,25 @@ import { useDispatch } from 'react-redux';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import Checkbox from '@material-ui/core/Checkbox';
 
 // actions
 import { userActions } from '../../actions';
 
 function UserForm(props) {
-
+    
     const divClasses = props.divClasses;
     const formClasses = props.formClasses;
     const formDivClasses = props.formDivClasses;
     const pageLoc = props.pageLoc;
     const action = props.action;
     const [user, setUsers] = useState(props.user && action === 'edit' ? props.user : null);
+    const roles = props.roles;
+    const userRoles = props.user.roles;
 
     const dispatch = useDispatch();
 
+    // 
     const setAddUserModal = (value) => {
         props.setAddUserModal(value);
     }
@@ -133,7 +137,16 @@ function UserForm(props) {
                                 {
                                     action === "edit" &&
                                     <FormControl component="fieldset" className="d-inline">
-                                        <label htmlFor="status" className="mb-0">Status</label>
+                                        <label htmlFor="status" className="mb-0">Roles</label>
+                                        {
+                                            roles.map((item, index) => (
+                                                userRoles.includes(item.rid) ?
+                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} checked={true} color="primary"/>} label={item.name} />
+                                                :
+                                                    <FormControlLabel key={index} control={<Checkbox key={item.rid} color="primary"/>} label={item.name} />
+                                            ))
+                                        }
+                                        <label htmlFor="status" className="mb-0 mt-4">Status</label>
                                         <FormControlLabel className="d-inline" control={<Radio color="primary" checked={values.status === 1} onChange={(e) => setFieldValue("status", 1)}/>} label="Active" />
                                         <FormControlLabel className="d-inline" control={<Radio color="primary" checked={values.status === 0} onChange={(e) => setFieldValue("status", 0)}/>} label="Inactive" />
                                     </FormControl>

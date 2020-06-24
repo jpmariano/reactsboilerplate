@@ -9,7 +9,9 @@ export const userActions = {
     register,
     getAll,
     delete: _delete,
-    update
+    update,
+    addUserRole,
+    removeUserRole
 };
 
 function login(username, password) {
@@ -121,4 +123,50 @@ function update(user, userId) {
     function request(userId) { return { type: userConstants.UPDATE_REQUEST, userId } }
     function success(userId) { return { type: userConstants.UPDATE_SUCCESS, userId } }
     function failure(error) { return { type: userConstants.UPDATE_FAILURE, error } }
+}
+
+function addUserRole(object, id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        userService.addUserRole(object, id)
+            .then(
+                user => { 
+                    dispatch(success(user));
+                    history.push('/admin/users');
+                    dispatch(alertActions.success('User updated successfully'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.ADD_ROLE_REQUEST, user } }
+    function success(user) { return { type: userConstants.ADD_ROLE_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.ADD_ROLE_FAILURE, error } }
+}
+
+function removeUserRole(object, id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        userService.removeUserRole(object, id)
+            .then(
+                role => { 
+                    dispatch(success(role));
+                    history.push('/admin/users');
+                    dispatch(alertActions.success('User updated successfully'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(role) { return { type: userConstants.REMOVE_ROLE_REQUEST, role } }
+    function success(role) { return { type: userConstants.REMOVE_ROLE_SUCCESS, role } }
+    function failure(error) { return { type: userConstants.REMOVE_ROLE_FAILURE, error } }
 }

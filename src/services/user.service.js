@@ -1,5 +1,5 @@
 // import config from 'config';
-// import { authHeader } from '../helpers';
+import { authHeader } from '../helpers';
 import API from "../utils/api";
 
 export const userService = {
@@ -10,7 +10,9 @@ export const userService = {
     // getById,
     addUser,
     update,
-    delete: _delete
+    delete: _delete,
+    addUserRole,
+    removeUserRole
 };
 
 async function login(username, password) {
@@ -76,7 +78,47 @@ async function _delete(id) {
 
     const response = await API.delete('/users/' + id,);
     const user = handleResponse(response);
-    console.log(user);
+    return user;
+}
+
+async function addUserRole(userRole, id) {
+
+    const data = {
+        users_roles: [
+            {
+                users_rolesid: {
+                    uid: userRole[0],
+                    rid: userRole[1]
+                }
+            }
+        ]
+    }
+
+    const response = await API.put('/users/' + id, data);
+    const user = handleResponse(response);
+
+    return user;
+}
+
+async function removeUserRole(userRole, id) {
+    const requestOptions = {
+        headers: authHeader()
+    };
+
+    const data = {
+        users_roles: [
+            {
+                users_rolesid: {
+                    uid: userRole[0],
+                    rid: userRole[1]
+                }
+            }
+        ]
+    }
+
+    const response = await API.put('/users/' + id + '?userrole=remove', data, requestOptions);
+    const user = handleResponse(response);
+
     return user;
 }
 

@@ -4,7 +4,7 @@ import { alertActions } from './';
 
 export const roleActions = {
     getRole,
-    updateRolePermissions
+    addRolePermissions
 };
 
 function getRole(id) {
@@ -28,11 +28,11 @@ function getRole(id) {
     function failure(error) { return { type: roleConstants.ROLE_FAILURE, error } }
 }
 
-function updateRolePermissions(object, id) {
+function addRolePermissions(object, id) {
     return dispatch => {
         dispatch(request(id));
 
-        roleService.updateRolePermissions(object, id)
+        roleService.addRolePermissions(object, id)
             .then(
                 role => { 
                     dispatch(success(role));

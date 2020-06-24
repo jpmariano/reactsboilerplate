@@ -61,8 +61,8 @@ function Permissions() {
     // permission-related variables
     const permissionsList = useSelector(state => state.permissions.items);
     const permissions = permissionsList ? permissionsList : [];
-    // let permissionRole = [];
-    let permissionsToUpdate = [];
+    let permissionsToAdd = [];
+    let permissionsToRemove = [];
 
     const dispatch = useDispatch();
 
@@ -75,28 +75,48 @@ function Permissions() {
         fetchData();
     }, [dispatch]);
 
-    const handleUpdateRoleChanges = (pid, rid) => {
-        const res = arrayHelpers.existsIn2dArray(permissionsToUpdate, pid, rid);
-        if (res) {
-            const position = permissionsToUpdate.indexOf([pid, rid]);
-            permissionsToUpdate.splice(position, 1);
+    const handleUpdateRoleChanges = (checked, pid, rid) => {
+        if (!checked) {
+            const res = arrayHelpers.existsIn2dArray(permissionsToAdd, pid, rid);
+            if (res) {
+                const position = permissionsToAdd.indexOf([pid, rid]);
+                permissionsToAdd.splice(position, 1);
+            } else {
+                const role = [pid, rid];
+                permissionsToAdd.push(role);
+            }
         } else {
-            const role = [pid, rid];
-            permissionsToUpdate.push(role);
+            const res = arrayHelpers.existsIn2dArray(permissionsToRemove, pid, rid);
+            if (res) {
+                const position = permissionsToRemove.indexOf([pid, rid]);
+                permissionsToRemove.splice(position, 1);
+            } else {
+                const role = [pid, rid];
+                permissionsToRemove.push(role);
+            }
         }
         
-        console.log(permissionsToUpdate);
+        console.log(permissionsToAdd);
+        console.log(permissionsToRemove);
     }
 
     const handleSubmit = (e) => {
-        e.preventDefault();
-        if (permissionsToUpdate.length > 0) {
-            for (var i = 0; i < permissionsToUpdate.length; i++) {
+        if (permissionsToAdd.length > 0) {
+            for (var i = 0; i < permissionsToAdd.length; i++) {
                 //Do something
-                const id = permissionsToUpdate[i][1];
-                dispatch(roleActions.updateRolePermissions(permissionsToUpdate[i], id));
+                const id = permissionsToAdd[i][1];
+                dispatch(roleActions.addRolePermissions(permissionsToAdd[i], id));
             }
-            console.log(permissionsToUpdate);
+            console.log(permissionsToAdd);
+        }
+
+        if (permissionsToRemove.length > 0) {
+            for (var j = 0; j < permissionsToRemove.length; j++) {
+                //Do something
+                const id = permissionsToRemove[j][1];
+                dispatch(roleActions.removeRolePermissions(permissionsToRemove[j], id));
+            }
+            console.log(permissionsToRemove);
         }
     }
 
@@ -158,7 +178,7 @@ function Permissions() {
                                                                             checked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    handleUpdateRoleChanges(true, permission.pid, column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -168,7 +188,7 @@ function Permissions() {
                                                                             color="primary"
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    handleUpdateRoleChanges(false, permission.pid, column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -192,7 +212,7 @@ function Permissions() {
                                                                             checked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    handleUpdateRoleChanges(true, permission.pid, column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -202,7 +222,7 @@ function Permissions() {
                                                                             color="primary"
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    handleUpdateRoleChanges(false, permission.pid, column.id);
                                                                                 }
                                                                             }
                                                                         />
@@ -226,7 +246,7 @@ function Permissions() {
                                                                             checked={column.format(column.id)}
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    handleUpdateRoleChanges(true, permission.pid, column.id);
                                                                                 }
                                                                             }/>
                                                                     :
@@ -235,7 +255,7 @@ function Permissions() {
                                                                             color="primary"
                                                                             onChange={() => {
                                                                                     console.log(permission.pid); console.log(column.id);
-                                                                                    handleUpdateRoleChanges(permission.pid, column.id);
+                                                                                    handleUpdateRoleChanges(false, permission.pid, column.id);
                                                                                 }
                                                                             }/>
                                                                 }

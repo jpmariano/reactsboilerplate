@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal } from 'react-bootstrap';
 
 // material ui
 import Paper from '@material-ui/core/Paper';
@@ -22,6 +22,7 @@ import { roleActions } from '../../actions';
 import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
 import SuccessModal from '../Alerts/Successful';
+import ConfirmationModal from '../Alerts/Confirmation';
 
 // forms
 import PermissionForm from '../Forms/Permission/PermissionForm';
@@ -70,6 +71,7 @@ function Permissions() {
     const permissionsList = useSelector(state => state.permissions.items);
     const [selectedPermissionIndex, setSelectedPermissionIndex] = useState(0);
     const permissions = permissionsList ? permissionsList : [];
+    const [deletePermissionId, setDeletePermissionId] = useState(-1);
     let permissionsToAdd = [];
     let permissionsToRemove = [];
 
@@ -147,9 +149,6 @@ function Permissions() {
                 <PermissionForm 
                     setAddPermissionModal={setAddPermissionModal} 
                     setSuccessModal={setSuccessModal}
-                    divClasses="permission-form"
-                    formClasses="permissionForm"
-                    formDivClasses="permission-form-fields"
                     action="add"
                 />
             </Modal.Body>
@@ -171,20 +170,23 @@ function Permissions() {
                 <PermissionForm 
                     setEditPermissionModal={setEditPermissionModal} 
                     setSuccessModal={setSuccessModal}
-                    divClasses="permission-form"
-                    formClasses="permissionForm"
-                    formDivClasses="permission-form-fields"
                     action="edit"
                     permission={permissions[selectedPermissionIndex]}
+                    setConfirmModal={setConfirmModal}
                 />
             </Modal.Body>
         </Modal>
     );
 
+    const handleDeletePermission = (permissionId) => {
+        dispatch(permissionActions.delete(permissionId));
+    };
+
     return (
         <div className="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setAddPermissionModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Permission</button>
             {addPermissionForm}
+            {editPermissionForm}
             <WipModal
                 wipModal={wipModal}
                 modalMessage="This action is work in progress. Sorry for the inconvenience."
@@ -194,7 +196,16 @@ function Permissions() {
                 successModal={successModal}
                 modalMessage="Permission successfully added!"
                 setSuccessModal={setSuccessModal}
-            /> 
+            />
+            <ConfirmationModal 
+                confirmModal={confirmModal}
+                modalMessage="Are you sure?"
+                deletePermissionId={deletePermissionId}
+                handleDeletePermission={handleDeletePermission}
+                setConfirmModal={setConfirmModal}
+                pageLoc="permissions"
+                setEditPermissionModal={setEditPermissionModal}
+            />
 
             <form onSubmit={handleSubmit}>
                 <Paper className="w-100 border">
@@ -231,7 +242,7 @@ function Permissions() {
                                                     const value = permission[column.id];
 
                                                     return (
-                                                        <TableCell key={column.label} align={column.align} onClick={() => {setWipModal(true)}}>
+                                                        <TableCell style={{ cursor: 'pointer' }} key={column.label} align={column.align} onClick={() => {setEditPermissionModal(true); setSelectedPermissionIndex(index); setDeletePermissionId(permission.pid)}}>
                                                             {
                                                                 column.format && typeof value === 'number' ? column.format(value) : value
                                                             }

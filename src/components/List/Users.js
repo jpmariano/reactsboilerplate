@@ -22,12 +22,11 @@ import { roleActions } from '../../actions';
 // components
 import SuccessModal from '../Alerts/Successful';
 import ConfirmationModal from '../Alerts/Confirmation';
-import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
 
 // forms
-import UserForm from '../Forms/UserForm';
-import ViewForm from '../Forms/ViewForm';
+import UserForm from '../Forms/User/UserForm';
+import ViewForm from '../Forms/User/ViewForm';
 
 
 const columns = [
@@ -70,7 +69,6 @@ function Users() {
     const [viewUserModal, setViewUserModal] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
-    const [wipModal, setWipModal] = useState(false);
 
     // table-related variables
     const [page, setPage] = React.useState(0);
@@ -201,11 +199,6 @@ function Users() {
                 userId={deleteUserId}
                 handleDeleteUser={handleDeleteUser}
                 setConfirmModal={setConfirmModal}
-            />
-            <WipModal
-                wipModal={wipModal}
-                modalMessage="This action is work in progress. Sorry for the inconvenience."
-                setWipModal={setWipModal}
             />
 
             <Paper className="w-100 border">

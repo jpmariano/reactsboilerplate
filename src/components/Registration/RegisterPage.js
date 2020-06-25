@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 // components
 import SuccessModal from '../Alerts/Successful';
-import RegisterForm from '../Forms/UserForm';
+import RegisterForm from '../Forms/User/UserForm';
 
 function RegisterPage() {
 

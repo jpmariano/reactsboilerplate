@@ -22,7 +22,7 @@ import ProfileMenu from './ProfileMenu'
 import { history } from '../../helpers';
 
 // forms
-import LoginForm from '../Forms/LoginForm';
+import LoginForm from '../Forms/User/LoginForm';
 
 function NavigationBar(props) {
     // authentication

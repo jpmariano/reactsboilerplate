@@ -4,10 +4,18 @@ import API from "../utils/api";
 
 export const permissionService = {
     getAll,
+    addPermission,
 };
 
 async function getAll() {
     const response = await API.get('/admin/permissions',);
+    return handleResponse(response);
+}
+
+async function addPermission(permission) {
+    const data = permission;
+
+    const response = await API.post('/admin/permissions', data);
     return handleResponse(response);
 }
 

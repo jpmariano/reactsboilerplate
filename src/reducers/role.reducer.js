@@ -32,7 +32,6 @@ export function role(state = { currentRole: [], items: []}, action) {
     case roleConstants.GETALL_SUCCESS:
 
         return {
-            ...state,
             items: action.roles
         };
 

@@ -8,6 +8,7 @@ function Confirmation(props) {
     const [modalShow, setModalShow] = useState(props.confirmModal);
     const userId = props.userId;
     const deletePermissionId = props.deletePermissionId;
+    const deleteRoleId = props.deleteRoleId;
 
     const setEditPermissionModal = (value) => {
         props.setEditPermissionModal(value);
@@ -57,11 +58,15 @@ function Confirmation(props) {
                                 props.handleDeletePermission(deletePermissionId);
                             }
 
+                            if (props.pageLoc === "roles") {
+                                props.handleDeleteRole(deleteRoleId);
+                            }
+
                             if (!deleting) {
                                 setTimeout(() => {
                                     props.setConfirmModal(false);
                                     setModalShow(false);
-                                    window.location.reload(true);
+                                    // window.location.reload(true);
                                 }, 500);
                             }
                             

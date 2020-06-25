@@ -124,8 +124,6 @@ function Roles() {
         </Modal>
     );
 
-    console.log(roles[selectedRoleIndex])
-
     const handleDeleteRole = (roleId) => {
         dispatch(roleActions.delete(roleId));
     };
@@ -189,7 +187,7 @@ function Roles() {
                                                                 <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setWipModal(true);}}>
+                                                                <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setConfirmModal(true);}}>
                                                                     <FontAwesomeIcon icon={faTrash} className="text-danger"/>
                                                                 </IconButton>
                                                             </>

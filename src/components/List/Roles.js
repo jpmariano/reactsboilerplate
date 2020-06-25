@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPencilAlt, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { Modal } from 'react-bootstrap';
 
 // material ui
 import Paper from '@material-ui/core/Paper';
@@ -21,6 +22,11 @@ import { roleActions } from '../../actions';
 // components
 import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
+import SuccessModal from '../Alerts/Successful';
+import ConfirmationModal from '../Alerts/Confirmation';
+
+// forms
+import RoleForm from '../Forms/Role/RoleForm';
 
 const columns = [
     { 
@@ -40,6 +46,8 @@ function Roles() {
     // role-related variables
     const rolesList = useSelector(state => state.role.items);
     const roles = rolesList ? rolesList : [];
+    const [selectedPermissionIndex, setSelectedRoleIndex] = useState(0);
+    const [deletePermissionId, setDeleteRoleId] = useState(-1);
 
     // table-related variables
     const [page, setPage] = React.useState(0);
@@ -48,6 +56,10 @@ function Roles() {
 
     // modal-related variables
     const [wipModal, setWipModal] = useState(false);
+    const [addRoleModal, setAddRoleModal] = useState(false);
+    const [editRoleModal, setEditRoleModal] = useState(false);
+    const [successModal, setSuccessModal] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -68,15 +80,80 @@ function Roles() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    const addRoleForm = (
+        <Modal
+            show={addRoleModal}
+            onHide={() => setAddRoleModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Add Role</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <RoleForm 
+                    setAddRoleModal={setAddRoleModal} 
+                    setSuccessModal={setSuccessModal}
+                    action="add"
+                />
+            </Modal.Body>
+        </Modal>
+    );
+
+    const editRoleForm = (
+        <Modal
+            show={editRoleModal}
+            onHide={() => setEditRoleModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Edit Role</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <RoleForm 
+                    setEditRoleModal={setEditRoleModal} 
+                    setSuccessModal={setSuccessModal}
+                    action="edit"
+                    permission={roles[selectedPermissionIndex]}
+                    setConfirmModal={setConfirmModal}
+                />
+            </Modal.Body>
+        </Modal>
+    );
+
+    const handleDeletePermission = (roleId) => {
+        // dispatch(permissionActions.delete(roleId));
+    };
     
     return (
         <div id="list-container">
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setWipModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Role</button>
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setAddRoleModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Role</button>
+            {addRoleForm}
+            {editRoleForm}
             <WipModal
                 wipModal={wipModal}
                 modalMessage="This action is work in progress. Sorry for the inconvenience."
                 setWipModal={setWipModal}
             />
+            <SuccessModal
+                successModal={successModal}
+                modalMessage="Role successfully added!"
+                setSuccessModal={setSuccessModal}
+            />
+            <ConfirmationModal 
+                confirmModal={confirmModal}
+                modalMessage="Are you sure?"
+                deletePermissionId={deletePermissionId}
+                handleDeletePermission={handleDeletePermission}
+                setConfirmModal={setConfirmModal}
+                pageLoc="roles"
+                setEditRoleModal={setEditRoleModal}
+            />
+
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
                     <Table stickyHeader size="small" aria-label="sticky table">
@@ -99,7 +176,7 @@ function Roles() {
                                     <TableRow hover role="checkbox" tabIndex={-1} key={index}>
                                         {columns.map((column) => {
                                             return (
-                                                <TableCell key={role.rid} align={column.align}>
+                                                <TableCell key={column.id} align={column.align}>
                                                     {
                                                         column.id === 'roles' ?
                                                             role.name

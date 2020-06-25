@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 // material ui
 import Paper from '@material-ui/core/Paper';
@@ -16,6 +18,7 @@ import { permissionAction } from '../../actions';
 import { roleActions } from '../../actions';
 
 // components
+import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
 
 // helpers
@@ -63,6 +66,10 @@ function Permissions() {
     const permissions = permissionsList ? permissionsList : [];
     let permissionsToAdd = [];
     let permissionsToRemove = [];
+
+    // modal-related variables
+    const [wipModal, setWipModal] = useState(false);
+
 
     const dispatch = useDispatch();
 
@@ -117,6 +124,13 @@ function Permissions() {
 
     return (
         <div className="list-container">
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setWipModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Permission</button>
+            <WipModal
+                wipModal={wipModal}
+                modalMessage="This action is work in progress. Sorry for the inconvenience."
+                setWipModal={setWipModal}
+            />
+
             <form onSubmit={handleSubmit}>
                 <Paper className="w-100 border">
                     <TableContainer className={classes.container}>
@@ -152,7 +166,7 @@ function Permissions() {
                                                     const value = permission[column.id];
 
                                                     return (
-                                                        <TableCell key={column.label} align={column.align}>
+                                                        <TableCell key={column.label} align={column.align} onClick={() => {setWipModal(true)}}>
                                                             {
                                                                 column.format && typeof value === 'number' ? column.format(value) : value
                                                             }

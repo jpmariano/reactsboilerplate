@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPencilAlt, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { roleActions } from '../../actions';
 
 // components
+import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
 
 const columns = [
@@ -45,6 +46,9 @@ function Roles() {
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
     const classes = AppStyles();
 
+    // modal-related variables
+    const [wipModal, setWipModal] = useState(false);
+
     const dispatch = useDispatch();
 
     // Methods
@@ -67,7 +71,12 @@ function Roles() {
     
     return (
         <div id="list-container">
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {console.log('add')}}><FontAwesomeIcon icon={faPlus}/> Add Role</button>
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setWipModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Role</button>
+            <WipModal
+                wipModal={wipModal}
+                modalMessage="This action is work in progress. Sorry for the inconvenience."
+                setWipModal={setWipModal}
+            />
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
                     <Table stickyHeader size="small" aria-label="sticky table">
@@ -96,13 +105,13 @@ function Roles() {
                                                             role.name
                                                         :
                                                             <>
-                                                                <IconButton className="p-2" onClick={() => {console.log('view');}}>
+                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faEye} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {console.log('edit');}}>
+                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {console.log('delete');}}>
+                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faTrash} className="text-danger"/>
                                                                 </IconButton>
                                                             </>

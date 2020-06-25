@@ -199,6 +199,7 @@ function Users() {
                 userId={deleteUserId}
                 handleDeleteUser={handleDeleteUser}
                 setConfirmModal={setConfirmModal}
+                pageLoc="users"
             />
 
             <Paper className="w-100 border">

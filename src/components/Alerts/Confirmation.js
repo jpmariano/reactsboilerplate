@@ -66,7 +66,7 @@ function Confirmation(props) {
                                 setTimeout(() => {
                                     props.setConfirmModal(false);
                                     setModalShow(false);
-                                    // window.location.reload(true);
+                                    window.location.reload(true);
                                 }, 500);
                             }
                             

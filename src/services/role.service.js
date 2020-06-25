@@ -8,6 +8,7 @@ export const roleService = {
     addRolePermissions,
     removeRolePermissions,
     addRole,
+    updateRole,
 };
 
 async function getAllRole() {
@@ -67,6 +68,13 @@ async function addRole(role) {
     const data = role;
 
     const response = await API.post('/admin/role', data);
+    return handleResponse(response);
+}
+
+async function updateRole(role, id) {
+    const data = role;
+
+    const response = await API.put('/admin/role/' + id, data);
     return handleResponse(response);
 }
 

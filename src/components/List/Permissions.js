@@ -262,7 +262,6 @@ function Permissions() {
                                                                             color="primary"
                                                                             defaultChecked={column.format(column.id)}
                                                                             onChange={() => {
-                                                                                    console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(true, permission.pid, column.id);
                                                                                 }
                                                                             }
@@ -272,7 +271,6 @@ function Permissions() {
                                                                             key={index}
                                                                             color="primary"
                                                                             onChange={() => {
-                                                                                    console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(false, permission.pid, column.id);
                                                                                 }
                                                                             }
@@ -296,7 +294,6 @@ function Permissions() {
                                                                             color="primary"
                                                                             defaultChecked={column.format(column.id)}
                                                                             onChange={() => {
-                                                                                    console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(true, permission.pid, column.id);
                                                                                 }
                                                                             }
@@ -306,7 +303,6 @@ function Permissions() {
                                                                             key={index}
                                                                             color="primary"
                                                                             onChange={() => {
-                                                                                    console.log(permission.pid); console.log(column.id);
                                                                                     handleUpdateRoleChanges(false, permission.pid, column.id);
                                                                                 }
                                                                             }

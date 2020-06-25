@@ -6,7 +6,12 @@ function Confirmation(props) {
     
     const deleting = useSelector(state => state.authentication.deleting);
     const [modalShow, setModalShow] = useState(props.confirmModal);
-    const userId = props.userId
+    const userId = props.userId;
+    const deletePermissionId = props.deletePermissionId;
+
+    const setEditPermissionModal = (value) => {
+        props.setEditPermissionModal(value);
+    }
 
     useEffect(() => {
         setModalShow(props.confirmModal);
@@ -32,6 +37,9 @@ function Confirmation(props) {
                     onClick={() => {
                         setModalShow(false);
                         props.setConfirmModal(false);
+                        if (props.pageLoc === "permissions") {
+                            setEditPermissionModal(true);
+                        }
                     }
                 }
                 >
@@ -40,17 +48,23 @@ function Confirmation(props) {
                 <Button 
                     variant="primary" 
                     onClick={() => {
-                        
-                            props.handleDeleteUser(userId); 
+
+                            if (props.pageLoc === "users") {
+                                props.handleDeleteUser(userId); 
+                            }
+
+                            if (props.pageLoc === "permissions") {
+                                props.handleDeletePermission(deletePermissionId);
+                            }
 
                             if (!deleting) {
-                                setModalShow(false);
-                                props.setConfirmModal(false);
-                                window.location.reload(true);
+                                setTimeout(() => {
+                                    props.setConfirmModal(false);
+                                    setModalShow(false);
+                                    window.location.reload(true);
+                                }, 500);
                             }
-                            // setTimeout(() => {
-                            //     window.location.reload(true);
-                            // }, 1000);
+                            
                         }
                     }
                 >

@@ -31,8 +31,8 @@ async function updatePermission(permission, id) {
 async function _delete(id) {
 
     const response = await API.delete('/admin/permissions/' + id,);
-    const user = handleResponse(response);
-    return user;
+    const permission = handleResponse(response);
+    return permission;
 }
 
 function logout() {

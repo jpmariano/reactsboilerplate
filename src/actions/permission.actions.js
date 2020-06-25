@@ -6,6 +6,8 @@ import { history } from '../helpers';
 export const permissionActions = {
     getAll,
     addPermission,
+    updatePermission,
+    delete: _delete,
 };
 
 function getAll() {
@@ -33,7 +35,7 @@ function addPermission(permission) {
                 permission => { 
                     dispatch(success(permission));
                     history.push('/admin/users/permissions');
-                    dispatch(alertActions.success('Registration successful'));
+                    dispatch(alertActions.success('Add permission successful'));
                 },
                 error => {
                     dispatch(failure(error.toString()));
@@ -45,4 +47,49 @@ function addPermission(permission) {
     function request(permission) { return { type: permissionConstants.ADD_REQUEST, permission } }
     function success(permission) { return { type: permissionConstants.ADD_SUCCESS, permission } }
     function failure(error) { return { type: permissionConstants.ADD_FAILURE, error } }
+}
+
+function updatePermission(permission, id) {
+    return dispatch => {
+        dispatch(request(permission));
+
+        permissionService.updatePermission(permission, id)
+            .then(
+                permission => { 
+                    dispatch(success(permission));
+                    history.push('/admin/users/permissions');
+                    dispatch(alertActions.success('Update permission successful'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(permission) { return { type: permissionConstants.UPDATE_REQUEST, permission } }
+    function success(permission) { return { type: permissionConstants.UPDATE_SUCCESS, permission } }
+    function failure(error) { return { type: permissionConstants.UPDATE_FAILURE, error } }
+}
+
+function _delete(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        permissionService.delete(id)
+            .then(
+                permission => { 
+                    dispatch(success(id));
+                    dispatch(alertActions.success('Deleted permission successfully'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(id) { return { type: permissionConstants.UPDATE_REQUEST, id } }
+    function success(id) { return { type: permissionConstants.UPDATE_SUCCESS, id } }
+    function failure(error) { return { type: permissionConstants.UPDATE_FAILURE, error } }
 }

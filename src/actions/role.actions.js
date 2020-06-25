@@ -9,6 +9,7 @@ export const roleActions = {
     addRolePermissions,
     removeRolePermissions,
     addRole,
+    updateRole,
 };
 
 function getAllRole() {
@@ -116,4 +117,27 @@ function addRole(role) {
     function request(role) { return { type: roleConstants.ADD_REQUEST, role } }
     function success(role) { return { type: roleConstants.ADD_SUCCESS, role } }
     function failure(error) { return { type: roleConstants.ADD_FAILURE, error } }
+}
+
+function updateRole(role, id) {
+    return dispatch => {
+        dispatch(request(role));
+
+        roleService.updateRole(role, id)
+            .then(
+                role => { 
+                    dispatch(success(role));
+                    history.push('/admin/users/roles');
+                    dispatch(alertActions.success('Update role successful'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(role) { return { type: roleConstants.UPDATE_REQUEST, role } }
+    function success(role) { return { type: roleConstants.UPDATE_SUCCESS, role } }
+    function failure(error) { return { type: roleConstants.UPDATE_FAILURE, error } }
 }

@@ -10,6 +10,7 @@ export const roleActions = {
     removeRolePermissions,
     addRole,
     updateRole,
+    delete: _delete,
 };
 
 function getAllRole() {
@@ -140,4 +141,26 @@ function updateRole(role, id) {
     function request(role) { return { type: roleConstants.UPDATE_REQUEST, role } }
     function success(role) { return { type: roleConstants.UPDATE_SUCCESS, role } }
     function failure(error) { return { type: roleConstants.UPDATE_FAILURE, error } }
+}
+
+function _delete(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        roleService.delete(id)
+            .then(
+                role => { 
+                    dispatch(success(id));
+                    dispatch(alertActions.success('Deleted role successfully'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(id) { return { type: roleConstants.DELETE_REQUEST, id } }
+    function success(id) { return { type: roleConstants.DELETE_SUCCESS, id } }
+    function failure(error) { return { type: roleConstants.DELETE_FAILURE, error } }
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { Modal, Button } from 'react-bootstrap';
 
 // material ui
 import Paper from '@material-ui/core/Paper';
@@ -14,12 +15,16 @@ import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 
 // actions
-import { permissionAction } from '../../actions';
+import { permissionActions } from '../../actions';
 import { roleActions } from '../../actions';
 
 // components
 import WipModal from '../Alerts/WIP';
 import AppStyles from '../Common/useStyles';
+import SuccessModal from '../Alerts/Successful';
+
+// forms
+import PermissionForm from '../Forms/Permission/PermissionForm';
 
 // helpers
 import { arrayHelpers } from '../../helpers';
@@ -63,12 +68,17 @@ function Permissions() {
 
     // permission-related variables
     const permissionsList = useSelector(state => state.permissions.items);
+    const [selectedPermissionIndex, setSelectedPermissionIndex] = useState(0);
     const permissions = permissionsList ? permissionsList : [];
     let permissionsToAdd = [];
     let permissionsToRemove = [];
 
     // modal-related variables
     const [wipModal, setWipModal] = useState(false);
+    const [addPermissionModal, setAddPermissionModal] = useState(false);
+    const [editPermissionModal, setEditPermissionModal] = useState(false);
+    const [successModal, setSuccessModal] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
 
 
     const dispatch = useDispatch();
@@ -76,7 +86,7 @@ function Permissions() {
     // Methods
     useEffect(() => {
         async function fetchData() {
-            dispatch(permissionAction.getAll());
+            dispatch(permissionActions.getAll());
         }
         
         fetchData();
@@ -122,14 +132,69 @@ function Permissions() {
         }
     }
 
+    const addPermissionForm = (
+        <Modal
+            show={addPermissionModal}
+            onHide={() => setAddPermissionModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Add Permission</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <PermissionForm 
+                    setAddPermissionModal={setAddPermissionModal} 
+                    setSuccessModal={setSuccessModal}
+                    divClasses="permission-form"
+                    formClasses="permissionForm"
+                    formDivClasses="permission-form-fields"
+                    action="add"
+                />
+            </Modal.Body>
+        </Modal>
+    );
+
+    const editPermissionForm = (
+        <Modal
+            show={editPermissionModal}
+            onHide={() => setEditPermissionModal(false)}
+            size="md"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+        >
+            <Modal.Header closeButton>
+                <Modal.Title>Edit Permission</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <PermissionForm 
+                    setEditPermissionModal={setEditPermissionModal} 
+                    setSuccessModal={setSuccessModal}
+                    divClasses="permission-form"
+                    formClasses="permissionForm"
+                    formDivClasses="permission-form-fields"
+                    action="edit"
+                    permission={permissions[selectedPermissionIndex]}
+                />
+            </Modal.Body>
+        </Modal>
+    );
+
     return (
         <div className="list-container">
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setWipModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Permission</button>
+            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setAddPermissionModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Permission</button>
+            {addPermissionForm}
             <WipModal
                 wipModal={wipModal}
                 modalMessage="This action is work in progress. Sorry for the inconvenience."
                 setWipModal={setWipModal}
             />
+            <SuccessModal
+                successModal={successModal}
+                modalMessage="Permission successfully added!"
+                setSuccessModal={setSuccessModal}
+            /> 
 
             <form onSubmit={handleSubmit}>
                 <Paper className="w-100 border">

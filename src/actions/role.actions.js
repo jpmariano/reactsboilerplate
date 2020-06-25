@@ -1,12 +1,14 @@
 import { roleConstants } from '../constants';
 import { roleService } from '../services';
 import { alertActions } from './';
+import { history } from '../helpers';
 
 export const roleActions = {
     getAllRole,
     getRole,
     addRolePermissions,
-    removeRolePermissions
+    removeRolePermissions,
+    addRole,
 };
 
 function getAllRole() {
@@ -91,4 +93,27 @@ function removeRolePermissions(object, id) {
     function request(role) { return { type: roleConstants.REMOVE_PERMISSION_REQUEST, role } }
     function success(role) { return { type: roleConstants.REMOVE_PERMISSION_SUCCESS, role } }
     function failure(error) { return { type: roleConstants.REMOVE_PERMISSION_FAILURE, error } }
+}
+
+function addRole(role) {
+    return dispatch => {
+        dispatch(request(role));
+
+        roleService.addRole(role)
+            .then(
+                role => { 
+                    dispatch(success(role));
+                    history.push('/admin/users/roles');
+                    dispatch(alertActions.success('Add role successful'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(role) { return { type: roleConstants.ADD_REQUEST, role } }
+    function success(role) { return { type: roleConstants.ADD_SUCCESS, role } }
+    function failure(error) { return { type: roleConstants.ADD_FAILURE, error } }
 }

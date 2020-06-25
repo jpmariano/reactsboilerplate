@@ -5,6 +5,8 @@ import API from "../utils/api";
 export const permissionService = {
     getAll,
     addPermission,
+    updatePermission,
+    delete: _delete,
 };
 
 async function getAll() {
@@ -17,6 +19,20 @@ async function addPermission(permission) {
 
     const response = await API.post('/admin/permissions', data);
     return handleResponse(response);
+}
+
+async function updatePermission(permission, id) {
+    const data = permission;
+
+    const response = await API.put('/admin/permissions/' + id, data);
+    return handleResponse(response);
+}
+
+async function _delete(id) {
+
+    const response = await API.delete('/admin/permissions/' + id,);
+    const user = handleResponse(response);
+    return user;
 }
 
 function logout() {

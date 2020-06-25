@@ -9,6 +9,7 @@ export const roleService = {
     removeRolePermissions,
     addRole,
     updateRole,
+    delete: _delete,
 };
 
 async function getAllRole() {
@@ -76,6 +77,13 @@ async function updateRole(role, id) {
 
     const response = await API.put('/admin/role/' + id, data);
     return handleResponse(response);
+}
+
+async function _delete(id) {
+
+    const response = await API.delete('/admin/role/' + id,);
+    const role = handleResponse(response);
+    return role;
 }
 
 function logout() {

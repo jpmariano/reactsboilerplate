@@ -6,17 +6,13 @@ import { useDispatch } from 'react-redux';
 // actions
 import { permissionActions } from '../../../actions';
 
-
 function PermissionForm(props) {
 
-    const divClasses = props.divClasses;
-    const formClasses = props.formClasses;
-    const formDivClasses = props.formDivClasses;
     const action = props.action;
-    const [permission, setPermission] = useState(props.user && action === 'edit' ? props.user : null);
+    const [permission, setPermission] = useState(props.permission && action === 'edit' ? props.permission : null);
 
     const dispatch = useDispatch();
-    
+
     // methods
     const setAddPermissionModal = (value) => {
         props.setAddPermissionModal(value);
@@ -24,6 +20,10 @@ function PermissionForm(props) {
 
     const setEditPermissionModal = (value) => {
         props.setEditPermissionModal(value);
+    }
+
+    const setConfirmModal = (value) => {
+        props.setConfirmModal(true);
     }
 
     return (
@@ -40,6 +40,10 @@ function PermissionForm(props) {
                         dispatch(permissionActions.addPermission(values));
                         setAddPermissionModal(false);
                         props.setSuccessModal(true);
+                    } else if (action === "edit") {
+                        dispatch(permissionActions.updatePermission(values, permission.pid));
+                        setEditPermissionModal(false);
+                        window.location.reload(true);
                     }
                 }
             }}
@@ -62,9 +66,9 @@ function PermissionForm(props) {
                     handleSubmit
             } = props;
             return (
-                    <div className={divClasses}>
-                        <form onSubmit={handleSubmit} className={formClasses}>
-                            <div className={formDivClasses}>
+                    <div className="permission-form">
+                        <form onSubmit={handleSubmit} className="permissionForm">
+                            <div className="permission-form-fields">
                                 <label htmlFor="name">Name</label>
                                 <input
                                     name="name"
@@ -91,24 +95,30 @@ function PermissionForm(props) {
                                 {errors.weight && touched.weight && (
                                     <div className="input-feedback">{errors.weight}</div>
                                 )}
+                                {
+                                    action === 'edit' &&
+                                    <div className="float-left">
+                                        <button type="button" className="btn btn-danger" onClick={() => {setConfirmModal(true); setEditPermissionModal(false)}}>
+                                            Delete
+                                        </button>
+                                    </div>       
+                                }
                                 <div className="float-right">
-                                    {
-                                        <button
-                                            type="button"
-                                            className="btn btn-secondary mr-2"
-                                            onClick={() => {
-                                                    if (action === "add") {
-                                                        setAddPermissionModal(false);
-                                                    } else if (action === "edit") {
-                                                        setEditPermissionModal(false);
-                                                        setPermission(null);
-                                                    }
+                                    <button
+                                        type="button"
+                                        className="btn btn-secondary mr-2"
+                                        onClick={() => {
+                                                if (action === "add") {
+                                                    setAddPermissionModal(false);
+                                                } else if (action === "edit") {
+                                                    setEditPermissionModal(false);
+                                                    setPermission(null);
                                                 }
                                             }
-                                        > 
-                                            Cancel
-                                        </button>
-                                    }
+                                        }
+                                    > 
+                                        Cancel
+                                    </button>
                                     <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
                                         Submit
                                     </button>

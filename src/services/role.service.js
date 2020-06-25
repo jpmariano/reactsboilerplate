@@ -6,7 +6,8 @@ export const roleService = {
     getAllRole,
     getRole,
     addRolePermissions,
-    removeRolePermissions
+    removeRolePermissions,
+    addRole,
 };
 
 async function getAllRole() {
@@ -60,4 +61,31 @@ async function removeRolePermissions(permissionRole, id) {
     const response = await API.put('/admin/role/' + id + '?rolepermission=remove', data, requestOptions);
 
     return response.data;
+}
+
+async function addRole(role) {
+    const data = role;
+
+    const response = await API.post('/admin/role', data);
+    return handleResponse(response);
+}
+
+function logout() {
+    // remove user from local storage to log user out
+    sessionStorage.clear()
+}
+
+function handleResponse(response) {
+    let data = response.data;
+    
+    if (response.status === 401) {
+        // auto logout if 401 response returned from api
+        logout();
+        window.location.reload(true);
+    } else if (response.status === 500) {
+        const error = response;
+        return Promise.reject(error.message);
+    }
+
+    return data;
 }

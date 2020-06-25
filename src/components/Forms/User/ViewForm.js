@@ -8,7 +8,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
 
 // actions
-import { roleActions } from '../../actions';
+import { roleActions } from '../../../actions';
 
 
 function ViewForm(props) {

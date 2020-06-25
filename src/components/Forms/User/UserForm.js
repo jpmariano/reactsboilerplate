@@ -10,10 +10,10 @@ import FormControl from '@material-ui/core/FormControl';
 import Checkbox from '@material-ui/core/Checkbox';
 
 // actions
-import { userActions } from '../../actions';
+import { userActions } from '../../../actions';
 
 // helpers
-import { arrayHelpers } from '../../helpers';
+import { arrayHelpers } from '../../../helpers';
 
 function UserForm(props) {
     
@@ -24,7 +24,8 @@ function UserForm(props) {
     const action = props.action;
     const [user, setUsers] = useState(props.user && action === 'edit' ? props.user : null);
     const roles = props.roles;
-    const userRoles = props.user.roles;
+    console.log(roles)
+    const userRoles = props.user && action === 'edit' ? props.user.roles : null;
     let rolesToAdd = [];
     let rolesToRemove = [];
 

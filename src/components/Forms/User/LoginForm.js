@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 
 // actions
-import { userActions } from '../../actions';
+import { userActions } from '../../../actions';
 
 function LoginForm() {
     const loggingIn = useSelector(state => state.authentication.loggingIn);

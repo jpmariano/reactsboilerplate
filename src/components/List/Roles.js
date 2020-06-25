@@ -46,8 +46,8 @@ function Roles() {
     // role-related variables
     const rolesList = useSelector(state => state.role.items);
     const roles = rolesList ? rolesList : [];
-    const [selectedPermissionIndex, setSelectedRoleIndex] = useState(0);
-    const [deletePermissionId, setDeleteRoleId] = useState(-1);
+    const [selectedRoleIndex, setSelectedRoleIndex] = useState(0);
+    const [deleteRoleId, setDeleteRoleId] = useState(-1);
 
     // table-related variables
     const [page, setPage] = React.useState(0);
@@ -118,15 +118,16 @@ function Roles() {
                     setEditRoleModal={setEditRoleModal} 
                     setSuccessModal={setSuccessModal}
                     action="edit"
-                    permission={roles[selectedPermissionIndex]}
-                    setConfirmModal={setConfirmModal}
+                    role={roles[selectedRoleIndex]}
                 />
             </Modal.Body>
         </Modal>
     );
 
-    const handleDeletePermission = (roleId) => {
-        // dispatch(permissionActions.delete(roleId));
+    console.log(roles[selectedRoleIndex])
+
+    const handleDeleteRole = (roleId) => {
+        dispatch(roleActions.delete(roleId));
     };
     
     return (
@@ -147,8 +148,8 @@ function Roles() {
             <ConfirmationModal 
                 confirmModal={confirmModal}
                 modalMessage="Are you sure?"
-                deletePermissionId={deletePermissionId}
-                handleDeletePermission={handleDeletePermission}
+                deleteRoleId={deleteRoleId}
+                handleDeleteRole={handleDeleteRole}
                 setConfirmModal={setConfirmModal}
                 pageLoc="roles"
                 setEditRoleModal={setEditRoleModal}
@@ -185,10 +186,10 @@ function Roles() {
                                                                 <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faEye} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
                                                                     <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
                                                                 </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setWipModal(true);}}>
                                                                     <FontAwesomeIcon icon={faTrash} className="text-danger"/>
                                                                 </IconButton>
                                                             </>

@@ -10,7 +10,7 @@ function RoleForm(props) {
 
     const action = props.action;
     const [role, setRole] = useState(props.role && action === 'edit' ? props.role : null);
-
+    console.log(role)
     const dispatch = useDispatch();
 
     // methods
@@ -20,10 +20,6 @@ function RoleForm(props) {
 
     const setEditRoleModal = (value) => {
         props.setEditRoleModal(value);
-    }
-
-    const setConfirmModal = (value) => {
-        props.setConfirmModal(true);
     }
 
     return (
@@ -41,9 +37,9 @@ function RoleForm(props) {
                         setAddRoleModal(false);
                         props.setSuccessModal(true);
                     } else if (action === "edit") {
-                        // dispatch(roleActions.updateRole(values, role.pid));
-                        // setEditRoleModal(false);
-                        // window.location.reload(true);
+                        dispatch(roleActions.updateRole(values, role.rid));
+                        setEditRoleModal(false);
+                        window.location.reload(true);
                     }
                 }
             }}
@@ -73,7 +69,7 @@ function RoleForm(props) {
                                 <input
                                     name="name"
                                     type="text"
-                                    placeholder="Permisson name"
+                                    placeholder="Role name"
                                     value={values.name}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -95,14 +91,6 @@ function RoleForm(props) {
                                 {errors.weight && touched.weight && (
                                     <div className="input-feedback">{errors.weight}</div>
                                 )}
-                                {
-                                    action === 'edit' &&
-                                    <div className="float-left">
-                                        <button type="button" className="btn btn-danger" onClick={() => {setConfirmModal(true); setEditRoleModal(false)}}>
-                                            Delete
-                                        </button>
-                                    </div>       
-                                }
                                 <div className="float-right">
                                     <button
                                         type="button"
@@ -111,8 +99,8 @@ function RoleForm(props) {
                                                 if (action === "add") {
                                                     setAddRoleModal(false);
                                                 } else if (action === "edit") {
-                                                    // setEditRoleModal(false);
-                                                    // setRole(null);
+                                                    setEditRoleModal(false);
+                                                    setRole(null);
                                                 }
                                             }
                                         }

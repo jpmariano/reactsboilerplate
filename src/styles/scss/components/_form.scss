@@ -5,9 +5,9 @@
                 div.modal-dialog {
                     .modal-content {
                         .modal-body {
-                            .user-form, .permission-form {
-                                form.userForm, form.permissionForm {
-                                    .user-form-fields, .permission-form-fields {
+                            .user-form, .permission-form, .role-form {
+                                form.userForm, form.permissionForm, form.roleForm {
+                                    .user-form-fields, .permission-form-fields, .role-form-fields {
                                         max-width: 500px;
                                         width: 100%;
                                         margin: 0 auto;

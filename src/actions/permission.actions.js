@@ -57,7 +57,6 @@ function updatePermission(permission, id) {
             .then(
                 permission => { 
                     dispatch(success(permission));
-                    history.push('/admin/users/permissions');
                     dispatch(alertActions.success('Update permission successful'));
                 },
                 error => {
@@ -78,7 +77,7 @@ function _delete(id) {
 
         permissionService.delete(id)
             .then(
-                permission => { 
+                permission => {
                     dispatch(success(id));
                     dispatch(alertActions.success('Deleted permission successfully'));
                 },

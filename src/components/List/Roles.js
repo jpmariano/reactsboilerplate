@@ -164,7 +164,7 @@ function Roles() {
             const data = {
                 weight: i
             }
-
+            roles[i].weight = i;
             dispatch(roleActions.updateRole(data, items[i].rid));
         }
 

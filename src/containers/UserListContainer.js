@@ -19,7 +19,7 @@ function UserListContainer() {
     }
 
     return (
-        <div id="user-container">
+        <div id="container">
             <h1>Users</h1>
             <div className="tabs">
                 <div className="content border rounded p-3">

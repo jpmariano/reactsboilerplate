@@ -5,6 +5,7 @@
 @import "components/form";
 @import "components/register-form";
 @import "components/not-found";
+@import "components/content";
 
 @include defaults;
 @include login;
@@ -13,3 +14,4 @@
 @include form;
 @include register-form;
 @include not-found;
+@include content;

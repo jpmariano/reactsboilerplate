@@ -26,29 +26,29 @@ function RoleListContainer() {
                     <ul className="col-md-5 mt-3 mb-0">
                         <li title="Users" className="btn btn-light inactive mr-2">
                             <a href="/admin/users">
-                                <label for="tab1" role="button">
+                                <label>
                                     <FontAwesomeIcon icon={faUsers}/>&nbsp;
                                     <span>Users</span>
                                 </label>
-                                <div class="indicator"></div>
+                                <div className="indicator"></div>
                             </a>
                         </li>
                         <li title="Permissions" className="btn btn-light inactive mr-2">
                             <a href="/admin/users/permissions">
-                                <label for="tab2" role="button">
+                                <label>
                                     <FontAwesomeIcon icon={faKey}/>&nbsp;
                                     <span>Permissions</span>
                                 </label>
-                                <div class="indicator"></div>
+                                <div className="indicator"></div>
                             </a>
                         </li>
                         <li title="Roles" className="btn btn-primary active mr-2">
                             <a href="/admin/users/roles">
-                                <label for="tab3" role="button">
+                                <label>
                                     <DeviceHubIcon />&nbsp;
                                     <span>Roles</span>
                                 </label>
-                                <div class="indicator"></div>
+                                <div className="indicator"></div>
                             </a>
                         </li>
                     </ul>

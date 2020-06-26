@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPencilAlt, faTrash, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTrash, faEye, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'react-bootstrap';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 // material ui
 import Paper from '@material-ui/core/Paper';
@@ -45,7 +46,8 @@ const columns = [
 function Roles() {
     // role-related variables
     const rolesList = useSelector(state => state.role.items);
-    const roles = rolesList ? rolesList : [];
+    // const roles = rolesList ? rolesList : [];
+    let roles = rolesList ? rolesList : [];
     const [selectedRoleIndex, setSelectedRoleIndex] = useState(0);
     const [deleteRoleId, setDeleteRoleId] = useState(-1);
 
@@ -127,6 +129,29 @@ function Roles() {
     const handleDeleteRole = (roleId) => {
         dispatch(roleActions.delete(roleId));
     };
+
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+      
+        return result;
+    };
+
+    const onDragEnd = (result) => {
+        // dropped outside the list
+        if (!result.destination) {
+            return;
+        }
+    
+        const items = reorder(
+            roles,
+            result.source.index,
+            result.destination.index
+        );
+    
+        roles = items;
+      }
     
     return (
         <div id="list-container">
@@ -155,51 +180,74 @@ function Roles() {
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
-                    <Table stickyHeader size="small" aria-label="sticky table">
-                        <TableHead>
-                            <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.label}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {roles.map((role, index) => {
-                                return (
-                                    <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-                                        {columns.map((column) => {
+                    <DragDropContext onDragEnd={onDragEnd}>
+                        <Table stickyHeader size="small" aria-label="sticky table" >
+                            <TableHead>
+                                <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.label}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                                </TableRow>
+                            </TableHead>
+                            <Droppable droppableId="columns">
+                                {(provided) => (
+                                    <TableBody ref={provided.innerRef}>
+                                        {roles.map((role, index) => {
                                             return (
-                                                <TableCell key={column.id} align={column.align}>
-                                                    {
-                                                        column.id === 'roles' ?
-                                                            role.name
-                                                        :
-                                                            <>
-                                                                <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
-                                                                    <FontAwesomeIcon icon={faEye} className="text-primary"/>
-                                                                </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
-                                                                    <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
-                                                                </IconButton>
-                                                                <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setConfirmModal(true);}}>
-                                                                    <FontAwesomeIcon icon={faTrash} className="text-danger"/>
-                                                                </IconButton>
-                                                            </>
-                                                    }
-                                                </TableCell>
+                                                <Draggable
+                                                    key={index}
+                                                    draggableId={'role-' + index}
+                                                    index={index}>
+                                                    {(provided) => (
+                                                        <TableRow 
+                                                            hover 
+                                                            role="checkbox" 
+                                                            tabIndex={-1} 
+                                                            key={index}
+                                                            ref={provided.innerRef}
+                                                            {...provided.draggableProps}
+                                                            {...provided.dragHandleProps}
+                                                            id={'role-' + index}
+                                                        >
+                                                            {columns.map((column) => {
+                                                                return (
+                                                                    <TableCell key={column.id} align={column.align}>
+                                                                        {
+                                                                            column.id === 'roles' ?
+                                                                                <span><FontAwesomeIcon icon={faArrowsAlt}/>&nbsp;&nbsp;&nbsp;&nbsp;{role.name}</span>
+                                                                            :
+                                                                                <div>
+                                                                                    <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                                        <FontAwesomeIcon icon={faEye} className="text-primary"/>
+                                                                                    </IconButton>
+                                                                                    <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
+                                                                                        <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
+                                                                                    </IconButton>
+                                                                                    <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setConfirmModal(true);}}>
+                                                                                        <FontAwesomeIcon icon={faTrash} className="text-danger"/>
+                                                                                    </IconButton>
+                                                                                </div>
+                                                                        }
+                                                                    </TableCell>
+                                                                );
+                                                            })}
+                                                        </TableRow>
+                                                    )}
+                                                </Draggable>
                                             );
                                         })}
-                                    </TableRow>
-                                );
-                            })}
-                        </TableBody>
-                    </Table>
+                                        {provided.placeholder}
+                                    </TableBody>
+                                )}
+                            </Droppable>
+                        </Table>
+                    </DragDropContext>
                 </TableContainer>
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}

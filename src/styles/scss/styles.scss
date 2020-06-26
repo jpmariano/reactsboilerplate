@@ -1,3 +1,4 @@
+@import "base/defaults";
 @import "components/login";
 @import "components/navbar";
 @import "components/list";
@@ -5,6 +6,7 @@
 @import "components/register-form";
 @import "components/not-found";
 
+@include defaults;
 @include login;
 @include navbar;
 @include list;

@@ -154,16 +154,16 @@ html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-
   color: #fff;
 }
 
-html body #root .main-container main #user-container .tabs ul li label {
+html body #root .main-container main #container .tabs ul li label {
   font-family: "Montserrat";
   font-weight: bold;
   font-size: 18px;
   color: #428BFF;
 }
-html body #root .main-container main #user-container .tabs ul li.active label {
+html body #root .main-container main #container .tabs ul li.active label {
   color: #fff;
 }
-html body #root .main-container main #user-container .tabs ul li.active .indicator {
+html body #root .main-container main #container .tabs ul li.active .indicator {
   position: relative;
   width: 50px;
   max-width: 100%;
@@ -172,7 +172,7 @@ html body #root .main-container main #user-container .tabs ul li.active .indicat
   background: #fff;
   border-radius: 1px;
 }
-html body #root .main-container main #user-container .tabs ul li.inactive .indicator {
+html body #root .main-container main #container .tabs ul li.inactive .indicator {
   position: relative;
   width: 50px;
   max-width: 100%;
@@ -181,7 +181,7 @@ html body #root .main-container main #user-container .tabs ul li.inactive .indic
   background: #929daf;
   border-radius: 1px;
 }
-html body #root .main-container main #user-container .tabs ul {
+html body #root .main-container main #container .tabs ul {
   list-style-type: none;
   padding-left: 0;
   display: flex;
@@ -191,13 +191,13 @@ html body #root .main-container main #user-container .tabs ul {
   align-items: flex-end;
   flex-wrap: wrap;
 }
-html body #root .main-container main #user-container .tabs ul li {
+html body #root .main-container main #container .tabs ul li {
   box-sizing: border-box;
   flex: 1;
   padding: 5px;
   text-align: center;
 }
-html body #root .main-container main #user-container .tabs ul li label {
+html body #root .main-container main #container .tabs ul li label {
   transition: all 0.3s ease-in-out;
   color: #929daf;
   padding: 5px auto;
@@ -209,7 +209,7 @@ html body #root .main-container main #user-container .tabs ul li label {
   white-space: nowrap;
   -webkit-touch-callout: none;
 }
-html body #root .main-container main #user-container .content {
+html body #root .main-container main #container .content {
   position: relative;
   background: white;
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);

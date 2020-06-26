@@ -1,13 +1,13 @@
 @import "components/login";
 @import "components/navbar";
-@import "components/user-list";
+@import "components/list";
 @import "components/form";
 @import "components/register-form";
 @import "components/not-found";
 
 @include login;
 @include navbar;
-@include user-list;
+@include list;
 @include form;
 @include register-form;
 @include not-found;

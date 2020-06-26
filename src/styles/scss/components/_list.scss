@@ -1,10 +1,10 @@
-@mixin user-list {
+@mixin list {
     html {
         body {
             #root {
                 .main-container {
                     main {
-                        #user-container {
+                        #container {
                             .tabs {
                                 // position: relative;
                                 // background: white;

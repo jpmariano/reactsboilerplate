@@ -154,11 +154,67 @@ html body #root .main-container #navigation-bar #navigation-bar-toolbar .navbar-
   color: #fff;
 }
 
-html body #root .container-fluid .tab-content .tab-pane {
-  border-right: solid 1px transparent;
-  border-left: solid 1px transparent;
-  border-bottom: solid 1px transparent;
-  border-color: #dee2e6;
+html body #root .main-container main #user-container .tabs ul li label {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 18px;
+  color: #428BFF;
+}
+html body #root .main-container main #user-container .tabs ul li.active label {
+  color: #fff;
+}
+html body #root .main-container main #user-container .tabs ul li.active .indicator {
+  position: relative;
+  width: 50px;
+  max-width: 100%;
+  margin: 0 auto;
+  height: 4px;
+  background: #fff;
+  border-radius: 1px;
+}
+html body #root .main-container main #user-container .tabs ul li.inactive .indicator {
+  position: relative;
+  width: 50px;
+  max-width: 100%;
+  margin: 0 auto;
+  height: 4px;
+  background: #929daf;
+  border-radius: 1px;
+}
+html body #root .main-container main #user-container .tabs ul {
+  list-style-type: none;
+  padding-left: 0;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+html body #root .main-container main #user-container .tabs ul li {
+  box-sizing: border-box;
+  flex: 1;
+  padding: 5px;
+  text-align: center;
+}
+html body #root .main-container main #user-container .tabs ul li label {
+  transition: all 0.3s ease-in-out;
+  color: #929daf;
+  padding: 5px auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+  -webkit-touch-callout: none;
+}
+html body #root .main-container main #user-container .content {
+  position: relative;
+  background: white;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: 5px;
+  min-width: 180px;
 }
 
 html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.userForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.permissionForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.permissionForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.permissionForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.roleForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.roleForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .user-form form.roleForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.userForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.userForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.userForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.permissionForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.permissionForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.permissionForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.roleForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.roleForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .permission-form form.roleForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.userForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.userForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.userForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.permissionForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.permissionForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.permissionForm .role-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.roleForm .user-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.roleForm .permission-form-fields, html body div.modal div.modal-dialog .modal-content .modal-body .role-form form.roleForm .role-form-fields {

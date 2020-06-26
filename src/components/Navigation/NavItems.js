@@ -5,7 +5,7 @@ export default [
         icon: 'dashboard'
     },
     {
-        name: 'Users',
+        name: 'People',
         url: '/admin/users',
         icon: 'people_alt'
     },

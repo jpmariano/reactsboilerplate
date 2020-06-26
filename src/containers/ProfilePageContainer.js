@@ -1,15 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
-class ProfilePageContainer extends Component {
+function ProfilePageContainer() {
     
-    render() {
-        return (
-            <div className="profile-container">
-                <h1>Profile</h1>
+    return (
+        <div className="profile-container">
+            <h1>Profile</h1>
+
+            <div className="content p-3">
+                <h2>Profile</h2>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default ProfilePageContainer

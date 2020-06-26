@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faPencilAlt, faTrash, faEye, faArrowsAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faPencilAlt, faTrash, faEye, faArrowsAlt, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Modal } from 'react-bootstrap';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -16,7 +16,6 @@ import TableRow from '@material-ui/core/TableRow';
 import TablePagination from '@material-ui/core/TablePagination';
 import IconButton from '@material-ui/core/IconButton';
 
-
 // actions
 import { roleActions } from '../../actions';
 
@@ -29,16 +28,25 @@ import ConfirmationModal from '../Alerts/Confirmation';
 // forms
 import RoleForm from '../Forms/Role/RoleForm';
 
+// helpers
+import { arrayHelpers } from '../../helpers';
+
 const columns = [
     { 
         id: 'roles', 
         label: 'Roles', 
-        minWidth: 500,
+        minWidth: 300,
+    },
+    {
+        id: 'weight',
+        label: 'Weight',
+        minWidth: 224,
+        align: 'center'
     },
     {
         id: 'action',
         label: 'Action',
-        minWidth: 50,
+        minWidth: 100,
         align: 'center'
     }
 ]
@@ -50,6 +58,8 @@ function Roles() {
     let roles = rolesList ? rolesList : [];
     const [selectedRoleIndex, setSelectedRoleIndex] = useState(0);
     const [deleteRoleId, setDeleteRoleId] = useState(-1);
+    const [showWeight, setShowWeight] = useState(false);
+    const weights = arrayHelpers.createArrayofNums(10);
 
     // table-related variables
     const [page, setPage] = React.useState(0);
@@ -70,7 +80,7 @@ function Roles() {
         async function fetchData() {
             dispatch(roleActions.getAllRole());
         }
-        
+
         fetchData();
     }, [dispatch]);
 
@@ -149,13 +159,43 @@ function Roles() {
             result.source.index,
             result.destination.index
         );
-    
+
+        for (let i = 0; i < items.length; i++) {
+            const data = {
+                weight: i
+            }
+
+            dispatch(roleActions.updateRole(data, items[i].rid));
+        }
+
         roles = items;
-      }
+    }
+
+    const handleWeightChange = (value, rid) => {
+        const data = {
+            weight: value
+        }
+
+        for (let i = 0; i < roles.length; i++) {
+            if (roles[i].rid === rid) {
+                roles[i].weight = parseInt(value);
+            }
+        }
+
+        dispatch(roleActions.updateRole(data, rid));
+    }
     
     return (
         <div id="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setAddRoleModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Role</button>
+            <div className="float-right">
+                {showWeight ? 
+                    <button className="btn btn-primary mt-3 mr-3 mb-3 float-rght" onClick={() => {setShowWeight(false)}}><FontAwesomeIcon icon={faEyeSlash}/>&nbsp;&nbsp;Hide row weights</button>
+                :
+                    <button className="btn btn-primary mt-3 mr-3 mb-3 float-rght" onClick={() => {setShowWeight(true)}}><FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;Show row weights</button>
+                }
+            </div>
+
             {addRoleForm}
             {editRoleForm}
             <WipModal
@@ -180,74 +220,141 @@ function Roles() {
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>
-                    <DragDropContext onDragEnd={onDragEnd}>
+                    {showWeight ?
                         <Table stickyHeader size="small" aria-label="sticky table" >
                             <TableHead>
                                 <TableRow>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={column.label}
-                                        align={column.align}
-                                        style={{ minWidth: column.minWidth }}
-                                    >
-                                        {column.label}
-                                    </TableCell>
-                                ))}
+                                    {columns.map((column) => (
+                                        <TableCell
+                                            key={column.label}
+                                            align={column.align}
+                                            style={{ minWidth: column.minWidth }}
+                                        >
+                                            {column.label}
+                                        </TableCell>
+                                    ))}
                                 </TableRow>
                             </TableHead>
-                            <Droppable droppableId="columns">
-                                {(provided) => (
-                                    <TableBody ref={provided.innerRef}>
-                                        {roles.map((role, index) => {
-                                            return (
-                                                <Draggable
-                                                    key={index}
-                                                    draggableId={'role-' + index}
-                                                    index={index}>
-                                                    {(provided) => (
-                                                        <TableRow 
-                                                            hover 
-                                                            role="checkbox" 
-                                                            tabIndex={-1} 
-                                                            key={index}
-                                                            ref={provided.innerRef}
-                                                            {...provided.draggableProps}
-                                                            {...provided.dragHandleProps}
-                                                            id={'role-' + index}
-                                                        >
-                                                            {columns.map((column) => {
-                                                                return (
-                                                                    <TableCell key={column.id} align={column.align}>
-                                                                        {
-                                                                            column.id === 'roles' ?
-                                                                                <span><FontAwesomeIcon icon={faArrowsAlt}/>&nbsp;&nbsp;&nbsp;&nbsp;{role.name}</span>
-                                                                            :
-                                                                                <div>
-                                                                                    <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
-                                                                                        <FontAwesomeIcon icon={faEye} className="text-primary"/>
-                                                                                    </IconButton>
-                                                                                    <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
-                                                                                        <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
-                                                                                    </IconButton>
-                                                                                    <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setConfirmModal(true);}}>
-                                                                                        <FontAwesomeIcon icon={faTrash} className="text-danger"/>
-                                                                                    </IconButton>
-                                                                                </div>
-                                                                        }
-                                                                    </TableCell>
-                                                                );
-                                                            })}
-                                                        </TableRow>
-                                                    )}
-                                                </Draggable>
-                                            );
-                                        })}
-                                        {provided.placeholder}
-                                    </TableBody>
-                                )}
-                            </Droppable>
+                            <TableBody>
+                                {roles.map((role, index) => {
+                                    return (
+                                        <TableRow 
+                                            hover 
+                                            role="checkbox" 
+                                            tabIndex={-1} 
+                                            key={index}
+                                        >
+                                            {columns.map((column) => {
+                                                return (
+                                                    <TableCell key={column.id} align={column.align}>
+                                                        {
+                                                            column.id === 'roles' ?
+                                                                <span>{role.name}</span>
+                                                            :
+                                                                column.id === 'weight' ?
+                                                                    <select className="w-20 m-auto form-control" defaultValue={role.weight} onChange={(e) => handleWeightChange(e.target.value, role.rid)}>
+                                                                        {weights.map((item, index) => (
+                                                                            <option key={'option-' + index}>{item.value}</option>
+                                                                        ))}
+                                                                    </select>
+                                                                :
+                                                                    <div>
+                                                                        <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                            <FontAwesomeIcon icon={faEye} className="text-primary"/>
+                                                                        </IconButton>
+                                                                        <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
+                                                                            <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
+                                                                        </IconButton>
+                                                                        <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setConfirmModal(true);}}>
+                                                                            <FontAwesomeIcon icon={faTrash} className="text-danger"/>
+                                                                        </IconButton>
+                                                                    </div>
+                                                        }
+                                                    </TableCell>
+                                                );
+                                            })}
+                                        </TableRow>
+                                    );
+                                })}
+                            </TableBody>
                         </Table>
-                    </DragDropContext>
+                    :
+                                            
+                        <DragDropContext onDragEnd={onDragEnd}>
+                            <Table stickyHeader size="small" aria-label="sticky table" >
+                                <TableHead>
+                                    <TableRow>
+                                        {columns.map((column) => (
+                                            column.label === 'Roles' || column.label === 'Action' ?
+                                                <TableCell
+                                                    key={column.label}
+                                                    align={column.align}
+                                                    style={{ minWidth: column.minWidth }}
+                                                >
+                                                    {column.label}
+                                                </TableCell>
+                                            :
+                                                <TableCell key={column.label} align={column.align} style={{ minWidth: column.minWidth }}></TableCell>
+                                        ))}
+                                    </TableRow>
+                                </TableHead>
+                                <Droppable droppableId="columns">
+                                    {(provided) => (
+                                        <TableBody ref={provided.innerRef}>
+                                            {roles.map((role, index) => {
+                                                return (
+                                                    <Draggable
+                                                        key={index}
+                                                        draggableId={'role-' + index}
+                                                        index={index}>
+                                                        {(provided) => (
+                                                            <TableRow 
+                                                                hover 
+                                                                role="checkbox" 
+                                                                tabIndex={-1} 
+                                                                key={index}
+                                                                ref={provided.innerRef}
+                                                                {...provided.draggableProps}
+                                                                {...provided.dragHandleProps}
+                                                                id={'role-' + index}
+                                                            >
+                                                                {columns.map((column) => {
+                                                                    return (
+                                                                        <TableCell key={column.id} align={column.align}>
+                                                                            {
+                                                                                column.id === 'roles' ?
+                                                                                    <span><FontAwesomeIcon icon={faArrowsAlt}/>&nbsp;&nbsp;&nbsp;&nbsp;{role.name}</span>
+                                                                                :
+                                                                                    column.id === 'weight' ?
+                                                                                        <span></span>
+                                                                                    :
+                                                                                        <div>
+                                                                                            <IconButton className="p-2" onClick={() => {setWipModal(true);}}>
+                                                                                                <FontAwesomeIcon icon={faEye} className="text-primary"/>
+                                                                                            </IconButton>
+                                                                                            <IconButton className="p-2" onClick={() => {setSelectedRoleIndex(index); setEditRoleModal(true);}}>
+                                                                                                <FontAwesomeIcon icon={faPencilAlt} className="text-primary"/>
+                                                                                            </IconButton>
+                                                                                            <IconButton className="p-2" onClick={() => {setDeleteRoleId(role.rid); setConfirmModal(true);}}>
+                                                                                                <FontAwesomeIcon icon={faTrash} className="text-danger"/>
+                                                                                            </IconButton>
+                                                                                        </div>
+                                                                            }
+                                                                        </TableCell>
+                                                                    );
+                                                                })}
+                                                            </TableRow>
+                                                        )}
+                                                    </Draggable>
+                                                );
+                                            })}
+                                            {provided.placeholder}
+                                        </TableBody>
+                                    )}
+                                </Droppable>
+                            </Table>
+                        </DragDropContext>
+                    }
                 </TableContainer>
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}

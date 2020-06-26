@@ -11,7 +11,8 @@ export const userActions = {
     delete: _delete,
     update,
     addUserRole,
-    removeUserRole
+    removeUserRole,
+    getById
 };
 
 function login(username, password) {
@@ -110,7 +111,7 @@ function update(user, userId) {
             .then(
                 user => { 
                     dispatch(success(userId));
-                    history.push('/admin/users');
+                    // history.push('/admin/users');
                     dispatch(alertActions.success('User updated successfully'));
                 },
                 error => {
@@ -169,4 +170,25 @@ function removeUserRole(object, id) {
     function request(role) { return { type: userConstants.REMOVE_ROLE_REQUEST, role } }
     function success(role) { return { type: userConstants.REMOVE_ROLE_SUCCESS, role } }
     function failure(error) { return { type: userConstants.REMOVE_ROLE_FAILURE, error } }
+}
+
+function getById(id) {
+    return dispatch => {
+        dispatch(request(id));
+
+        userService.getById(id)
+        .then(
+            user => { 
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+                dispatch(alertActions.error(error.toString()));
+            }
+        );
+    };
+
+    function request(id) { return { type: userConstants.GETBYID_REQUEST, id } }
+    function success(user) { return { type: userConstants.GETBYID_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.GETBYID_FAILURE, error } }
 }

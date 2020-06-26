@@ -1,5 +1,7 @@
 import React from 'react';
 
+// components
+import Profile from '../components/Profile/ProfilePage';
 
 function ProfilePageContainer() {
     
@@ -8,7 +10,7 @@ function ProfilePageContainer() {
             <h1>Profile</h1>
 
             <div className="content p-3">
-                <h2>Profile</h2>
+                <Profile />
             </div>
         </div>
     );

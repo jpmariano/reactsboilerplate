@@ -71,7 +71,7 @@ function ProfileMenu(props) {
                     <Paper>
                         <ClickAwayListener onClickAway={handleClose}>
                             <MenuList autoFocusItem={open} className="mt-2" id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                                <MenuItem onClick={() => setWipModal(true)}>Profile</MenuItem>
+                                <MenuItem><a href="/profile" className="text-dark" style={{ textDecoration: 'none' }}>Profile</a></MenuItem>
                                 <MenuItem onClick={() => setWipModal(true)}>My account</MenuItem>
                                 <MenuItem onClick={props.logout}>Logout</MenuItem>
                             </MenuList>

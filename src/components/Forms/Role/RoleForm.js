@@ -26,7 +26,7 @@ function RoleForm(props) {
         <Formik
             initialValues={{
                 name: role ? role.name : '',
-                weight: role ? role.weight : '',
+                weight: role ? role.weight : 0,
             }}
 
             onSubmit={async values => {
@@ -77,19 +77,6 @@ function RoleForm(props) {
                                 />
                                 {errors.name && touched.name && (
                                     <div className="input-feedback">{errors.name}</div>
-                                )}
-                                <label htmlFor="weight">Weight</label>
-                                <input
-                                    name="weight"
-                                    type="number"
-                                    placeholder="Role weight"
-                                    value={values.weight}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.weight && touched.weight && "error"}
-                                />
-                                {errors.weight && touched.weight && (
-                                    <div className="input-feedback">{errors.weight}</div>
                                 )}
                                 <div className="float-right">
                                     <button

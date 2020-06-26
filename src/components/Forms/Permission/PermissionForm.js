@@ -30,7 +30,7 @@ function PermissionForm(props) {
         <Formik
             initialValues={{
                 name: permission ? permission.name : '',
-                weight: permission ? permission.weight : '',
+                weight: permission ? permission.weight : 0,
             }}
 
             onSubmit={async values => {
@@ -81,19 +81,6 @@ function PermissionForm(props) {
                                 />
                                 {errors.name && touched.name && (
                                     <div className="input-feedback">{errors.name}</div>
-                                )}
-                                <label htmlFor="weight">Weight</label>
-                                <input
-                                    name="weight"
-                                    type="number"
-                                    placeholder="Permission weight"
-                                    value={values.weight}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.weight && touched.weight && "error"}
-                                />
-                                {errors.weight && touched.weight && (
-                                    <div className="input-feedback">{errors.weight}</div>
                                 )}
                                 {
                                     action === 'edit' &&

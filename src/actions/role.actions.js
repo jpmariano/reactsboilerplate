@@ -128,7 +128,7 @@ function updateRole(role, id) {
             .then(
                 role => { 
                     dispatch(success(role));
-                    history.push('/admin/users/roles');
+                    // history.push('/admin/users/roles');
                     dispatch(alertActions.success('Update role successful'));
                 },
                 error => {

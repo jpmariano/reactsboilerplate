@@ -36,17 +36,20 @@ const columns = [
         id: 'roles', 
         label: 'Roles', 
         minWidth: 300,
+        maxWidth: 562
     },
     {
         id: 'weight',
         label: 'Weight',
         minWidth: 224,
+        maxWidth: 224,
         align: 'center'
     },
     {
         id: 'action',
         label: 'Action',
-        minWidth: 100,
+        minWidth: 286,
+        maxWidth: 286,
         align: 'center'
     }
 ]
@@ -56,6 +59,7 @@ function Roles() {
     const rolesList = useSelector(state => state.role.items);
     // const roles = rolesList ? rolesList : [];
     let roles = rolesList ? rolesList : [];
+    roles = roles.sort((a, b) => (a.weight > b.weight) ? 1 : -1)
     const [selectedRoleIndex, setSelectedRoleIndex] = useState(0);
     const [deleteRoleId, setDeleteRoleId] = useState(-1);
     const [showWeight, setShowWeight] = useState(false);
@@ -165,10 +169,12 @@ function Roles() {
                 weight: i
             }
             roles[i].weight = i;
+            // roles = roles.sort((a, b) => (a.weight > b.weight) ? 1 : -1);
             dispatch(roleActions.updateRole(data, items[i].rid));
         }
 
         roles = items;
+        
     }
 
     const handleWeightChange = (value, rid) => {
@@ -181,6 +187,8 @@ function Roles() {
                 roles[i].weight = parseInt(value);
             }
         }
+        
+        roles = roles.sort((a, b) => (a.weight > b.weight) ? 1 : -1)
 
         dispatch(roleActions.updateRole(data, rid));
     }
@@ -190,9 +198,9 @@ function Roles() {
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => {setAddRoleModal(true)}}><FontAwesomeIcon icon={faPlus}/> Add Role</button>
             <div className="float-right">
                 {showWeight ? 
-                    <button className="btn btn-primary mt-3 mr-3 mb-3 float-rght" onClick={() => {setShowWeight(false)}}><FontAwesomeIcon icon={faEyeSlash}/>&nbsp;&nbsp;Hide row weights</button>
+                    <button className="btn btn-primary mt-3 mr-3 mb-3 float-rght" onClick={() => {setShowWeight(false); dispatch(roleActions.getAllRole());}}><FontAwesomeIcon icon={faEyeSlash}/>&nbsp;&nbsp;Hide row weights</button>
                 :
-                    <button className="btn btn-primary mt-3 mr-3 mb-3 float-rght" onClick={() => {setShowWeight(true)}}><FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;Show row weights</button>
+                    <button className="btn btn-primary mt-3 mr-3 mb-3 float-rght" onClick={() => {setShowWeight(true); dispatch(roleActions.getAllRole());}}><FontAwesomeIcon icon={faEye}/>&nbsp;&nbsp;Show row weights</button>
                 }
             </div>
 
@@ -228,7 +236,7 @@ function Roles() {
                                         <TableCell
                                             key={column.label}
                                             align={column.align}
-                                            style={{ minWidth: column.minWidth }}
+                                            style={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}
                                         >
                                             {column.label}
                                         </TableCell>
@@ -289,12 +297,12 @@ function Roles() {
                                                 <TableCell
                                                     key={column.label}
                                                     align={column.align}
-                                                    style={{ minWidth: column.minWidth }}
+                                                    style={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}
                                                 >
                                                     {column.label}
                                                 </TableCell>
                                             :
-                                                <TableCell key={column.label} align={column.align} style={{ minWidth: column.minWidth }}></TableCell>
+                                                <TableCell key={column.label} align={column.align} style={{ minWidth: column.minWidth, maxWidth: column.maxWidth }}></TableCell>
                                         ))}
                                     </TableRow>
                                 </TableHead>

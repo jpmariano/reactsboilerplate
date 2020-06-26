@@ -197,6 +197,9 @@ html body #root .main-container main #container .tabs ul li {
   padding: 5px;
   text-align: center;
 }
+html body #root .main-container main #container .tabs ul li a {
+  text-decoration: none;
+}
 html body #root .main-container main #container .tabs ul li label {
   transition: all 0.3s ease-in-out;
   color: #929daf;

@@ -57,7 +57,6 @@ const columns = [
 function Roles() {
     // role-related variables
     const rolesList = useSelector(state => state.role.items);
-    // const roles = rolesList ? rolesList : [];
     let roles = rolesList ? rolesList : [];
     roles = roles.sort((a, b) => (a.weight > b.weight) ? 1 : -1)
     const [selectedRoleIndex, setSelectedRoleIndex] = useState(0);

@@ -7,7 +7,7 @@ export const userService = {
     logout,
     register,
     getAll,
-    // getById,
+    getById,
     addUser,
     update,
     delete: _delete,
@@ -26,10 +26,16 @@ async function login(username, password) {
 
     // store user details and jwt token in session storage to keep user logged in between page refreshes
     // sessionStorage.setItem('user', JSON.stringify(user.body.user[0].name));
-    sessionStorage.setItem('user', JSON.stringify('loggedIn'));
+    let roleId = [];
+    user.body.user[0].users_roles.map((item) => (
+        roleId.push(item.users_rolesid.rid)
+    ))
+
+    user.body.user[0]['roles'] = roleId
+    sessionStorage.setItem('user', JSON.stringify(user.body.user[0]));
     sessionStorage.setItem('token', JSON.stringify(user.body.key[0]));
 
-    return user;
+    return user.body.user[0];
 }
 
 function logout() {
@@ -42,15 +48,19 @@ async function getAll() {
     return handleResponse(response);
 }
 
-// async function getById(id) {
-//     // const requestOptions = {
-//     //     method: 'GET',
-//     //     headers: authHeader()
-//     // };
+async function getById(id) {
+    const response = await API.get('/users/' + id,);
+    const user = await handleResponse(response);
 
-//     const response = await fetch(`${config.apiUrl}/users/${id}`, requestOptions);
-//     return handleResponse(response);
-// }
+    let roleId = [];
+    user.users_roles.map((item) => (
+        roleId.push(item.users_rolesid.rid)
+    ))
+
+    user['roles'] = roleId
+
+    return user;
+}
 
 async function addUser(user) {
     const data = user;

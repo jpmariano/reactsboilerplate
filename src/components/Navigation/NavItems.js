@@ -4,11 +4,11 @@ export default [
         url: '/dashboard',
         icon: 'dashboard'
     },
-    // {
-    //     name: 'Users',
-    //     url: '/admin/users',
-    //     icon: 'people_alt'
-    // },
+    {
+        name: 'Users',
+        url: '/admin/users',
+        icon: 'people_alt'
+    },
     // {
     //     name: 'Permissions',
     //     url: '/admin/users/permissions',

@@ -7,6 +7,7 @@ export const userActions = {
     login,
     logout,
     register,
+    addUser,
     getAll,
     delete: _delete,
     update,
@@ -28,10 +29,12 @@ function login(username, password) {
                     history.push('/dashboard');
                 },
                 error => {
+                    console.log(error.response)
                     dispatch(failure(error.toString()));
-                    const http_code = error.toString().match(/\d+/)[0];
-                    if (parseInt(http_code) === 401) {
+                    if (error.response.status === 401) {
                         dispatch(alertActions.error("User is not enabled, contact site's administrator"));
+                    } else if (error.response.status === 500) {
+                        dispatch(alertActions.error("Username/password is incorrect!"));
                     } else {
                         dispatch(alertActions.error(error.toString()));
                     }
@@ -70,6 +73,29 @@ function register(user) {
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
+function addUser(user) {
+    return dispatch => {
+        dispatch(request(user));
+
+        userService.addUser(user)
+            .then(
+                user => { 
+                    dispatch(success());
+                    history.push('/admin/users');
+                    dispatch(alertActions.success('User added successfully'));
+                },
+                error => {
+                    dispatch(failure(error.toString()));
+                    dispatch(alertActions.error(error.toString()));
+                }
+            );
+    };
+
+    function request(user) { return { type: userConstants.ADD_REQUEST, user } }
+    function success(user) { return { type: userConstants.ADD_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.ADD_FAILURE, error } }
 }
 
 function getAll() {

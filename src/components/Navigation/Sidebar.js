@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 
-// matirial ui
+// material ui
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';

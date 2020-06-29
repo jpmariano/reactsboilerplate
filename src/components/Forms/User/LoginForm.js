@@ -77,10 +77,11 @@ function LoginForm() {
                                 )}
                             </div>
                             <div className='form__submit-btn-wrapper'>
-                                <button className='form__submit-btn' type="submit">
+                                <button className='form__submit-btn d-inline' type="submit">
                                     {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
                                     Login
                                 </button>
+                                <a className='float-right d-inline pt-2 pl-2 pb-2' href='/password-reset'>Forgot password?</a>
                             </div>
                         </form>
                     </div>

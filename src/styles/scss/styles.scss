@@ -6,6 +6,7 @@
 @import "components/register-form";
 @import "components/not-found";
 @import "components/content";
+@import "components/sidebar";
 
 @include defaults;
 @include login;
@@ -15,3 +16,4 @@
 @include register-form;
 @include not-found;
 @include content;
+@include sidebar;

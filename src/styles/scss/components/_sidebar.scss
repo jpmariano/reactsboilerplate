@@ -1,0 +1,19 @@
+@mixin sidebar {
+    html {
+        body {
+            #root {
+                .main-container {
+                    .main-sidebar {
+                        .navbar-brand {
+                            a.navbar-item {
+                                color: rgb(0, 0, 0, 0.75);
+                                text-decoration: none;
+                                padding-left: 8px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

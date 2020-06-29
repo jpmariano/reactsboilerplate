@@ -457,4 +457,10 @@ html body #root .main-container main .content {
   min-width: 180px;
 }
 
+html body #root .main-container .main-sidebar .navbar-brand a.navbar-item {
+  color: rgba(0, 0, 0, 0.75);
+  text-decoration: none;
+  padding-left: 8px;
+}
+
 /*# sourceMappingURL=styles.css.map */

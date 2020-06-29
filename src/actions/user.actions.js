@@ -202,10 +202,11 @@ function resetPassword(username) {
         .then(
             user => { 
                 dispatch(success(user));
+                dispatch(alertActions.passwordResetSuccess('Password reset link has been successfully emailed!'));
             },
             error => {
-                dispatch(failure(error.toString()));
-                dispatch(alertActions.error(error.toString()));
+                dispatch(failure(error.response.data.toString()));
+                dispatch(alertActions.passwordResetError(error.response.data.toString()));
             }
         );
     };

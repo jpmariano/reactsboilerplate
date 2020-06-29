@@ -12,7 +12,8 @@ export const userService = {
     update,
     delete: _delete,
     addUserRole,
-    removeUserRole
+    removeUserRole,
+    resetPassword
 };
 
 async function login(username, password) {
@@ -128,6 +129,14 @@ async function removeUserRole(userRole, id) {
 
     const response = await API.put('/users/' + id + '?userrole=remove', data, requestOptions);
     const user = handleResponse(response);
+
+    return user;
+}
+
+async function resetPassword(username) {
+    const data = username;
+    const response = await API.get('/password-reset/request', data);
+    const user = await handleResponse(response);
 
     return user;
 }

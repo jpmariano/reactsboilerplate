@@ -17,6 +17,7 @@ import Icon from '@material-ui/core/Icon';
 import Tooltip from '@material-ui/core/Tooltip';
 import Zoom from '@material-ui/core/Zoom';
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import Typography from '@material-ui/core/Typography';
 
 // navitems
 import NavItems from './NavItems';
@@ -39,7 +40,7 @@ function Sidebar(props) {
             className={clsx(props.classes.drawer, {
                 [props.classes.drawerOpen]: props.open,
                 [props.classes.drawerClose]: !props.open,
-            })}
+            }) + ' main-sidebar'}
             classes={{
                 paper: clsx({
                     [props.classes.drawerOpen]: props.open,
@@ -48,6 +49,9 @@ function Sidebar(props) {
             }}
         >
             <div className={props.classes.toolbar}>
+                <Typography variant="h6" noWrap style={{ flex: 1 }} className="navbar-brand">
+                    <a className="navbar-item" href="/dashboard">React Boilerplate</a>
+                </Typography>
                 <IconButton onClick={props.handleDrawerClose}>
                     {props.theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                 </IconButton>

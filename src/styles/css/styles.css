@@ -210,7 +210,6 @@ html body #login-popover .popover-body form.loginForm .form__submit-btn-wrapper,
   padding: 1em;
   width: 100%;
   background-color: #fff;
-  display: flex;
   justify-content: center;
 }
 html body #login-popover .popover-body form.loginForm .form__submit-btn, html body #login-popover .MuiPopover-paper form.loginForm .form__submit-btn {
@@ -222,7 +221,6 @@ html body #login-popover .popover-body form.loginForm .form__submit-btn, html bo
   background-color: #6CC0E5;
   color: white;
   display: block;
-  margin: 0 auto;
   position: relative;
 }
 html body #login-popover .popover-body .form-page__wrapper, html body #login-popover .MuiPopover-paper .form-page__wrapper {

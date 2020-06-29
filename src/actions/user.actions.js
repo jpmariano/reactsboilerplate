@@ -134,7 +134,7 @@ function addUserRole(object, id) {
             .then(
                 user => { 
                     dispatch(success(user));
-                    history.push('/admin/users');
+                    // history.push('/admin/users');
                     dispatch(alertActions.success('User updated successfully'));
                 },
                 error => {
@@ -157,7 +157,7 @@ function removeUserRole(object, id) {
             .then(
                 role => { 
                     dispatch(success(role));
-                    history.push('/admin/users');
+                    // history.push('/admin/users');
                     dispatch(alertActions.success('User updated successfully'));
                 },
                 error => {

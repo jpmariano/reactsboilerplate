@@ -135,7 +135,7 @@ async function removeUserRole(userRole, id) {
 
 async function resetPassword(username) {
     const data = username;
-    const response = await API.get('/password-reset/request', data);
+    const response = await API.post('/password-reset/request', data);
     const user = await handleResponse(response);
 
     return user;

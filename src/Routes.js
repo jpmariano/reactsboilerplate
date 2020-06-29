@@ -13,6 +13,7 @@ import Permissions from './containers/PermissionListContainer';
 import Roles from './containers/RoleListContainer';
 import Profile from './containers/ProfilePageContainer';
 import PasswordReset from './containers/PasswordResetContainer';
+import VerificationPage from './containers/VerificationContainer';
 
 // private route
 import { PrivateRoute } from './components/Routes';
@@ -34,6 +35,7 @@ function Routes() {
             <Route exact path='/login' component={ Login } />
             <Route exact path='/register' component={ Register } />
             <Route exact path='/password-reset' component={ PasswordReset } />
+            <Route exact path='/verify/:vkey' component={ VerificationPage } />
             <Route exact path='*' component={ NotFound } />
         </Switch>
     );

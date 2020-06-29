@@ -12,6 +12,7 @@ import Dashboard from './containers/DashboardContainer';
 import Permissions from './containers/PermissionListContainer';
 import Roles from './containers/RoleListContainer';
 import Profile from './containers/ProfilePageContainer';
+import PasswordReset from './containers/PasswordResetContainer';
 
 // private route
 import { PrivateRoute } from './components/Routes';
@@ -32,6 +33,7 @@ function Routes() {
             <Route exact path='/' component={ Home } />
             <Route exact path='/login' component={ Login } />
             <Route exact path='/register' component={ Register } />
+            <Route exact path='/password-reset' component={ PasswordReset } />
             <Route exact path='*' component={ NotFound } />
         </Switch>
     );

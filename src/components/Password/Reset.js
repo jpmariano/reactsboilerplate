@@ -1,11 +1,19 @@
 import React from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
 // material ui
 import Typography from '@material-ui/core/Typography';
 
+// actions
+import { userActions } from '../../actions';
+
 function Reset() {
+
+    const alert = useSelector(state => state.alert);
+    const dispatch = useDispatch();
+
     return (
         <Formik
             initialValues={{
@@ -13,7 +21,7 @@ function Reset() {
             }}
 
             onSubmit={async values => {
-                console.log(values);
+                dispatch(userActions.resetPassword(values));
             }}
 
             validationSchema={Yup.object().shape({
@@ -36,6 +44,9 @@ function Reset() {
                     <div className="password-reset-form">
                         <form onSubmit={handleSubmit} className="passwordResetForm">
                             <div className="password-reset-form-fields">
+                                {alert.passwordResetMessage &&
+                                    <div className={`alert ${alert.type} m-3 text-center`}>{alert.passwordResetMessage}</div>
+                                }
                                 <Typography variant="h6" noWrap className="text-center">
                                     Reset Password
                                 </Typography>

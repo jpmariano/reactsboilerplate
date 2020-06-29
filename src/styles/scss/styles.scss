@@ -7,6 +7,7 @@
 @import "components/not-found";
 @import "components/content";
 @import "components/sidebar";
+@import "components/modal";
 
 @include defaults;
 @include login;
@@ -17,3 +18,4 @@
 @include not-found;
 @include content;
 @include sidebar;
+@include modal;

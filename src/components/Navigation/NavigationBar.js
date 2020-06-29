@@ -72,12 +72,12 @@ function NavigationBar(props) {
             anchorEl={anchorEl}
             onClose={handleClose}
             anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
+                vertical: 'bottom',
+                horizontal: 'center',
             }}
             transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
+                vertical: 'top',
+                horizontal: 'center',
             }}
         >
             <LoginForm />

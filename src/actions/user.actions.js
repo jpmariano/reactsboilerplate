@@ -13,7 +13,8 @@ export const userActions = {
     addUserRole,
     removeUserRole,
     getById,
-    resetPassword
+    resetPassword,
+    verify
 };
 
 function login(username, password) {
@@ -200,7 +201,7 @@ function resetPassword(username) {
 
         userService.resetPassword(username)
         .then(
-            user => { 
+            user => {
                 dispatch(success(user));
                 dispatch(alertActions.passwordResetSuccess('Password reset link has been successfully emailed!'));
             },
@@ -214,4 +215,26 @@ function resetPassword(username) {
     function request(username) { return { type: userConstants.PASSWORD_RESET_REQUEST, username } }
     function success(user) { return { type: userConstants.PASSWORD_RESET_SUCCESS, user } }
     function failure(error) { return { type: userConstants.PASSWORD_RESET_FAILURE, error } }
+}
+
+function verify(token) {
+    return dispatch => {
+        dispatch(request(token));
+
+        userService.verify(token)
+        .then(
+            user => {
+                dispatch(success(user));
+                dispatch(alertActions.passwordResetSuccess('Verification successful!'));
+            },
+            error => {
+                dispatch(failure(error.response.data.toString()));
+                dispatch(alertActions.passwordResetError(error.response.data.toString()));
+            }
+        );
+    };
+
+    function request(token) { return { type: userConstants.VERIFY_REQUEST, token } }
+    function success(user) { return { type: userConstants.VERIFY_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.VERIFY_FAILURE, error } }
 }

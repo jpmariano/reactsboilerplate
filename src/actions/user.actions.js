@@ -12,7 +12,8 @@ export const userActions = {
     update,
     addUserRole,
     removeUserRole,
-    getById
+    getById,
+    resetPassword
 };
 
 function login(username, password) {
@@ -191,4 +192,25 @@ function getById(id) {
     function request(id) { return { type: userConstants.GETBYID_REQUEST, id } }
     function success(user) { return { type: userConstants.GETBYID_SUCCESS, user } }
     function failure(error) { return { type: userConstants.GETBYID_FAILURE, error } }
+}
+
+function resetPassword(username) {
+    return dispatch => {
+        dispatch(request(username));
+
+        userService.resetPassword(username)
+        .then(
+            user => { 
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.toString()));
+                dispatch(alertActions.error(error.toString()));
+            }
+        );
+    };
+
+    function request(username) { return { type: userConstants.PASSWORD_RESET_REQUEST, username } }
+    function success(user) { return { type: userConstants.PASSWORD_RESET_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.PASSWORD_RESET_FAILURE, error } }
 }

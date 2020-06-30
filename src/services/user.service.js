@@ -14,7 +14,8 @@ export const userService = {
     addUserRole,
     removeUserRole,
     resetPassword,
-    verify
+    verifyUserToken,
+    verifyPasswordToken
 };
 
 async function login(username, password) {
@@ -142,7 +143,7 @@ async function resetPassword(username) {
     return user;
 }
 
-async function verify(token) {
+async function verifyUserToken(token) {
     const response = await API.get('/verify/vkey/' + token,);
     const user = await handleResponse(response);
 

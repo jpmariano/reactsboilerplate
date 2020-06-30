@@ -10,7 +10,7 @@ function VerificationPage(props) {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(userActions.verify(vkey));
+        dispatch(userActions.verifyUserToken(vkey));
     }, [dispatch, vkey]);
 
     return (

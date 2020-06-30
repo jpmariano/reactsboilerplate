@@ -7,8 +7,10 @@ class RegisterContainer extends Component {
     
     render() {
         return (
-            <div className="register-form">
-                <RegisterForm />
+            <div className="registration-form-container">
+                <div className="content p-3">
+                    <RegisterForm />
+                </div>
             </div>
         );
     }

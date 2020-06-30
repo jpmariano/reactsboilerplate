@@ -143,7 +143,7 @@ async function resetPassword(username) {
 }
 
 async function verify(token) {
-    const response = await API.post('/verify/vkey/' + token,);
+    const response = await API.get('/verify/vkey/' + token,);
     const user = await handleResponse(response);
 
     return user;

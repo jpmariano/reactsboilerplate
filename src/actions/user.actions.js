@@ -254,8 +254,13 @@ function verify(token) {
                 dispatch(alertActions.verifySuccess('Verification successful!'));
             },
             error => {
-                dispatch(failure(error.response.data.toString()));
-                dispatch(alertActions.verifyError(error.response.data.toString()));
+                if (error.response.status === 404) {
+                    dispatch(failure('This token has expired!'));
+                    dispatch(alertActions.verifyError('This token has expired/is invalid!'));
+                } else {
+                    dispatch(failure(error.response.data.toString()));
+                    dispatch(alertActions.verifyError(error.response.data.toString()));
+                }
             }
         );
     };

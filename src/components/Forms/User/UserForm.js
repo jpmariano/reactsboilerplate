@@ -228,7 +228,7 @@ function UserForm(props) {
                                 <input
                                     name="password"
                                     type="password"
-                                    placeholder={ action === "add" ? "Enter your password" : "Leave blank to unchange"}
+                                    placeholder={ action === "add" || action === "register" ? "Enter your password" : "Leave blank to unchange"}
                                     value={values.password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
@@ -241,7 +241,7 @@ function UserForm(props) {
                                 <input
                                     name="c_password"
                                     type="password"
-                                    placeholder={ action === "add" ? "Confirm your password" : "Leave blank to unchange"}
+                                    placeholder={ action === "add" || action === "register" ? "Confirm your password" : "Leave blank to unchange"}
                                     value={values.c_password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}

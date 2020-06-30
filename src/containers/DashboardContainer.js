@@ -1,10 +1,13 @@
 import React from 'react';
 
+// components
+import Dashboard from '../components/Pages/Dashboard';
+
 function DashboardContainer() {
 
     return (
-        <div className="container-fluid">
-            <h1>This page is under construction. . .</h1>
+        <div className="dashboard-container">
+            <Dashboard />
         </div>
     )
 }

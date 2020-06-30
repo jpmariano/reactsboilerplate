@@ -13,7 +13,8 @@ export const userService = {
     delete: _delete,
     addUserRole,
     removeUserRole,
-    resetPassword
+    resetPassword,
+    verify
 };
 
 async function login(username, password) {
@@ -136,6 +137,13 @@ async function removeUserRole(userRole, id) {
 async function resetPassword(username) {
     const data = username;
     const response = await API.post('/password-reset/request', data);
+    const user = await handleResponse(response);
+
+    return user;
+}
+
+async function verify(token) {
+    const response = await API.post('/verify/vkey/' + token,);
     const user = await handleResponse(response);
 
     return user;

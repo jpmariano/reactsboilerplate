@@ -34,7 +34,7 @@ const permissionsColumn = [
     { 
         id: 'name', 
         label: 'Permissions', 
-        minWidth: 750 
+        minWidth: 400 
     },
 ];
 

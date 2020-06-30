@@ -5,7 +5,9 @@ export const alertActions = {
     error,
     clear,
     passwordResetSuccess,
-    passwordResetError
+    passwordResetError,
+    verifySuccess,
+    verifyError
 };
 
 function success(message) {
@@ -22,6 +24,14 @@ function passwordResetSuccess(message) {
 
 function passwordResetError(message) {
     return { type: alertConstants.PASSWORD_RESET_ERROR, message };
+}
+
+function verifySuccess(message) {
+    return { type: alertConstants.VERIFY_SUCCESS, message };
+}
+
+function verifyError(message) {
+    return { type: alertConstants.VERIFY_ERROR, message };
 }
 
 function clear() {

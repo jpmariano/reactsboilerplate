@@ -271,4 +271,27 @@ function verifyUserToken(token) {
     function failure(error) { return { type: userConstants.VERIFY_FAILURE, error } }
 }
 
+function verifyPasswordToken(token) {
+    return dispatch => {
+        dispatch(request(token));
 
+        userService.verifyPasswordToken(token)
+        .then(
+            user => {
+                dispatch(success(user));
+            },
+            error => {
+                if (error.response.status === 404) {
+                    dispatch(failure('This token has expired!'));
+                } else {
+                    dispatch(failure(error.response.data.toString()));
+                    dispatch(alertActions.verifyError(error.response.data.toString()));
+                }
+            }
+        );
+    };
+
+    function request(token) { return { type: userConstants.PASSWORD_VERIFY_REQUEST, token } }
+    function success(user) { return { type: userConstants.PASSWORD_VERIFY_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.PASSWORD_VERIFY_FAILURE, error } }
+}

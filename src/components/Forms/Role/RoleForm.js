@@ -10,7 +10,6 @@ function RoleForm(props) {
 
     const action = props.action;
     const [role, setRole] = useState(props.role && action === 'edit' ? props.role : null);
-    console.log(role)
     const dispatch = useDispatch();
 
     // methods
@@ -30,8 +29,7 @@ function RoleForm(props) {
             }}
 
             onSubmit={async values => {
-
-                if (values.name && values.weight) {
+                if (values.name) {
                     if (action === "add") {
                         dispatch(roleActions.addRole(values));
                         setAddRoleModal(false);
@@ -47,8 +45,6 @@ function RoleForm(props) {
             validationSchema={action === "add" && Yup.object().shape({
                 name: Yup.string()
                     .required("Role name is required"),
-                weight: Yup.number()
-                    .required("Role weight is required"),
             })}
         >
             {props => {

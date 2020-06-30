@@ -250,9 +250,9 @@ function UserForm(props) {
                                 {errors.c_password && touched.c_password && (
                                     <div className="input-feedback">{errors.c_password}</div>
                                 )}
-                                <div className="float-right">
-                                    {
-                                        pageLoc !== "register" ?
+                                {
+                                    pageLoc !== "register" ?
+                                        <div className="float-right">
                                             <button
                                                 type="button"
                                                 className="btn btn-secondary mr-2"
@@ -268,13 +268,17 @@ function UserForm(props) {
                                             > 
                                                 Cancel
                                             </button>
-                                        :
-                                            null
-                                    }
-                                    <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
-                                        Submit
-                                    </button>
-                                </div>
+                                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                                Submit
+                                            </button>
+                                        </div>
+                                    :
+                                        <div className="text-center">
+                                            <button type="submit" className="btn btn-primary" disabled={isSubmitting}>
+                                                Submit
+                                            </button>
+                                        </div>
+                                }
                             </div>
                             
                         </form>

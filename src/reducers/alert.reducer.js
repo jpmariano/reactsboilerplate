@@ -22,6 +22,16 @@ export function alert(state = {}, action) {
         type: 'alert-danger',
         passwordResetMessage: action.message
       };
+    case alertConstants.VERIFY_SUCCESS:
+      return {
+        type: 'alert-success',
+        verifyMessage: action.message
+      };
+    case alertConstants.VERIFY_ERROR:
+      return {
+        type: 'alert-danger',
+        verifyMessage: action.message
+      };
     case alertConstants.CLEAR:
       return {};
     default:

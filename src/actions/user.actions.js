@@ -251,11 +251,11 @@ function verify(token) {
         .then(
             user => {
                 dispatch(success(user));
-                dispatch(alertActions.passwordResetSuccess('Verification successful!'));
+                dispatch(alertActions.verifySuccess('Verification successful!'));
             },
             error => {
                 dispatch(failure(error.response.data.toString()));
-                dispatch(alertActions.passwordResetError(error.response.data.toString()));
+                dispatch(alertActions.verifyError(error.response.data.toString()));
             }
         );
     };

@@ -143,15 +143,15 @@ async function resetPassword(username) {
     return user;
 }
 
-async function verifyPasswordToken(token) {
+async function verifyUserToken(token) {
     const response = await API.get('/verify/vkey/' + token,);
     const user = await handleResponse(response);
 
     return user;
 }
 
-async function verifyUserToken(token) {
-    const response = await API.get('/verify/vkey/' + token,);
+async function verifyPasswordToken(token) {
+    const response = await API.get('/password-reset/' + token,);
     const user = await handleResponse(response);
 
     return user;

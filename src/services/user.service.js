@@ -13,7 +13,7 @@ export const userService = {
     delete: _delete,
     addUserRole,
     removeUserRole,
-    resetPassword,
+    resetPasswordRequest,
     verifyUserToken,
     resetPassword
 };
@@ -135,7 +135,7 @@ async function removeUserRole(userRole, id) {
     return user;
 }
 
-async function resetPassword(username) {
+async function resetPasswordRequest(username) {
     const data = username;
     const response = await API.post('/password-reset/request', data);
     const user = await handleResponse(response);

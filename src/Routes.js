@@ -36,6 +36,7 @@ function Routes() {
             <Route exact path='/register' component={ Register } />
             <Route exact path='/password-reset' component={ PasswordReset } />
             <Route exact path='/new-password/:vkey' component={ PasswordReset } />
+            <Route exact path='/reset-password/success' component={ PasswordReset } />
             <Route exact path='/verify/:vkey' component={ VerificationPage } />
             <Route exact path='*' component={ NotFound } />
         </Switch>

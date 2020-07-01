@@ -518,9 +518,6 @@ html body #root .main-container main .profile-container .content section body {
   background: -webkit-linear-gradient(left, #3931af, #00c6ff);
 }
 html body #root .main-container main .profile-container .content section .emp-profile {
-  padding: 3%;
-  margin-top: 3%;
-  margin-bottom: 3%;
   border-radius: 0.5rem;
   background: #fff;
 }

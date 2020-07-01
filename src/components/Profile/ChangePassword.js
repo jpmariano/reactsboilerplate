@@ -30,6 +30,8 @@ function ChangePassword() {
             }}
 
             validationSchema={Yup.object().shape({
+                old_password: Yup.string()
+                    .required("Provide old password"),
                 password: Yup.string()
                     .required("No password provided.")
                     .min(8, "Password is too short - should be 8 characters minimum."),

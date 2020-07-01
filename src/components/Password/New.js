@@ -26,7 +26,7 @@ function New(props) {
 
                 if (values.password) {
                     console.log(values)
-                    dispatch(userActions.verifyPasswordToken(vkey, values))
+                    dispatch(userActions.resetPassword(vkey, values))
                 }
             }}
 

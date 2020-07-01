@@ -16,7 +16,7 @@ function ChangePassword() {
     return (
         <Formik
             initialValues={{
-                old_password: '',
+                current_password: '',
                 password: '',
             }}
 
@@ -30,8 +30,8 @@ function ChangePassword() {
             }}
 
             validationSchema={Yup.object().shape({
-                old_password: Yup.string()
-                    .required("Provide old password"),
+                current_password: Yup.string()
+                    .required("Provide current password"),
                 password: Yup.string()
                     .required("No password provided.")
                     .min(8, "Password is too short - should be 8 characters minimum."),
@@ -63,16 +63,16 @@ function ChangePassword() {
                                 </Typography>
                                 <label htmlFor="add-user">Old Password</label>
                                 <input
-                                    name="old_pasword"
-                                    type="old_pasword"
-                                    placeholder="Enter old password"
-                                    value={values.old_pasword}
+                                    name="current_password"
+                                    type="current_password"
+                                    placeholder="Enter current password"
+                                    value={values.current_password}
                                     onChange={handleChange}
                                     onBlur={handleBlur}
-                                    className={errors.old_pasword && touched.old_pasword && "error"}
+                                    className={errors.current_password && touched.current_password && "error"}
                                 />
-                                {errors.old_pasword && touched.old_pasword && (
-                                    <div className="input-feedback">{errors.old_pasword}</div>
+                                {errors.current_password && touched.current_password && (
+                                    <div className="input-feedback">{errors.current_password}</div>
                                 )}
                                 <label htmlFor="add-user">New Password</label>
                                 <input

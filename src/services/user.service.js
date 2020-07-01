@@ -15,7 +15,7 @@ export const userService = {
     removeUserRole,
     resetPassword,
     verifyUserToken,
-    verifyPasswordToken
+    resetPassword
 };
 
 async function login(username, password) {
@@ -150,8 +150,10 @@ async function verifyUserToken(token) {
     return user;
 }
 
-async function verifyPasswordToken(token) {
-    const response = await API.get('/password-reset/' + token,);
+async function resetPassword(token, password) {
+    const data = password;
+
+    const response = await API.get('/password-reset/' + token, data);
     const user = await handleResponse(response);
 
     return user;

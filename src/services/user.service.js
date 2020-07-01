@@ -153,7 +153,7 @@ async function verifyUserToken(token) {
 async function resetPassword(token, password) {
     const data = password;
 
-    const response = await API.get('/password-reset/' + token, data);
+    const response = await API.post('/password-reset/' + token, data);
     const user = await handleResponse(response);
 
     return user;

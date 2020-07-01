@@ -93,31 +93,25 @@ function UserForm(props) {
 
                 delete values.c_password;
 
-                if (values.name && values.username && values.password) {
-                    if (action === "add") {
+                if (action === "add") {
+                    if (values.name && values.username && values.password) {
                         delete values.status;
                         dispatch(userActions.addUser(values));
-                    } else if (action === "register") {
+                        setAddUserModal(false);
+                        props.setSuccessModal(true);
+                    }
+                } else if (action === "register") {
+                    if (values.name && values.username && values.password) {
                         delete values.status;
                         dispatch(userActions.register(values));
                     }
-
-                    if (pageLoc !== "register") {
-                        if (action === "add") {
-                            setAddUserModal(false);
-                        }
-                        props.setSuccessModal(true);
-                    }
-                } else {
+                } else if (action === "edit") {
                     delete values.password;
-
-                    if (action === "edit") {
-                        dispatch(userActions.update(values, user.uid));
-                        updateUserRoles();
-                        setUsers(null);
-                        setEditUserModal(false);
-                        window.location.reload(true);
-                    }
+                    dispatch(userActions.update(values, user.uid));
+                    updateUserRoles();
+                    setUsers(null);
+                    setEditUserModal(false);
+                    window.location.reload(true);
                 }
             }}
 
@@ -182,7 +176,7 @@ function UserForm(props) {
                                 )}
                                 {
                                     action === "edit" &&
-                                    <FormControl component="fieldset" className="d-inline">
+                                    <FormControl component="fieldset" className="d-inline w-100">
                                         <label htmlFor="status" className="mb-0">Roles</label>
                                         {
                                             roles.map((item, index) => (
@@ -224,35 +218,40 @@ function UserForm(props) {
                                         <FormControlLabel className="d-inline" control={<Radio color="primary" checked={values.status === 0} onChange={(e) => setFieldValue("status", 0)}/>} label="Inactive" />
                                     </FormControl>
                                 }
-                                <label htmlFor="add-user">Password</label>
-                                <input
-                                    name="password"
-                                    type="password"
-                                    placeholder={ action === "add" || action === "register" ? "Enter your password" : "Leave blank to unchange"}
-                                    value={values.password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.password && touched.password && "error"}
-                                />
-                                {errors.password && touched.password && (
-                                    <div className="input-feedback">{errors.password}</div>
-                                )}
-                                <label htmlFor="add-user">Confirm Password</label>
-                                <input
-                                    name="c_password"
-                                    type="password"
-                                    placeholder={ action === "add" || action === "register" ? "Confirm your password" : "Leave blank to unchange"}
-                                    value={values.c_password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.c_password && touched.c_password && "error"}
-                                />
-                                {errors.c_password && touched.c_password && (
-                                    <div className="input-feedback">{errors.c_password}</div>
-                                )}
+                                {
+                                    action === "add" &&
+                                    <>
+                                        <label htmlFor="add-user">Password</label>
+                                        <input
+                                            name="password"
+                                            type="password"
+                                            placeholder={ action === "add" || action === "register" ? "Enter your password" : "Leave blank to unchange"}
+                                            value={values.password}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.password && touched.password && "error"}
+                                        />
+                                        {errors.password && touched.password && (
+                                            <div className="input-feedback">{errors.password}</div>
+                                        )}
+                                        <label htmlFor="add-user">Confirm Password</label>
+                                        <input
+                                            name="c_password"
+                                            type="password"
+                                            placeholder={ action === "add" || action === "register" ? "Confirm your password" : "Leave blank to unchange"}
+                                            value={values.c_password}
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}
+                                            className={errors.c_password && touched.c_password && "error"}
+                                        />
+                                        {errors.c_password && touched.c_password && (
+                                            <div className="input-feedback">{errors.c_password}</div>
+                                        )}
+                                    </>
+                                }
                                 {
                                     pageLoc !== "register" ?
-                                        <div className="float-right">
+                                        <div className="d-block float-right">
                                             <button
                                                 type="button"
                                                 className="btn btn-secondary mr-2"

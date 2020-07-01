@@ -16,7 +16,7 @@ export const userActions = {
     getById,
     resetPassword,
     verifyUserToken,
-    verifyPasswordToken
+    resetPassword
 };
 
 function login(username, password) {
@@ -271,11 +271,11 @@ function verifyUserToken(token) {
     function failure(error) { return { type: userConstants.VERIFY_FAILURE, error } }
 }
 
-function verifyPasswordToken(token) {
+function resetPassword(token, password) {
     return dispatch => {
         dispatch(request(token));
 
-        userService.verifyPasswordToken(token)
+        userService.resetPassword(token, password)
         .then(
             user => {
                 dispatch(success(user));

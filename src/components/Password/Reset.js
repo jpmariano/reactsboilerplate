@@ -21,7 +21,7 @@ function Reset() {
             }}
 
             onSubmit={async values => {
-                dispatch(userActions.resetPassword(values));
+                dispatch(userActions.resetPasswordRequest(values));
             }}
 
             validationSchema={Yup.object().shape({

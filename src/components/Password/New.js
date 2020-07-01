@@ -38,7 +38,7 @@ function New(props) {
                         is: val => (val && val.length > 0 ? true : false),
                         then: Yup.string().oneOf(
                         [Yup.ref("password")],
-                        "Both password need to be the same"
+                        "Both password needs to be the same"
                     )
                 })
             })}

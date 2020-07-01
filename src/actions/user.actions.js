@@ -279,6 +279,8 @@ function resetPassword(token, password) {
         .then(
             user => {
                 dispatch(success(user));
+                history.push('/reset-password/success');
+                dispatch(alertActions.passwordResetSuccess('Your password has been reset!'));
             },
             error => {
                 if (error.response.status === 404) {

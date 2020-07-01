@@ -14,7 +14,7 @@ export const userActions = {
     addUserRole,
     removeUserRole,
     getById,
-    resetPassword,
+    resetPasswordRequest,
     verifyUserToken,
     resetPassword
 };
@@ -222,11 +222,11 @@ function getById(id) {
     function failure(error) { return { type: userConstants.GETBYID_FAILURE, error } }
 }
 
-function resetPassword(username) {
+function resetPasswordRequest(username) {
     return dispatch => {
         dispatch(request(username));
 
-        userService.resetPassword(username)
+        userService.resetPasswordRequest(username)
         .then(
             user => {
                 dispatch(success(user));

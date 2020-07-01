@@ -1,22 +1,22 @@
 import React from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 
 // actions
-import { userActions } from '../../actions';
+// import { userActions } from '../../actions';
 
 // material ui
 import Typography from '@material-ui/core/Typography';
 
-function New(props) {
+function ChangePassword() {
     
-    const vkey = props.vkey;
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     return (
         <Formik
             initialValues={{
+                old_password: '',
                 password: '',
             }}
 
@@ -26,7 +26,6 @@ function New(props) {
 
                 if (values.password) {
                     console.log(values)
-                    dispatch(userActions.resetPassword(vkey, values))
                 }
             }}
 
@@ -58,8 +57,21 @@ function New(props) {
                         <form onSubmit={handleSubmit} className="newPasswordForm">
                             <div className="new-password-form-fields">
                                 <Typography variant="h6" noWrap className="text-center">
-                                    Type new password
+                                    Change password
                                 </Typography>
+                                <label htmlFor="add-user">Old Password</label>
+                                <input
+                                    name="old_pasword"
+                                    type="old_pasword"
+                                    placeholder="Enter old password"
+                                    value={values.old_pasword}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    className={errors.old_pasword && touched.old_pasword && "error"}
+                                />
+                                {errors.old_pasword && touched.old_pasword && (
+                                    <div className="input-feedback">{errors.old_pasword}</div>
+                                )}
                                 <label htmlFor="add-user">New Password</label>
                                 <input
                                     name="password"
@@ -101,4 +113,4 @@ function New(props) {
     );
 }
 
-export default New;
+export default ChangePassword;

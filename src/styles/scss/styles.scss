@@ -8,6 +8,7 @@
 @import "components/content";
 @import "components/sidebar";
 @import "components/modal";
+@import "components/profile";
 
 @include defaults;
 @include login;
@@ -19,3 +20,4 @@
 @include content;
 @include sidebar;
 @include modal;
+@include profile;

@@ -307,10 +307,10 @@ function filter(parameters) {
     return dispatch => {
         dispatch(request(parameters));
 
-        userService.resetPassword(parameters)
+        userService.filter(parameters)
         .then(
-            user => {
-                dispatch(success(user));
+            users => {
+                dispatch(success(users));
             },
             error => {
                 dispatch(failure(error.response.data.toString()));
@@ -320,6 +320,6 @@ function filter(parameters) {
     };
 
     function request(parameters) { return { type: userConstants.FILTER_REQUEST, parameters } }
-    function success(user) { return { type: userConstants.FILTER_SUCCESS, user } }
+    function success(users) { return { type: userConstants.FILTER_SUCCESS, users } }
     function failure(error) { return { type: userConstants.FILTER_FAILURE, error } }
 }

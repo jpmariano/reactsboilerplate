@@ -185,9 +185,13 @@ function Users() {
     return (
         <div id="list-container">
             <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setAddUserModal(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
+
+            {/* User forms */}
             {addUserForm}
             {editUserForm}
             {viewUserForm}
+
+            {/* Alert modals */}
             <SuccessModal
                 successModal={successModal}
                 modalMessage="User successfully added!"
@@ -201,6 +205,8 @@ function Users() {
                 setConfirmModal={setConfirmModal}
                 pageLoc="users"
             />
+
+            
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>

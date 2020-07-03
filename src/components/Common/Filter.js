@@ -29,7 +29,7 @@ function Filter(props) {
                     setFieldValue
                 } = props;
                 return (
-                    <form onSubmit={handleSubmit} className="form-inline">
+                    <form onSubmit={handleSubmit} className="form-inline d-block">
                         <div className="row mr-0 ml-0 mb-2">
                             <div className="form-group mr-sm-2 mb-2">
                                 <label for="username">Username</label>
@@ -73,8 +73,10 @@ function Filter(props) {
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary rounded-btn mr-2"><FontAwesomeIcon icon={faCheck}/> Apply</button>
-                        <button type="button" className="btn btn-secondary rounded-btn" onClick={() => dispatch(userActions.getAll())}><FontAwesomeIcon icon={faTimes}/> Clear</button>
+                        <div className="action-btns mb-3">
+                            <button type="submit" className="btn btn-primary rounded-btn mr-2"><FontAwesomeIcon icon={faCheck}/> Apply</button>
+                            <button type="button" className="btn btn-light rounded-btn border border-dark" onClick={() => dispatch(userActions.getAll())}><FontAwesomeIcon icon={faTimes}/> Clear</button>
+                        </div>
                     </form>
 
                 );

@@ -226,6 +226,9 @@ async function filter(filterParams) {
         const response = await API.get('/users?status=' + status,);
         const user = await handleResponse(response);
         return user;
+    } else {
+        const response = await API.get('/users?pageNo=0&pageSize=100&sortBy=uid',);
+        return handleResponse(response);
     }
 }
 

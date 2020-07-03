@@ -174,8 +174,24 @@ async function filter(filterParams) {
         const response = await API.get('/users?pid=' + pid + '&username=' + username + '&rid=' + rid,);
         const user = await handleResponse(response);
         return user;
+    }  else if (pid && status && username) {
+        const response = await API.get('/users?pid=' + pid + '&status=' + status + '&username=' + username,);
+        const user = await handleResponse(response);
+        return user;
+    } else if (pid && status && rid) {
+        const response = await API.get('/users?pid=' + pid + '&status=' + status + '&rid=' + rid,);
+        const user = await handleResponse(response);
+        return user;
     } else if (pid && rid) {
         const response = await API.get('/users?pid=' + pid + '&rid=' + rid,);
+        const user = await handleResponse(response);
+        return user;
+    } else if (pid && username) {
+        const response = await API.get('/users?pid=' + pid + '&username=' + username,);
+        const user = await handleResponse(response);
+        return user;
+    } else if (pid && status) {
+        const response = await API.get('/users?pid=' + pid + '&status=' + status,);
         const user = await handleResponse(response);
         return user;
     } else if (pid) {
@@ -186,12 +202,20 @@ async function filter(filterParams) {
         const response = await API.get('/users?rid=' + rid,);
         const user = await handleResponse(response);
         return user;
-    } else if (username) {
-        const response = await API.get('/users?username=' + username,);
+    } else if (rid && status) {
+        const response = await API.get('/users?rid=' + rid + '&status=' + status,);
         const user = await handleResponse(response);
         return user;
-    } else if (status) {
-        const response = await API.get('/users?status=' + status,);
+    } else if (rid && username) {
+        const response = await API.get('/users?rid=' + rid + '&username=' + username,);
+        const user = await handleResponse(response);
+        return user;
+    } else if (rid && status && username) {
+        const response = await API.get('/users?rid=' + rid + '&status=' + status + '&username=' + username,);
+        const user = await handleResponse(response);
+        return user;
+    } else if (username) {
+        const response = await API.get('/users?username=' + username,);
         const user = await handleResponse(response);
         return user;
     } else if (status) {

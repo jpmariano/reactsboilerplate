@@ -1,6 +1,8 @@
 import React from 'react';
 import { Formik } from "formik";
 import { useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 // actions
 import { userActions } from '../../actions';
@@ -12,7 +14,7 @@ function Filter(props) {
 
     return (
         <Formik
-            initialValues={{ pid: -1, status: -1, rid: -1, username: "" }}
+            initialValues={{ pid: "", status: "", rid: "", username: "" }}
             onSubmit={(values) => {
                 // console.log(values);
                 dispatch(userActions.filter(values));
@@ -42,7 +44,7 @@ function Filter(props) {
                             </div>
                             <div className="form-group mx-sm-2 mb-2">
                                 <label for="status">Status</label>
-                                <select onChange={(e) => {setFieldValue("status", e.target.value); console.log(e.target.value)}} className="form-control-plaintext border border-dark rounded">
+                                <select onChange={(e) => {setFieldValue("status", e.target.value);}} className="form-control-plaintext border border-dark rounded">
                                     <option value={-1}>&nbsp; — Any —</option>
                                     <option value={1}>Active</option>
                                     <option value={0}>Inactive</option>
@@ -50,7 +52,7 @@ function Filter(props) {
                             </div>
                             <div className="form-group mx-sm-2 mb-2">
                                 <label for="role">Role</label>
-                                <select onChange={(e) => {setFieldValue("rid", e.target.value); console.log(e.target.value)}} className="form-control-plaintext border border-dark rounded">
+                                <select onChange={(e) => {setFieldValue("rid", e.target.value);}} className="form-control-plaintext border border-dark rounded">
                                     <option value={-1}>&nbsp; — Any —</option>
                                     {
                                         roles.map((role, index) => (
@@ -61,7 +63,7 @@ function Filter(props) {
                             </div>
                             <div className="form-group mx-sm-2 mb-2">
                                 <label for="permission">Permission</label>
-                                <select onChange={(e) => {setFieldValue("pid", e.target.value); console.log(e.target.value)}} className="form-control-plaintext border border-dark rounded">
+                                <select onChange={(e) => {setFieldValue("pid", e.target.value);}} className="form-control-plaintext border border-dark rounded">
                                     <option value={-1}>&nbsp; — Any —</option>
                                     {
                                         permissions.map((permission, index) => (
@@ -71,8 +73,10 @@ function Filter(props) {
                                 </select>
                             </div>
                         </div>
-                        <button type="submit" className="d-block btn btn-primary">Apply</button>
+                        <button type="submit" className="btn btn-primary rounded-btn mr-2"><FontAwesomeIcon icon={faCheck}/> Apply</button>
+                        <button type="button" className="btn btn-secondary rounded-btn" onClick={() => dispatch(userActions.getAll())}><FontAwesomeIcon icon={faTimes}/> Clear</button>
                     </form>
+
                 );
             }}
         </Formik>

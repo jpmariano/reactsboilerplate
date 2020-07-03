@@ -16,7 +16,8 @@ export const userActions = {
     getById,
     resetPasswordRequest,
     verifyUserToken,
-    resetPassword
+    resetPassword,
+    filter
 };
 
 function login(username, password) {
@@ -300,4 +301,25 @@ function resetPassword(token, password) {
     function request(token) { return { type: userConstants.PASSWORD_VERIFY_REQUEST, token } }
     function success(user) { return { type: userConstants.PASSWORD_VERIFY_SUCCESS, user } }
     function failure(error) { return { type: userConstants.PASSWORD_VERIFY_FAILURE, error } }
+}
+
+function filter(parameters) {
+    return dispatch => {
+        dispatch(request(parameters));
+
+        userService.resetPassword(parameters)
+        .then(
+            user => {
+                dispatch(success(user));
+            },
+            error => {
+                dispatch(failure(error.response.data.toString()));
+                dispatch(alertActions.error(error.response.data.toString()));
+            }
+        );
+    };
+
+    function request(parameters) { return { type: userConstants.FILTER_REQUEST, parameters } }
+    function success(user) { return { type: userConstants.FILTER_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.FILTER_FAILURE, error } }
 }

@@ -61,6 +61,27 @@ export function users(state = {}, action) {
             })
         };
 
+    case userConstants.FILTER_SUCCESS:
+        let filteredUsers = action.users;
+        let filteredUserRoleId = [];
+        filteredUsers.map((filteredUser) => (
+            // eslint-disable-next-line
+            filteredUserRoleId = [],
+            filteredUser.users_roles.map((item) => (
+                filteredUserRoleId.push(item.users_rolesid.rid)
+            )),
+            filteredUser['roles'] = filteredUserRoleId
+        ));
+
+        return {
+            items: filteredUsers
+        };
+
+    case userConstants.FILTER_FAILURE:
+        return { 
+            error: action.error
+        };
+
     default:
         return state
   }

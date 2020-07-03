@@ -174,6 +174,10 @@ async function filter(filterParams) {
         const response = await API.get('/users?pid=' + pid + '&status=' + status + '&rid=' + rid,);
         const user = await handleResponse(response);
         return user;
+    } else if (pid && rid) {
+        const response = await API.get('/users?pid=' + pid + '&status=' + status,);
+        const user = await handleResponse(response);
+        return user;
     }
 }
 

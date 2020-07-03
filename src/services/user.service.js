@@ -171,11 +171,11 @@ async function filter(filterParams) {
         const user = await handleResponse(response);
         return user;
     } else if (pid && rid && username) {
-        const response = await API.get('/users?pid=' + pid + '&status=' + status + '&rid=' + rid,);
+        const response = await API.get('/users?pid=' + pid + '&username=' + username + '&rid=' + rid,);
         const user = await handleResponse(response);
         return user;
     } else if (pid && rid) {
-        const response = await API.get('/users?pid=' + pid + '&status=' + status,);
+        const response = await API.get('/users?pid=' + pid + '&rid=' + rid,);
         const user = await handleResponse(response);
         return user;
     } else if (pid) {
@@ -188,6 +188,10 @@ async function filter(filterParams) {
         return user;
     } else if (username) {
         const response = await API.get('/users?username=' + username,);
+        const user = await handleResponse(response);
+        return user;
+    } else if (status) {
+        const response = await API.get('/users?status=' + status,);
         const user = await handleResponse(response);
         return user;
     } else if (status) {

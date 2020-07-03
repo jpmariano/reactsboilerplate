@@ -15,7 +15,8 @@ export const userService = {
     removeUserRole,
     resetPasswordRequest,
     verifyUserToken,
-    resetPassword
+    resetPassword,
+    filter
 };
 
 async function login(username, password) {
@@ -157,6 +158,19 @@ async function resetPassword(token, password) {
     const user = await handleResponse(response);
 
     return user;
+}
+
+async function filter(filterParams) {
+    const pid = filterParams.pid;
+    const rid = filterParams.rid;
+    const username = filterParams.username;
+    const status = filterParams.status;
+
+    if (pid && rid && username && status) {
+        const response = await API.get('/users?pid=' + pid + '&status=' + status + '&rid=' + rid + '&username=' + username,);
+        const user = await handleResponse(response);
+        return user;
+    }
 }
 
 function handleResponse(response) {

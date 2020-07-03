@@ -18,11 +18,13 @@ import IconButton from '@material-ui/core/IconButton';
 // actions
 import { userActions } from '../../actions';
 import { roleActions } from '../../actions';
+import { permissionActions } from '../../actions';
 
 // components
 import SuccessModal from '../Alerts/Successful';
 import ConfirmationModal from '../Alerts/Confirmation';
 import AppStyles from '../Common/useStyles';
+import Filter from '../Common/Filter';
 
 // forms
 import UserForm from '../Forms/User/UserForm';
@@ -58,10 +60,11 @@ const columns = [
 function Users() {
     // user-related variables
     const userList = useSelector(state => state.users.items);
+    const roles = useSelector(state => state.role.items);
+    const permissions = useSelector(state => state.permissions.items);
     const users = userList ? userList : [];
     const [deleteUserId, setDeleteUserId] = useState(-1);
     const [selectedUserIndex, setSelectedUserIndex] = useState(0);
-    const roles = useSelector(state => state.role.items);
 
     // modal-related variables
     const [addUserModal, setAddUserModal] = useState(false);
@@ -164,6 +167,7 @@ function Users() {
         async function fetchData() {
             dispatch(userActions.getAll());
             dispatch(roleActions.getAllRole());
+            dispatch(permissionActions.getAll());
         }
         
         fetchData();
@@ -206,7 +210,10 @@ function Users() {
                 pageLoc="users"
             />
 
-            
+            <Filter 
+                roles={roles}
+                permissions={permissions}
+            />
 
             <Paper className="w-100 border">
                 <TableContainer className={classes.container}>

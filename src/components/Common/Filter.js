@@ -78,7 +78,6 @@ function Filter(props) {
                             <button type="button" className="btn btn-light rounded-btn border border-dark font-weight-bold" onClick={() => window.location.reload(true)}><FontAwesomeIcon icon={faTimes}/> Clear</button>
                         </div>
                     </form>
-
                 );
             }}
         </Formik>

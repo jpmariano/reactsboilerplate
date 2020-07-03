@@ -32,7 +32,7 @@ function Filter(props) {
                     <form onSubmit={handleSubmit} className="form-inline d-block">
                         <div className="row mr-0 ml-0 mb-2">
                             <div className="form-group mr-sm-2 mb-2">
-                                <label for="username">Username</label>
+                                <label className="font-weight-bold" for="username">Username</label>
                                 <input
                                     type="text"
                                     className="form-control-plaintext border border-dark rounded"
@@ -43,7 +43,7 @@ function Filter(props) {
                                 />
                             </div>
                             <div className="form-group mx-sm-2 mb-2">
-                                <label for="status">Status</label>
+                                <label className="font-weight-bold" for="status">Status</label>
                                 <select onChange={(e) => {setFieldValue("status", e.target.value);}} className="form-control-plaintext border border-dark rounded">
                                     <option value={-1}>&nbsp; — Any —</option>
                                     <option value={1}>Active</option>
@@ -51,7 +51,7 @@ function Filter(props) {
                                 </select>
                             </div>
                             <div className="form-group mx-sm-2 mb-2">
-                                <label for="role">Role</label>
+                                <label className="font-weight-bold" for="role">Role</label>
                                 <select onChange={(e) => {setFieldValue("rid", e.target.value);}} className="form-control-plaintext border border-dark rounded">
                                     <option value={-1}>&nbsp; — Any —</option>
                                     {
@@ -62,7 +62,7 @@ function Filter(props) {
                                 </select>
                             </div>
                             <div className="form-group mx-sm-2 mb-2">
-                                <label for="permission">Permission</label>
+                                <label className="font-weight-bold" for="permission">Permission</label>
                                 <select onChange={(e) => {setFieldValue("pid", e.target.value);}} className="form-control-plaintext border border-dark rounded">
                                     <option value={-1}>&nbsp; — Any —</option>
                                     {
@@ -74,8 +74,8 @@ function Filter(props) {
                             </div>
                         </div>
                         <div className="action-btns mb-3">
-                            <button type="submit" className="btn btn-primary rounded-btn mr-2"><FontAwesomeIcon icon={faCheck}/> Apply</button>
-                            <button type="button" className="btn btn-light rounded-btn border border-dark" onClick={() => dispatch(userActions.getAll())}><FontAwesomeIcon icon={faTimes}/> Clear</button>
+                            <button type="submit" className="btn btn-primary rounded-btn mr-2 font-weight-bold"><FontAwesomeIcon icon={faCheck}/> Apply</button>
+                            <button type="button" className="btn btn-light rounded-btn border border-dark font-weight-bold" onClick={() => dispatch(userActions.getAll())}><FontAwesomeIcon icon={faTimes}/> Clear</button>
                         </div>
                     </form>
 

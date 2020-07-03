@@ -188,7 +188,7 @@ function Users() {
 
     return (
         <div id="list-container">
-            <button className="btn btn-primary mt-3 mr-3 mb-3" onClick={() => setAddUserModal(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
+            <button className="btn btn-primary mt-3 mr-3 mb-3 font-weight-bold" onClick={() => setAddUserModal(true)}><FontAwesomeIcon icon={faPlus}/> Add User</button>
 
             {/* User forms */}
             {addUserForm}
@@ -225,6 +225,7 @@ function Users() {
                                     key={column.id}
                                     align={column.align}
                                     style={{ minWidth: column.minWidth }}
+                                    className="font-weight-bold text-uppercase"
                                 >
                                     {column.label}
                                 </TableCell>

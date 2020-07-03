@@ -218,6 +218,10 @@ async function filter(filterParams) {
         const response = await API.get('/users?username=' + username,);
         const user = await handleResponse(response);
         return user;
+    } else if (username && status) {
+        const response = await API.get('/users?username=' + username + '&status=' + status,);
+        const user = await handleResponse(response);
+        return user;
     } else if (status) {
         const response = await API.get('/users?status=' + status,);
         const user = await handleResponse(response);

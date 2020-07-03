@@ -1,11 +1,13 @@
 import React from 'react';
 import { Formik } from "formik";
 
-function Filter() {
+function Filter(props) {
+    const roles = props.roles ? props.roles : [];
+    const permissions = props.permissions ? props.permissions : [];
 
     return (
         <Formik
-            initialValues={{ pid: "", status: "", rid: "", username: "" }}
+            initialValues={{ pid: -1, status: -1, rid: -1, username: "" }}
             onSubmit={(values) => {
                 console.log(values);
             }}
@@ -13,60 +15,55 @@ function Filter() {
             {props => {
                 const {
                     values,
-                    touched,
-                    errors,
                     handleChange,
                     handleBlur,
                     handleSubmit
                 } = props;
                 return (
-                    <div className='form-page__form-wrapper'>
-                        <div className='form-page__form-header'>
-                            <h2 className='form-page__form-heading'>Login</h2>
+                    <form onSubmit={handleSubmit} className="form-inline">
+                        <div className="form-group mr-sm-2 mb-2">
+                            <label for="username">Username</label>
+                            <input
+                                type="text"
+                                className="form-control-plaintext border border-dark rounded"
+                                id="username"
+                                value={values.username}
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                            />
                         </div>
-                        {alert.message &&
-                            <div className={`alert ${alert.type} m-3`}>{alert.message}</div>
-                        }
-                        <form onSubmit={handleSubmit} className="loginForm">
-                            <div className='form__field-wrapper'>
-                                <input
-                                    name="email"
-                                    type="text"
-                                    placeholder="Enter your email"
-                                    value={values.email}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={(errors.email && touched.email && "error form__field-input") || "form__field-input"}
-                                />
-                                <label htmlFor="email" className='form__field-label'>Email</label>
-                                {errors.email && touched.email && (
-                                    <div className="input-feedback">{errors.email}</div>
-                                )}
-                            </div>
-                            <div className='form__field-wrapper'>
-                                <input
-                                    name="password"
-                                    type="password"
-                                    placeholder="Enter your password"
-                                    value={values.password}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={(errors.password && touched.password && "error form__field-input") || "form__field-input"}
-                                />
-                                <label htmlFor="password" className='form__field-label'>Password</label>
-                                {errors.password && touched.password && (
-                                    <div className="input-feedback">{errors.password}</div>
-                                )}
-                            </div>
-                            <div className='form__submit-btn-wrapper'>
-                                <button className='form__submit-btn d-inline' type="submit">
-                                    {loggingIn && <span className="spinner-border spinner-border-sm mr-1"></span>}
-                                    Login
-                                </button>
-                                <a className='float-right d-inline pt-2 pl-2 pb-2' href='/password-reset'>Forgot password?</a>
-                            </div>
-                        </form>
-                    </div>
+                        <div className="form-group mx-sm-2 mb-2">
+                            <label for="inputPassword2">Status</label>
+                            <select className="form-control-plaintext border border-dark rounded">
+                                <option value={-1}>&nbsp; — Any —</option>
+                                <option value={1}>Active</option>
+                                <option value={0}>Inactive</option>
+                            </select>
+                        </div>
+                        <div className="form-group mx-sm-2 mb-2">
+                            <label for="inputPassword2">Role</label>
+                            <select className="form-control-plaintext border border-dark rounded">
+                                <option value={-1}>&nbsp; — Any —</option>
+                                {
+                                    roles.map((role, index) => (
+                                        <option key={index} value={role.rid}>{role.name}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <div className="form-group mx-sm-2 mb-2">
+                            <label for="inputPassword2">Permission</label>
+                            <select className="form-control-plaintext border border-dark rounded">
+                                <option value={-1}>&nbsp; — Any —</option>
+                                {
+                                    permissions.map((permission, index) => (
+                                        <option key={index} value={permission.pid}>{permission.name}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
+                        <button type="submit" className="btn btn-primary mb-2">Confirm identity</button>
+                    </form>
                 );
             }}
         </Formik>

@@ -45,7 +45,7 @@ function Filter(props) {
                             <div className="form-group mx-sm-2 mb-2">
                                 <label className="font-weight-bold" for="status">Status</label>
                                 <select onChange={(e) => {setFieldValue("status", e.target.value);}} className="form-control-plaintext border border-dark rounded">
-                                    <option value={-1}>&nbsp; — Any —</option>
+                                    <option value={""}>&nbsp; — Any —</option>
                                     <option value={1}>Active</option>
                                     <option value={0}>Inactive</option>
                                 </select>
@@ -53,7 +53,7 @@ function Filter(props) {
                             <div className="form-group mx-sm-2 mb-2">
                                 <label className="font-weight-bold" for="role">Role</label>
                                 <select onChange={(e) => {setFieldValue("rid", e.target.value);}} className="form-control-plaintext border border-dark rounded">
-                                    <option value={-1}>&nbsp; — Any —</option>
+                                    <option value={""}>&nbsp; — Any —</option>
                                     {
                                         roles.map((role, index) => (
                                             <option key={index} value={role.rid}>{role.name}</option>
@@ -64,7 +64,7 @@ function Filter(props) {
                             <div className="form-group mx-sm-2 mb-2">
                                 <label className="font-weight-bold" for="permission">Permission</label>
                                 <select onChange={(e) => {setFieldValue("pid", e.target.value);}} className="form-control-plaintext border border-dark rounded">
-                                    <option value={-1}>&nbsp; — Any —</option>
+                                    <option value={""}>&nbsp; — Any —</option>
                                     {
                                         permissions.map((permission, index) => (
                                             <option key={index} value={permission.pid}>{permission.name}</option>
@@ -75,7 +75,7 @@ function Filter(props) {
                         </div>
                         <div className="action-btns mb-3">
                             <button type="submit" className="btn btn-primary rounded-btn mr-2 font-weight-bold"><FontAwesomeIcon icon={faCheck}/> Apply</button>
-                            <button type="button" className="btn btn-light rounded-btn border border-dark font-weight-bold" onClick={() => dispatch(userActions.getAll())}><FontAwesomeIcon icon={faTimes}/> Clear</button>
+                            <button type="button" className="btn btn-light rounded-btn border border-dark font-weight-bold" onClick={() => window.location.reload(true)}><FontAwesomeIcon icon={faTimes}/> Clear</button>
                         </div>
                     </form>
 

@@ -178,6 +178,10 @@ async function filter(filterParams) {
         const response = await API.get('/users?pid=' + pid + '&status=' + status,);
         const user = await handleResponse(response);
         return user;
+    } else if (pid) {
+        const response = await API.get('/users?pid=' + pid,);
+        const user = await handleResponse(response);
+        return user;
     }
 }
 

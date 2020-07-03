@@ -182,6 +182,10 @@ async function filter(filterParams) {
         const response = await API.get('/users?pid=' + pid,);
         const user = await handleResponse(response);
         return user;
+    } else if (rid) {
+        const response = await API.get('/users?rid=' + rid,);
+        const user = await handleResponse(response);
+        return user;
     }
 }
 

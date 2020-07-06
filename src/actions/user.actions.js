@@ -325,11 +325,11 @@ function filter(parameters) {
     function failure(error) { return { type: userConstants.FILTER_FAILURE, error } }
 }
 
-function checkOldPassword(oldPassword) {
+function checkOldPassword(uid, oldPassword) {
     return dispatch => {
         dispatch(request(oldPassword));
 
-        userService.checkOldPassword(oldPassword)
+        userService.checkOldPassword(uid, oldPassword)
         .then(
             users => {
                 dispatch(success(users));

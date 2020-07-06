@@ -81,7 +81,6 @@ export function users(state = {}, action) {
         return { 
             error: action.error
         };
-
     default:
         return state
   }

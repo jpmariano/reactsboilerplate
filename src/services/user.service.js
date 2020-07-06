@@ -16,7 +16,8 @@ export const userService = {
     resetPasswordRequest,
     verifyUserToken,
     resetPassword,
-    filter
+    filter,
+    checkOldPassword
 };
 
 async function login(username, password) {
@@ -230,6 +231,17 @@ async function filter(filterParams) {
         const response = await API.get('/users?pageNo=0&pageSize=100&sortBy=uid',);
         return handleResponse(response);
     }
+}
+
+async function checkOldPassword(uid, oldPassword) {
+    const data = {
+        password: oldPassword
+    };
+
+    const response = await API.post('/users/' + uid + '/checkpassword', data);
+    const user = await handleResponse(response);
+
+    return user;
 }
 
 function handleResponse(response) {

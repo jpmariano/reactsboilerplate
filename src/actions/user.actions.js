@@ -331,8 +331,8 @@ function checkOldPassword(uid, oldPassword) {
 
         userService.checkOldPassword(uid, oldPassword)
         .then(
-            users => {
-                dispatch(success(users));
+            res => {
+                dispatch(success(res));
             },
             error => {
                 dispatch(failure(error.response.data.toString()));
@@ -342,6 +342,6 @@ function checkOldPassword(uid, oldPassword) {
     };
 
     function request(oldPassword) { return { type: userConstants.CHECK_PASSWORD_REQUEST, oldPassword } }
-    function success(users) { return { type: userConstants.CHECK_PASSWORD_SUCCESS, users } }
+    function success(res) { return { type: userConstants.CHECK_PASSWORD_SUCCESS, res } }
     function failure(error) { return { type: userConstants.CHECK_PASSWORD_FAILURE, error } }
 }

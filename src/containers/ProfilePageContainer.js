@@ -18,7 +18,7 @@ function ProfilePageContainer() {
                         <Profile userInfo={user}/>
                     </Tab>
                     <Tab eventKey="password" title="Change Password">
-                        <ChangePassword uid={user.uid}/>
+                        <ChangePassword userInfo={user}/>
                     </Tab>
                 </Tabs>
             </div>

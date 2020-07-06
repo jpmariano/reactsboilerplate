@@ -17,7 +17,8 @@ export const userActions = {
     resetPasswordRequest,
     verifyUserToken,
     resetPassword,
-    filter
+    filter,
+    checkOldPassword
 };
 
 function login(username, password) {
@@ -322,4 +323,25 @@ function filter(parameters) {
     function request(parameters) { return { type: userConstants.FILTER_REQUEST, parameters } }
     function success(users) { return { type: userConstants.FILTER_SUCCESS, users } }
     function failure(error) { return { type: userConstants.FILTER_FAILURE, error } }
+}
+
+function checkOldPassword(oldPassword) {
+    return dispatch => {
+        dispatch(request(oldPassword));
+
+        userService.checkOldPassword(oldPassword)
+        .then(
+            users => {
+                dispatch(success(users));
+            },
+            error => {
+                dispatch(failure(error.response.data.toString()));
+                dispatch(alertActions.error(error.response.data.toString()));
+            }
+        );
+    };
+
+    function request(oldPassword) { return { type: userConstants.CHECK_PASSWORD_REQUEST, oldPassword } }
+    function success(users) { return { type: userConstants.CHECK_PASSWORD_SUCCESS, users } }
+    function failure(error) { return { type: userConstants.CHECK_PASSWORD_FAILURE, error } }
 }

@@ -34,6 +34,16 @@ export function authentication(state = initialState, action) {
         };
     case userConstants.GETBYID_FAILURE:
         return {};
+    case userConstants.CHECK_PASSWORD_SUCCESS:
+        return {
+            ...state,
+            checkPassword: action.res
+        };
+    case userConstants.CHECK_PASSWORD_FAILURE:
+        return {
+            ...state,
+            checkPassword: action.error
+        };
     default:
         return state
   }

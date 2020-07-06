@@ -12,22 +12,28 @@ import Typography from '@material-ui/core/Typography';
 function ChangePassword(props) {
     
     const dispatch = useDispatch();
-    const uid = props.uid;
+    const userInfo = props.userInfo;
     const oldPassword = useSelector(state => state.authentication.checkPassword);
+    const alert = useSelector(state => state.alert);
 
     return (
         <Formik
             initialValues={{
                 current_password: '',
                 password: '',
+                c_password: '',
             }}
 
-            onSubmit={async values => {
+            onSubmit={async (values, {resetForm}) => {
 
                 delete values.c_password;
 
                 if (values.password) {
-                    console.log(values)
+                    console.log(values.password)
+                    if (oldPassword) {
+                        dispatch(userActions.changePassword(userInfo.uid, {username: userInfo.username}, values));
+                        resetForm({values: ''});
+                    }
                 }
             }}
 
@@ -58,6 +64,9 @@ function ChangePassword(props) {
             } = props;
                 return (
                     <div className="new-password-form">
+                        {alert.passwordResetMessage &&
+                            <div className={`alert ${alert.type} m-3`}>{alert.passwordResetMessage}</div>
+                        }
                         <form onSubmit={handleSubmit} className="newPasswordForm">
                             <div className="new-password-form-fields">
                                 <Typography variant="h6" noWrap className="text-center">
@@ -72,13 +81,13 @@ function ChangePassword(props) {
                                     onChange={handleChange}
                                     onBlur={(e) => {
                                         handleBlur(e);
-                                        dispatch(userActions.checkOldPassword(uid, e.target.value));
+                                        dispatch(userActions.checkOldPassword(userInfo.uid, e.target.value));
                                     }}
                                     className={
                                         errors.current_password && touched.current_password ? 
                                             "error"
                                         :
-                                            oldPassword === false && "error"
+                                            oldPassword === false ? "error" : ""
                                     }
                                 />
                                 {

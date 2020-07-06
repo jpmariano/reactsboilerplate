@@ -1,17 +1,19 @@
 import React from 'react';
 import { Formik } from "formik";
 import * as Yup from 'yup';
-// import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // actions
-// import { userActions } from '../../actions';
+import { userActions } from '../../actions';
 
 // material ui
 import Typography from '@material-ui/core/Typography';
 
-function ChangePassword() {
+function ChangePassword(props) {
     
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
+    const uid = props.uid;
+    const oldPassword = useSelector(state => state.authentication.checkPassword);
 
     return (
         <Formik
@@ -64,16 +66,27 @@ function ChangePassword() {
                                 <label htmlFor="add-user">Old Password</label>
                                 <input
                                     name="current_password"
-                                    type="current_password"
+                                    type="password"
                                     placeholder="Enter current password"
                                     value={values.current_password}
                                     onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    className={errors.current_password && touched.current_password && "error"}
+                                    onBlur={(e) => {
+                                        handleBlur(e);
+                                        dispatch(userActions.checkOldPassword(uid, e.target.value));
+                                    }}
+                                    className={
+                                        errors.current_password && touched.current_password ? 
+                                            "error"
+                                        :
+                                            oldPassword === false && "error"
+                                    }
                                 />
-                                {errors.current_password && touched.current_password && (
-                                    <div className="input-feedback">{errors.current_password}</div>
-                                )}
+                                {
+                                    errors.current_password && touched.current_password ?
+                                        (<div className="input-feedback">{errors.current_password}</div>)
+                                    :
+                                        oldPassword === false && (<div className="input-feedback">Incorrect password</div>)
+                                }
                                 <label htmlFor="add-user">New Password</label>
                                 <input
                                     name="password"

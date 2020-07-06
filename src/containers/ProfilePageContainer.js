@@ -15,7 +15,7 @@ function ProfilePageContainer() {
             <div className="content p-3">
                 <Tabs defaultActiveKey="profile" id="profile-tabs">
                     <Tab eventKey="profile" title="Profile">
-                        <Profile />
+                        <Profile userInfo={user}/>
                     </Tab>
                     <Tab eventKey="password" title="Change Password">
                         <ChangePassword uid={user.uid}/>

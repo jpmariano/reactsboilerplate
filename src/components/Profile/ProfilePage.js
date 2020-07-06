@@ -21,9 +21,9 @@ import SuccessModal from '../Alerts/Successful';
 import UserForm from '../Forms/User/UserForm';
 
 
-function ProfilePage() {
+function ProfilePage(props) {
     
-    const userInfo = useSelector(state => state.authentication.user);
+    const userInfo = props.userInfo;
     const dateCreated = new Date(userInfo.created * 1000);
     const dateAccess = new Date(userInfo.access * 1000);
     const dateChanged = new Date(userInfo.changed * 1000);

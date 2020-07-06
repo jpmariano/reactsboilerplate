@@ -18,7 +18,8 @@ export const userActions = {
     verifyUserToken,
     resetPassword,
     filter,
-    checkOldPassword
+    checkOldPassword,
+    changePassword
 };
 
 function login(username, password) {
@@ -344,4 +345,52 @@ function checkOldPassword(uid, oldPassword) {
     function request(oldPassword) { return { type: userConstants.CHECK_PASSWORD_REQUEST, oldPassword } }
     function success(res) { return { type: userConstants.CHECK_PASSWORD_SUCCESS, res } }
     function failure(error) { return { type: userConstants.CHECK_PASSWORD_FAILURE, error } }
+}
+
+function changePassword(uid, username, password) {
+    return dispatch => {
+        dispatch(request(username));
+
+        userService.resetPasswordRequest(username)
+        .then(
+            res => {
+                userService.getById(uid)
+                .then(
+                    user => {
+                        userService.resetPassword(user.vkey, password)
+                        .then(
+                            user => {
+                                dispatch(success(user));
+                                dispatch(alertActions.passwordResetSuccess('Your password has been successfully changed!'));
+                            },
+                            error => {
+                                if (error.response.status === 404) {
+                                    dispatch(failure('Unsuccessful'));
+                                    dispatch(alertActions.passwordResetError('Password change unsuccessful!'));
+                                } else if (error.response.status === 400) {
+                                    dispatch(failure('Unsuccessful'));
+                                    dispatch(alertActions.passwordResetError('Password change unsuccessful!'));
+                                } else {
+                                    dispatch(failure(error.response.data.toString()));
+                                    dispatch(alertActions.passwordResetError(error.response.data.toString()));
+                                }
+                            }
+                        );
+                    },
+                    error => {
+                        dispatch(failure(error.toString()));
+                        dispatch(alertActions.error(error.toString()));
+                    }
+                );
+            },
+            error => {
+                dispatch(failure(error.response.data.toString()));
+                dispatch(alertActions.error(error.response.data.toString()));
+            }
+        );
+    };
+
+    function request(username) { return { type: userConstants.CHANGE_PASSWORD_REQUEST, username } }
+    function success(user) { return { type: userConstants.CHANGE_PASSWORD_SUCCESS, user } }
+    function failure(error) { return { type: userConstants.CHANGE_PASSWORD_FAILURE, error } }
 }

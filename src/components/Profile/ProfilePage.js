@@ -151,15 +151,21 @@ function ProfilePage(props) {
                             <Divider />
 
                             <List className="d-inline">
-                                <ListItem className="row">
-                                    <ListItemText  className="d-inline col-md-6" primary="Role/s: " />
-                                    {
-                                        roles.map((role, index) => (
-                                            userInfo.roles.includes(role.rid) &&
-                                            <ListItemText key={index} className="d-inline col-md-6" primary={role.name} />
-                                        ))
-                                    }
-                                </ListItem>
+                                {
+                                    roles.map((role, index) => (
+                                        userInfo.roles.includes(role.rid) &&
+                                        index === 0 ?
+                                            <ListItem className="row">
+                                                <ListItemText  className="d-inline col-md-6" primary="Role/s: " />
+                                                <ListItemText key={index} className="d-inline col-md-6" primary={role.name} />
+                                            </ListItem>
+                                        :
+                                            <ListItem className="row">
+                                                <ListItemText  className="d-inline col-md-6" primary="" />
+                                                <ListItemText key={index} className="d-inline col-md-6" primary={role.name} />
+                                            </ListItem>
+                                    ))
+                                }
                             </List>
                         </div>
                     </div>
